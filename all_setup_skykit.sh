@@ -1,7 +1,7 @@
 read -p "Continue with updating bashrc file? (yes/no)" userResponse
 if [ "$userResponse" = 'yes' ]; then
-	echo -e '\nfunction preview() { \n\tgoogle-chrome "http://localhost:4200/map/5b7fc83bd69af0748e066545"\n}' >> ~/.bashrc
-	echo -e '\nfunction designer() { \n\tgoogle-chrome "http://localhost:8091"\n}' >> ~/.bashrc
+	echo -e '\nfunction preview() { \n\tsensible-browser "http://localhost:4200/map/5b7fc83bd69af0748e066545"\n}' >> ~/.bashrc
+	echo -e '\nfunction designer() { \n\tsensible-browser "http://localhost:8091"\n}' >> ~/.bashrc
 fi
 
 read -p "Continue with video card installation? This will reboot after. Continue from here(yes/no)" userResponse
@@ -138,6 +138,14 @@ if [ "$userResponse" = 'yes' ]; then
 	ng build
 	popd
 fi
+
+
+read -p "Continue with tracker login? (yes/no)" userResponse
+if [ "$userResponse" = 'yes' ]; then
+	sensible-browser 'http://tracker.jlg.ro'
+	echo -e '\nfunction tracker() { \n\tsensible-browser "http://tracker.jlg.ro"\n}' >> ~/.bashrc
+fi
+
 
 echo -e '\n\n====== All done! ======='
 
