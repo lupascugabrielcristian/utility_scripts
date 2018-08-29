@@ -44,6 +44,7 @@ if [ "$userResponse" = 'yes' ]; then
 	sudo apt-get install htop
 	sudo snap install slack --classic
 	sudo snap install mailspring
+	sudo snap install chromium
 	sudo apt install klavaro
 fi
 
