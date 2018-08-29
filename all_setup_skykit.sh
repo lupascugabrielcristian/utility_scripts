@@ -46,11 +46,19 @@ if [ "$userResponse" = 'yes' ]; then
 	sudo snap install mailspring
 	sudo snap install chromium
 	sudo apt install klavaro
+	sudo apt install curl
 
 	wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
 	echo 'deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main' | sudo tee /etc/apt/sources.list.d/google-chrome.list
 	sudo apt-get update
 	sudo apt-get install google-chrome-stable
+	curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
+	sudo mv microsoft.gpg /etc/apt/trusted.gpg.d/microsoft.gpg
+	sudo sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list'
+	sudo apt-get install apt-transport-https
+	sudo apt-get update
+	sudo apt install code
+
 fi
 
 read -p "Continue with GIT configuration? (yes/no)" userResponse
