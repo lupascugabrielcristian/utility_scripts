@@ -31,7 +31,6 @@ fi
 
 read -p "Continue with git, node, npm, tsc and angular-cli installation? (yes/no)" userResponse
 if [ "$userResponse" = 'yes' ]; then
-	# sudo apt install sensors
 	sudo apt install git
 	sudo apt install node
 	sudo apt install npm
@@ -45,6 +44,7 @@ if [ "$userResponse" = 'yes' ]; then
 	sudo apt-get install htop
 	sudo snap install slack --classic
 	sudo snap install mailspring
+	sudo apt install klavaro
 fi
 
 read -p "Continue with GIT configuration? (yes/no)" userResponse
