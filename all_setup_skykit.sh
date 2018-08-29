@@ -19,7 +19,15 @@ if [ "$userResponse" = 'yes' ]; then
 	echo -e '\nfunction n() { \n\t nvim ~/Documents/notes/"$*".txt \n}' >> ~/.bashrc
 	echo -e '\nfunction nls() { \n\t ls -c ~/Documents/notes/ | grep "$*" \n}' >> ~/.bashrc
 	echo -e '\nfunction nup() { \n\t print("Implement this. Upload to dropbox") \n}' >> ~/.bashrc
+	echo -e '\nfunction no() { \n\t	files=$(ls ~/Documents/notes/ | grep "$*") \n nvim ~/Documents/notes/$files \n }' >> ~/.bashrc
 fi
+
+
+function no() {
+	files=$(ls ~/Documents/notes/ | grep "$*")
+	echo $files
+	nvim ~/Documents/notes/$files 
+}
 
 
 read -p "Continue with ASUS monitor installation? (yes/no)" userResponse
