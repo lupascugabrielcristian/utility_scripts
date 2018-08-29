@@ -10,6 +10,18 @@ if [ "$userResponse" = 'yes' ]; then
 	sudo reboot
 fi
 
+
+read -p "Continue with notes setup(yes/no)" userResponse
+if [ "$userResponse" = 'yes' ]; then
+	if [ ! -d ~/Documents/notes ]; then
+		mkdir ~/Documents/notes
+	fi
+	echo -e '\nfunction n() { \n\t nvim ~/Documents/notes/"$*".txt \n}' >> ~/.bashrc
+	echo -e '\nfunction nls() { \n\t ls -c ~/Documents/notes/ | grep "$*" \n}' >> ~/.bashrc
+	echo -e '\nfunction nup() { \n\t print("Implement this. Upload to dropbox") \n}' >> ~/.bashrc
+fi
+
+
 read -p "Continue with ASUS monitor installation? (yes/no)" userResponse
 if [ "$userResponse" = 'yes' ]; then
 	sensible-browser 'http://www.displaylink.com/downloads/file?id=1123'
@@ -58,6 +70,7 @@ if [ "$userResponse" = 'yes' ]; then
 	sudo apt-get install apt-transport-https
 	sudo apt-get update
 	sudo apt install code
+	sudo apt install python-pip
 
 fi
 
