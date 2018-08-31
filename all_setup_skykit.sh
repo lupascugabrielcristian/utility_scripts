@@ -3,6 +3,7 @@ if [ "$userResponse" = 'yes' ]; then
 	echo -e '\nfunction preview() { \n\tsensible-browser "http://localhost:4200/map/5b7fc83bd69af0748e066545"\n}' >> ~/.bashrc
 	echo -e '\nfunction designer() { \n\tsensible-browser "http://localhost:8091"\n}' >> ~/.bashrc
 	echo -e '\nfunction tracker() { \n\tsensible-browser "http://tracker.jlg.ro/agiles/68-20/69-368"\n}' >> ~/.bashrc
+	echo -e '\nfunction lastpass() { \n\tsensible-browser "https://lastpass.com/?ac=1"\n}' >> ~/.bashrc
 fi
 
 read -p "Continue with video card installation? This will reboot after. Continue from here(yes/no)" userResponse
