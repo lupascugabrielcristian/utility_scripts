@@ -25,13 +25,6 @@ if [ "$userResponse" = 'yes' ]; then
 fi
 
 
-function no() {
-	files=$(ls ~/Documents/notes/ | grep "$*")
-	echo $files
-	nvim ~/Documents/notes/$files 
-}
-
-
 read -p "Continue with ASUS monitor installation? (yes/no)" userResponse
 if [ "$userResponse" = 'yes' ]; then
 	sensible-browser 'http://www.displaylink.com/downloads/file?id=1123'
