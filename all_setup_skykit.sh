@@ -57,6 +57,7 @@ if [ "$userResponse" = 'yes' ]; then
 	sudo apt-get update
 	sudo apt-get install neovim
 	sudo apt-get install htop
+	sudo apt-get install synaptic
 	sudo snap install slack --classic
 	sudo snap install mailspring
 	sudo snap install chromium
