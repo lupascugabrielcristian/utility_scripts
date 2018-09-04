@@ -25,6 +25,16 @@ if [ "$userResponse" = 'yes' ]; then
 fi
 
 
+read -p "Continue with exercitii setup(yes/no)" userResponse
+if [ "$userResponse" = 'yes' ]; then
+	if [ ! -d ~/Documents/exercitii ]; then
+		mkdir ~/Documents/notes/exercitii
+		mkdir ~/Documents/notes/exercitii/ts
+	fi
+	echo -e '\nfunction ts() { \n\t nvim ~/Documents/notes/exercitii/"$*".ts \n}' >> ~/.bashrc
+fi
+
+
 read -p "Continue with ASUS monitor installation? (yes/no)" userResponse
 if [ "$userResponse" = 'yes' ]; then
 	sensible-browser 'http://www.displaylink.com/downloads/file?id=1123'
@@ -46,6 +56,7 @@ fi
 
 read -p "Continue with git, node, npm, tsc and angular-cli installation? (yes/no)" userResponse
 if [ "$userResponse" = 'yes' ]; then
+	sudo apt install tsc
 	sudo apt install git
 	sudo apt install node
 	sudo apt install npm
