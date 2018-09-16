@@ -27,11 +27,15 @@ fi
 
 read -p "Continue with exercitii setup(yes/no)" userResponse
 if [ "$userResponse" = 'yes' ]; then
-	if [ ! -d ~/Documents/exercitii ]; then
+	if [ ! -d ~/Documents/notes/exercitii ]; then
+		echo 'intrat'
 		mkdir ~/Documents/notes/exercitii
 		mkdir ~/Documents/notes/exercitii/ts
 	fi
-	echo -e '\nfunction ts() { \n\t nvim ~/Documents/notes/exercitii/"$*".ts \n}' >> ~/.bashrc
+
+	#echo -e '\nfunction ts() { \n\t nvim ~/Documents/notes/exercitii/ts/"$*".ts \n}' >> ~/.bashrc
+	#echo -e '\nfunction exls() { \n\t nvim ~/Documents/notes/exercitii/ts/"$*".ts \n}' >> ~/.bashrc
+	cat ./functii_exercitii.sh >> ~/.bashrc
 fi
 
 
@@ -100,7 +104,17 @@ fi
 
 read -p "Continue with VIM configuration? (yes/no)" userResponse
 if [ "$userResponse" = 'yes' ]; then
-	sudo echo -e '\nset nu' >> ~/.vimrc
+	if [ ! -d ~/.config/nvim ]; then
+		sudo mkdir ~/.config/nvim/
+	fi
+	cat ./configurari_vim.vim > ~/.config/nvim/init.vim
+
+	if [  -d /usr/share/nvim/runtime/syntax ]; then
+		sudo cp ./typescript.vim /usr/share/nvim/runtime/syntax/typescript.vim
+	else
+		echo "Need to have this folder in place: /usr/share/nvim/runtime/syntax"
+		echo "Probably instalation changed"
+	fi
 fi
 
 # Mongo installation
