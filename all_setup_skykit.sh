@@ -93,7 +93,7 @@ if [ "$userResponse" = 'yes' ]; then
 	sudo apt-get update
 	sudo apt install code
 	sudo apt install python-pip
-
+	sudo apt install gnome-tweak-tool
 fi
 
 read -p "Continue with GIT configuration? (yes/no)" userResponse
