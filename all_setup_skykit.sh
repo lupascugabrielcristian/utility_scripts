@@ -94,6 +94,9 @@ if [ "$userResponse" = 'yes' ]; then
 	sudo apt install code
 	sudo apt install python-pip
 	sudo apt install gnome-tweak-tool
+	sudo apt install iftop
+	sudo apt install slurm
+	echo "Comenzile pentru network monitors sunt in fisierul functii generale"
 fi
 
 read -p "Continue with GIT configuration? (yes/no)" userResponse
