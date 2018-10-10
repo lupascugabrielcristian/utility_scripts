@@ -51,6 +51,10 @@ if [ "$userResponse" = 'yes' ]; then
 	read -p "Update detect_distro function" varContinue
 	vi displaylink-driver*/displaylink-installer.sh
 	sudo ./displaylink-installer.sh install
+
+	# Sa verific si asta daca merge
+	# https://support.displaylink.com/forums/287786-displaylink-feature-suggestions/suggestions/7988955-support-linux-on-all-your-devices
+	# https://www.alteeve.com/w/ASUS_MB169B%2B_on_Fedora_27
 fi
 
 read -p "Continue with JDK installation? (yes/no)" userResponse
@@ -96,6 +100,7 @@ if [ "$userResponse" = 'yes' ]; then
 	sudo apt install gnome-tweak-tool
 	sudo apt install iftop
 	sudo apt install slurm
+	sudo apt install glances
 	echo "Comenzile pentru network monitors sunt in fisierul functii generale"
 fi
 
