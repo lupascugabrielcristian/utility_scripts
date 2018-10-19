@@ -14,4 +14,6 @@ function exls() {
 }
 
 
-
+function mindmap() {
+	sensible-browser "https://drive.google.com/drive/u/1/folders/1QSa3CpWR3RTAAXPTbnv5vAvd-rdy3sTi"
+}

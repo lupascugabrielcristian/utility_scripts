@@ -25,6 +25,7 @@ if [ "$userResponse" = 'yes' ]; then
 fi
 
 
+# BASHRC
 read -p "Continue with exercitii setup(yes/no)" userResponse
 if [ "$userResponse" = 'yes' ]; then
 	if [ ! -d ~/Documents/notes/exercitii ]; then
@@ -104,12 +105,14 @@ if [ "$userResponse" = 'yes' ]; then
 	echo "Comenzile pentru network monitors sunt in fisierul functii generale"
 fi
 
+# GIT Configuration
 read -p "Continue with GIT configuration? (yes/no)" userResponse
 if [ "$userResponse" = 'yes' ]; then
 	git config --global user.name "Lupascu Gabriel Cristian"
 	git config --global user.email "lupascugabrielcristian@gmail.com"
 fi
 
+# VIM Configuration
 read -p "Continue with VIM configuration? (yes/no)" userResponse
 if [ "$userResponse" = 'yes' ]; then
 	if [ ! -d ~/.config/nvim ]; then
@@ -212,6 +215,7 @@ if [ "$userResponse" = 'yes' ]; then
 	sensible-browser 'http://tracker.jlg.ro'
 	echo -e '\nfunction tracker() { \n\tsensible-browser "http://tracker.jlg.ro"\n}' >> ~/.bashrc
 fi
+
 
 
 echo -e '\n\n====== All done! ======='
