@@ -1,3 +1,4 @@
+# BASHRC 
 read -p "Continue with updating bashrc file? (yes/no)" userResponse
 if [ "$userResponse" = 'yes' ]; then
 	echo -e '\nfunction preview() { \n\tsensible-browser "http://localhost:4200/map/5b7fc83bd69af0748e066545"\n}' >> ~/.bashrc
@@ -6,6 +7,7 @@ if [ "$userResponse" = 'yes' ]; then
 	echo -e '\nfunction lastpass() { \n\tsensible-browser "https://lastpass.com/?ac=1"\n}' >> ~/.bashrc
 fi
 
+# VIDEO CARD
 read -p "Continue with video card installation? This will reboot after. Continue from here(yes/no)" userResponse
 if [ "$userResponse" = 'yes' ]; then
 	sudo apt-get install nvidia-384
@@ -25,7 +27,6 @@ if [ "$userResponse" = 'yes' ]; then
 fi
 
 
-# BASHRC
 read -p "Continue with exercitii setup(yes/no)" userResponse
 if [ "$userResponse" = 'yes' ]; then
 	if [ ! -d ~/Documents/notes/exercitii ]; then
@@ -102,6 +103,7 @@ if [ "$userResponse" = 'yes' ]; then
 	sudo apt install iftop
 	sudo apt install slurm
 	sudo apt install glances
+	sudo apt install vifm # terminal file manager with vim keybindings
 	echo "Comenzile pentru network monitors sunt in fisierul functii generale"
 fi
 
