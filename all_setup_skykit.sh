@@ -104,7 +104,8 @@ if [ "$userResponse" = 'yes' ]; then
 	sudo apt install slurm
 	sudo apt install glances
 	sudo apt install vifm # terminal file manager with vim keybindings
-	echo "Comenzile pentru network monitors sunt in fisierul functii generale"
+	sudo apt install w3m # terminal browser
+	echo "Comenzile pentru network monitors sunt in fisierul comenzi"
 fi
 
 # GIT Configuration
