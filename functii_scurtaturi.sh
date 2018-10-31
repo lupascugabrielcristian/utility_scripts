@@ -1,3 +1,7 @@
+function downloads() {
+	nautilus ~/Downloads/
+}
+
 function w3m-google() {
 	googleSearchPage="https://www.google.com/search?client=ubuntu&channel=fs&q="
 	all=""
@@ -23,3 +27,11 @@ function search-google() {
 	echo Searching for $searchString
 	sensible-browser $googleSearchPage$searchString
 }
+
+
+function sendToTrash() {
+	read -p "Remove? "$*
+	trash $*
+}
+
+alias rm=sendToTrash $*

@@ -106,6 +106,7 @@ if [ "$userResponse" = 'yes' ]; then
 	sudo apt install glances
 	sudo apt install vifm # terminal file manager with vim keybindings
 	sudo apt install w3m # terminal browser
+	sudo apt install trash-cli # sends files to trash
 	echo "Comenzile pentru network monitors sunt in fisierul comenzi"
 fi
 
