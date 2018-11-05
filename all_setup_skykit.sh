@@ -88,6 +88,8 @@ if [ "$userResponse" = 'yes' ]; then
 	sudo apt install bmon
 	sudo apt install tcptrack
 	sudo apt install graphviz
+	sudo apt-get install elvish
+	sudo apt-get install dia
 
 	wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
 	echo 'deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main' | sudo tee /etc/apt/sources.list.d/google-chrome.list
