@@ -67,6 +67,7 @@ fi
 
 read -p "Continue with git, node, npm, tsc and angular-cli installation? (yes/no)" userResponse
 if [ "$userResponse" = 'yes' ]; then
+	sudo apt-get install xclip # comanda pentru a copia in clipboard: pwd | xclip -sel clip
 	sudo apt install tsc
 	sudo apt install git
 	sudo apt install node
@@ -122,6 +123,8 @@ fi
 # VIM Configuration
 read -p "Continue with VIM configuration? (yes/no)" userResponse
 if [ "$userResponse" = 'yes' ]; then
+	git clone https://github.com/zxqfl/tabnine-vim # This is for autocomplete plugin TabNine
+
 	if [ ! -d ~/.config/nvim ]; then
 		sudo mkdir ~/.config/nvim/
 	fi
@@ -170,7 +173,6 @@ if [ "$userResponse" = 'yes' ]; then
 	# private key file.
 	ssh-add ~/.ssh/id_rsa
 
-	sudo apt-get install xclip
 	xclip -sel clip < ~/.ssh/id_rsa.pub
 	# Copies the contents of the id_rsa.pub file to your clipboard
 	read -p "Add ssh key to github account(CTRL-V). Continue?" varContinue
@@ -222,8 +224,6 @@ if [ "$userResponse" = 'yes' ]; then
 	sensible-browser 'http://tracker.jlg.ro'
 	echo -e '\nfunction tracker() { \n\tsensible-browser "http://tracker.jlg.ro"\n}' >> ~/.bashrc
 fi
-
-
 
 echo -e '\n\n====== All done! ======='
 
