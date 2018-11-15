@@ -28,13 +28,10 @@ fi
 read -p "Continue with exercitii setup(yes/no)" userResponse
 if [ "$userResponse" = 'yes' ]; then
 	if [ ! -d ~/Documents/notes/exercitii ]; then
-		echo 'intrat'
 		mkdir ~/Documents/notes/exercitii
 		mkdir ~/Documents/notes/exercitii/ts
 	fi
 
-	#echo -e '\nfunction ts() { \n\t nvim ~/Documents/notes/exercitii/ts/"$*".ts \n}' >> ~/.bashrc
-	#echo -e '\nfunction exls() { \n\t nvim ~/Documents/notes/exercitii/ts/"$*".ts \n}' >> ~/.bashrc
 	cat ./functii_exercitii.sh >> ~/.bashrc
 fi
 
@@ -104,9 +101,9 @@ if [ "$userResponse" = 'yes' ]; then
 	sudo apt install iftop
 	sudo apt install slurm
 	sudo apt install glances
-	sudo apt install vifm # terminal file manager with vim keybindings
-	sudo apt install w3m # terminal browser
-	sudo apt install trash-cli # sends files to trash
+	sudo apt install vifm 						# terminal file manager with vim keybindings
+	sudo apt install w3m 						# terminal browser
+	sudo apt install trash-cli 					# sends files to trash
 	sudo snap install --classic heroku
 	echo "Comenzile pentru network monitors sunt in fisierul comenzi"
 fi
