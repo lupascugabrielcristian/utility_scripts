@@ -21,10 +21,7 @@ if [ "$userResponse" = 'yes' ]; then
 	if [ ! -d ~/Documents/notes ]; then
 		mkdir ~/Documents/notes
 	fi
-	echo -e '\nfunction n() { \n\t nvim ~/Documents/notes/"$*".txt \n}' >> ~/.bashrc
-	echo -e '\nfunction nls() { \n\t ls -c ~/Documents/notes/ | grep "$*" \n}' >> ~/.bashrc
-	echo -e '\nfunction nup() { \n\t print("Implement this. Upload to dropbox") \n}' >> ~/.bashrc
-	echo -e '\nfunction no() { \n\t	files=$(ls ~/Documents/notes/ | grep "$*") \n nvim ~/Documents/notes/$files \n }' >> ~/.bashrc
+	cat ./functii_notes.sh >> ~/.bashrc
 fi
 
 
@@ -110,6 +107,7 @@ if [ "$userResponse" = 'yes' ]; then
 	sudo apt install vifm # terminal file manager with vim keybindings
 	sudo apt install w3m # terminal browser
 	sudo apt install trash-cli # sends files to trash
+	sudo snap install --classic heroku
 	echo "Comenzile pentru network monitors sunt in fisierul comenzi"
 fi
 
@@ -171,6 +169,7 @@ if [ "$userResponse" = 'yes' ]; then
 	# with a different name, or if you are adding an existing key that has a 
 	# different name, replace id_rsa in the command with the name of your 
 	# private key file.
+	eval `ssh-agent -s`
 	ssh-add ~/.ssh/id_rsa
 
 	xclip -sel clip < ~/.ssh/id_rsa.pub
