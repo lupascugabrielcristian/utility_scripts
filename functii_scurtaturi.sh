@@ -1,4 +1,14 @@
-# ANSI color codes
+
+#========== Aliases ==========
+alias rm=sendToTrash $
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
+alias ee='exit'
+#========== End of aliases ==========   
+
+
+#========== ANSI color codes ==========
 RS="\[\033[0m\]"    # reset
 HC="\[\033[1m\]"    # hicolor
 UL="\[\033[4m\]"    # underline
@@ -25,9 +35,6 @@ function sendToTrash() {
 	read -p "Remove? "$*
 	trash $*
 }
-
-# Aliases
-alias rm=sendToTrash $*
 
 function downloads() {
 	nautilus ~/Downloads/

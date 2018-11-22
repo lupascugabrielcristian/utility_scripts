@@ -6,6 +6,7 @@ if [ "$userResponse" = 'yes' ]; then
 	echo -e '\nfunction tracker() { \n\tsensible-browser "http://tracker.jlg.ro/agiles/68-20/69-368"\n}' >> ~/.bashrc
 	echo -e '\nfunction lastpass() { \n\tsensible-browser "https://lastpass.com/?ac=1"\n}' >> ~/.bashrc
 	cat ./functii_scurtaturi.sh >> ~/.bashrc
+	cat ./functii_erent.sh >> ~/.bashrc
 fi
 
 # VIDEO CARD
@@ -189,6 +190,7 @@ if [ "$userResponse" = 'yes' ]; then
 fi
 
 
+# JETBRAINS INTELLIJ IDEA 
 read -p "Continue with IntellijIDEA installation (Documents folder)? (yes/no)" userResponse
 if [ "$userResponse" = 'yes' ]; then
 	read -p 'This might not be last version or not working at all. Update script with correct download link' varContinue
@@ -204,6 +206,8 @@ if [ "$userResponse" = 'yes' ]; then
 	read -p 'Run Configurations ready?' varContinue
 	read -p 'Test maven compile and build?' varContinue
 	read -p 'Updated bada folder path in bada-api application.properties?' varContinue
+	
+	cp jetbrains-idea.desktop ~/.local/share/applications/jetbrains-idea.desktop # This is to add favorites icon
 fi
 
 
