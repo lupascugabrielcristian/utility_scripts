@@ -2,7 +2,7 @@
 ######### Functii pentru notes ########
 
 function n() { 
-	 nvim ~/Documents/notes/"$*".txt 
+	 nvim ~/Documents/notes/"$*".md 
 }
 
 function nn() {
