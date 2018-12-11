@@ -65,3 +65,8 @@ function search-google() {
 	echo Searching for $searchString
 	sensible-browser $googleSearchPage$searchString
 }
+
+function tab-name() {
+	newName="$*"
+	PROMPT_COMMAND='echo -en "\033]0;$newName\a"'
+}
