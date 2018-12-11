@@ -107,6 +107,9 @@ if [ "$userResponse" = 'yes' ]; then
 	sudo apt install trash-cli 					# sends files to trash
 	sudo snap install --classic heroku
 	echo "Comenzile pentru network monitors sunt in fisierul comenzi"
+
+	git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+	~/.fzf/install # For keybingings https://github.com/junegunn/fzf
 fi
 
 # GIT Configuration

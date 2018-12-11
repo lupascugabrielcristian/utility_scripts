@@ -36,4 +36,13 @@ function xmind() {
 	$(cd ~/Downloads/xmind-8-update8-linux/XMind_amd64/ ; ./rrun.sh)
 }
 
+function ndia() {
+	if [ "$#" -ne 1 ]; then
+		echo "No arguments. Starting DIA"
+		dia
+	else 
+		dia ~/Documents/notes/"$1".dia
+	fi
+}
+
 ########################################
