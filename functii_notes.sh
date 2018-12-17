@@ -25,12 +25,20 @@ function degandit() {
 }
 
 function xmind() {
-	# Am incercat doar cu rrun.sh deja facut si facut executabil
 	SCRIPT_PATH="~/Downloads/xmind-8-update8-linux/XMind_amd64"
+
 	if [ "$#" -ne 1 ]; then
-		echo "./XMind &" > ~/Downloads/xmind-8-update8-linux/XMind_amd64/rrun.sh
+		echo "No arguments. Starting XMIND"
+		echo "./XMind" > ~/Downloads/xmind-8-update8-linux/XMind_amd64/rrun.sh
 	else 
-		echo ./XMind ~/Documents/notes/"$1".xmind > ~/Downloads/xmind-8-update8-linux/XMind_amd64/rrun.sh
+		files=(`ls ~/Documents/notes/ | grep "$*" | grep xmind`)
+		if [ ${#files} -eq 0 ]; then
+			echo "No files match patttern"
+			return
+		fi
+		echo First file to match is ${files[0]}
+		com="./XMind ~/Documents/notes/${files[0]}"
+		echo $com > ~/Downloads/xmind-8-update8-linux/XMind_amd64/rrun.sh
 	fi
 
 	$(cd ~/Downloads/xmind-8-update8-linux/XMind_amd64/ ; ./rrun.sh)
