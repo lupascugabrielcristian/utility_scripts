@@ -29,7 +29,7 @@ function xmind() {
 
 	if [ "$#" -ne 1 ]; then
 		echo "No arguments. Starting XMIND"
-		echo "./XMind" > ~/Downloads/xmind-8-update8-linux/XMind_amd64/rrun.sh
+		echo "./XMind &" > ~/Downloads/xmind-8-update8-linux/XMind_amd64/rrun.sh
 	else 
 		files=(`ls ~/Documents/notes/ | grep "$*" | grep xmind`)
 		if [ ${#files} -eq 0 ]; then
@@ -37,7 +37,7 @@ function xmind() {
 			return
 		fi
 		echo First file to match is ${files[0]}
-		com="./XMind ~/Documents/notes/${files[0]}"
+		com="./XMind ~/Documents/notes/${files[0]} &"
 		echo $com > ~/Downloads/xmind-8-update8-linux/XMind_amd64/rrun.sh
 	fi
 
