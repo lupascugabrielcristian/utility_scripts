@@ -36,6 +36,16 @@ function sendToTrash() {
 	trash $*
 }
 
+function tryRemoveFile() {
+	if [ "$#" -ne 1 ]; then
+		return 0
+	fi
+
+	if [ -e $1 ]; then
+		rm $1
+	fi
+}
+
 function downloads() {
 	nautilus ~/Downloads/
 }
