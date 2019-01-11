@@ -38,12 +38,12 @@ fi
 
 read -p "Continue with cowntdown(yes/no)" userResponse
 if [ "$userResponse" = 'yes' ]; then
-	if [ ! -d ~/Documents/cowntdown ]; then
-		mkdir ~/Documents/cowntdown
+	if [ ! -d ~/Documents/countdown ]; then
+		mkdir ~/Documents/countdown
 	fi
 
-	cp ./countdown.py ~/Documents/cowntdown/countdown.py
-	cp ./tasks ~/Documents/cowntdown
+	cp ./countdown.py ~/Documents/countdown
+	cp ./tasks ~/Documents/countdown
 fi
 
 read -p "Continue with ASUS monitor installation? (yes/no)" userResponse

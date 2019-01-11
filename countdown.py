@@ -39,7 +39,7 @@ def readFile():
         print("\n\nThere are " + str(len(tasks)) + " tasks")
         for t in tasks:
             printTask(t)
-        time.sleep(10)
+        time.sleep(60)
 
 
 

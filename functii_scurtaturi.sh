@@ -5,8 +5,7 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 alias ee='exit'
-alias cowndown='python3 ~/Documents/cowndown/countdown.py'
-alias tcowndown='nvim ~/Documents/cowntdown/tasks'
+alias tcowndown='nvim ~/Documents/countdown/tasks'
 #========== End of aliases ==========   
 
 
@@ -82,3 +81,9 @@ function tab-name() {
 	newName="$*"
 	PROMPT_COMMAND='echo -en "\033]0;$newName\a"'
 }
+
+function cowntdown() {
+	cd ~/Documents/countdown
+	python3 ~/Documents/countdown/countdown.py
+}
+
