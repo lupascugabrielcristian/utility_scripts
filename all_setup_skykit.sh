@@ -36,6 +36,15 @@ if [ "$userResponse" = 'yes' ]; then
 	cat ./functii_exercitii.sh >> ~/.bashrc
 fi
 
+read -p "Continue with cowntdown(yes/no)" userResponse
+if [ "$userResponse" = 'yes' ]; then
+	if [ ! -d ~/Documents/cowntdown ]; then
+		mkdir ~/Documents/cowntdown
+	fi
+
+	cp ./countdown.py ~/Documents/cowntdown/countdown.py
+	cp ./tasks ~/Documents/cowntdown
+fi
 
 read -p "Continue with ASUS monitor installation? (yes/no)" userResponse
 if [ "$userResponse" = 'yes' ]; then

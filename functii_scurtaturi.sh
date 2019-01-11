@@ -5,6 +5,8 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 alias ee='exit'
+alias cowndown='python3 ~/Documents/cowndown/countdown.py'
+alias tcowndown='nvim ~/Documents/cowntdown/tasks'
 #========== End of aliases ==========   
 
 
