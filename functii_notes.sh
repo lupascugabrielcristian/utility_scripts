@@ -1,4 +1,5 @@
 
+
 ######### Functii pentru notes ########
 
 function n() { 
@@ -53,25 +54,12 @@ function ndia() {
 	fi
 }
 
-
-function xmind() {
-	SCRIPT_PATH="~/Downloads/xmind-8-update8-linux/XMind_amd64"
-
-	if [ "$#" -ne 1 ]; then
-		echo "No arguments. Starting XMIND"
-		echo "./XMind &" > ~/Downloads/xmind-8-update8-linux/XMind_amd64/rrun.sh
-	else 
-		files=(`ls ~/Documents/notes/ | grep "$*" | grep xmind`)
-		if [ ${#files} -eq 0 ]; then
-			echo "No files match patttern"
-			return
-		fi
-		echo First file to match is ${files[0]}
-		com="./XMind ~/Documents/notes/${files[0]} &"
-		echo $com > ~/Downloads/xmind-8-update8-linux/XMind_amd64/rrun.sh
-	fi
-
-	$(cd ~/Downloads/xmind-8-update8-linux/XMind_amd64/ ; ./rrun.sh)
+function printOptions() {
+	COUNTER=0
+	for f in $1 ; do
+		printf "\033[32m $COUNTER \033[33m ${f} \033[0m \n"
+		let COUNTER=COUNTER+1
+	done
 }
 
 function openNotes() {
@@ -79,15 +67,10 @@ function openNotes() {
 	if [ ${#NOTES} -eq 0 ]; then
 		echo "no note found"
 	else
-		COUNTER=0
-		echo "A note is found!"
-		for f in $NOTES ; do
-			printf "\033[32m $COUNTER \033[33m ${f} \033[0m \n"
-			let COUNTER=COUNTER+1
-		done
+		printOptions $NOTES
 		read -p "which one?(index number)" index
-		# change the note
 		echo "Opening note ${NOTES[$index]}"
+		no ${NOTES[$index]}
 		return
 	fi
 }
@@ -95,15 +78,13 @@ function openNotes() {
 function openXmindNotes() {
 	XMIND_FILES=`ls -l ~/Documents/notes/ | grep .xmind | grep $1 | awk '{print $9}'`
 	if [ ${#XMIND_FILES} -eq 0 ]; then
-		echo "xmind file not found"
+		echo "XMIND file not found"
 	else
-		echo "xmind files found"
-		for f in $XMIND_FILES ; do
-			echo ${f}
-		done
+		echo "XMIND files found"
+		printOptions $XMIND_FILES
 		read -p "which one?(index number)" index
 		# xmind ${XMIND_FILES[$index]}
-		echo "Opening xmind with parameters" ${XMIND_FILES[$index]}
+		echo "Opening XMIND with parameters" ${XMIND_FILES[$index]}
 		return
 	fi
 }
@@ -114,39 +95,40 @@ function openDiaNotes() {
 		echo "DIA file not found"
 	else
 		echo "DIA files found"
-		for f in $DIA_FILES ; do
-			echo ${f}
-		done
+		printOptions $DIA_FILES
 		read -p "which one?(index number)" index
-		#dia ~/Documents/notes/${DIA_FILES[$index]}
-		echo "opening in DIA file ${DIA_FILES[$index]}"
+		dia ~/Documents/notes/${DIA_FILES[$index]}
 	fi
-
-	echo $diaFiles
 }
 
 function openBooks() {
-	PDF_FILES=`ls -l ~/Documents/Books/ | grep .pdf | grep $1 | awk '{print $9}'`
+	PDF_FILES=`ls -l ~/Documents/Books/ | grep .pdf | grep -i $1 | awk '{print $9}'`
 	if [ ${#PDF_FILES} -eq 0 ]; then
-		echo "PDF file not found"
+		echo "No books found"
 	else
 		echo "PDF files found"
-		for f in $PDF_FILES ; do
-			echo ${f}
-		done
+		printOptions $PDF_FILES
 		read -p "which one?(index number)" index
-		# Need to make sure that evince is installed
-		# evince ~/Documents/Books/${PDF_FILES[$index]} 
-		echo "opening in PDF file ${PDF_FILES[$index]}"
+		evince ~/Documents/Books/${PDF_FILES[$index]}  # I'm assuming that evince is by default installed
 	fi
-
-	echo $diaFiles
 }
 
+function searchOnGoogle() {
+	googleSearchPage="https://www.google.com/search?client=ubuntu&channel=fs&q="
+	all=""
+	all="$*"
+	searchString=""
+	for word in $all; do
+		searchString=$searchString+$word
+	done
+	searchString=${searchString:1}
+	read -p "Searching on google for $searchString. OK?"
+	w3m $googleSearchPage$searchString
+}
 
 alias oa='open_any'
 function open_any() {
-	if [ "$#" -ne 1 ]; then
+	if [ "$#" -lt 1 ]; then
 		echo "No arguments. Need an argument"
 		read -p "OK?[Enter]"
 		return
@@ -156,6 +138,10 @@ function open_any() {
 	openXmindNotes $1
 	openDiaNotes $1
 	openBooks $1
-	# search on google
+	searchOnGoogle $*
 }
-########################################
+
+
+############## END FUNCTII NOTES ##########################
+
+
