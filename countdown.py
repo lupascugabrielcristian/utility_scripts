@@ -7,13 +7,15 @@ separator = '#'
 
 
 class CountdownTask:
-    name = "Undefined name"
+    name = ""
     endHour = 0
     endMinute = 0
 
 def extractTaskFromLine(line):
     parts = line.split(separator)
     task = CountdownTask()
+    if len(parts) != 3:
+        return task
     task.name = parts[0]
     task.endHour = int(parts[1])
     task.endMinute = int(parts[2])
@@ -36,6 +38,7 @@ def readFile():
             content = tasksFile.readlines()
 
         tasks = list(map(lambda contentLine: extractTaskFromLine(contentLine), content))
+        tasks = list(filter(lambda task: task.name != "", tasks))
         print("\n\nThere are " + str(len(tasks)) + " tasks")
         for t in tasks:
             printTask(t)
