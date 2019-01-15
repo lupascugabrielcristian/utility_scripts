@@ -63,7 +63,7 @@ function printOptions() {
 }
 
 function openNotes() {
-	NOTES=`ls -l ~/Documents/notes/ | grep -e .md -e .txt | grep $1 | awk '{print $9}'`
+	NOTES=`ls -l ~/Documents/notes/ | grep -e .md -e .txt | grep -i $1 | awk '{print $9}'`
 	if [ ${#NOTES} -eq 0 ]; then
 		echo "no note found"
 	else
@@ -76,7 +76,7 @@ function openNotes() {
 }
 
 function openXmindNotes() {
-	XMIND_FILES=`ls -l ~/Documents/notes/ | grep .xmind | grep $1 | awk '{print $9}'`
+	XMIND_FILES=`ls -l ~/Documents/notes/ | grep .xmind | grep -i $1 | awk '{print $9}'`
 	if [ ${#XMIND_FILES} -eq 0 ]; then
 		echo "XMIND file not found"
 	else
@@ -88,8 +88,20 @@ function openXmindNotes() {
 	fi
 }
 
+function openVimDotNotes() {
+	VIMDOT_FILES=`ls -l ~/Documents/notes/ | grep .gv | grep -i $1 | awk '{print $9}'`
+	if [ ${#VIMDOT_FILES} -eq 0 ]; then
+		echo "VIMDOT file not found"
+	else
+		echo "VIMDOT files found"
+		printOptions $VIMDOT_FILES
+		read -p "which one?(index number)" index
+		vimdot ~/Documents/notes/${VIMDOT_FILES[$index]}
+	fi
+}
+
 function openDiaNotes() {
-	DIA_FILES=`ls -l ~/Documents/notes/ | grep .dia | grep $1 | awk '{print $9}'`
+	DIA_FILES=`ls -l ~/Documents/notes/ | grep .dia | grep -i $1 | awk '{print $9}'`
 	if [ ${#DIA_FILES} -eq 0 ]; then
 		echo "DIA file not found"
 	else
@@ -97,6 +109,7 @@ function openDiaNotes() {
 		printOptions $DIA_FILES
 		read -p "which one?(index number)" index
 		dia ~/Documents/notes/${DIA_FILES[$index]}
+		return
 	fi
 }
 
@@ -137,10 +150,12 @@ function open_any() {
 	openXmindNotes $1
 	openDiaNotes $1
 	openBooks $1
+	openVimDotNotes $1
 	searchOnGoogle $*
 }
 
 
 ############## END FUNCTII NOTES ##########################
+
 
 
