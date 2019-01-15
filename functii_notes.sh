@@ -83,8 +83,7 @@ function openXmindNotes() {
 		echo "XMIND files found"
 		printOptions $XMIND_FILES
 		read -p "which one?(index number)" index
-		# xmind ${XMIND_FILES[$index]}
-		echo "Opening XMIND with parameters" ${XMIND_FILES[$index]}
+		xmind ${XMIND_FILES[$index]}
 		return
 	fi
 }
