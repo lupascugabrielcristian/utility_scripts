@@ -6,6 +6,8 @@ alias la='ls -A'
 alias l='ls -CF'
 alias ee='exit'
 alias tcowndown='nvim ~/Documents/countdown/tasks'
+alias editbash='nvim ~/.bashrc'
+
 #========== End of aliases ==========   
 
 
