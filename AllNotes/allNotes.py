@@ -1,3 +1,5 @@
+# Create class for holding file, extension and appropriate command to run
+
 import os, sys
 import subprocess
 from subprocess import call
@@ -7,7 +9,6 @@ notesDirectory = "/home/cristi/Documents/notes/"
 booksDirectory = "/home/cristi/Documents/Books/"
 pythonBooksDirectory = "/home/cristi/Documents/Books/PythonBundle/"
 xmindLocation = "/home/cristi/Downloads/xmind-8-update8-linux/XMind_amd64/"
-
 
 class colors:
     HEADER = '\033[95m'
