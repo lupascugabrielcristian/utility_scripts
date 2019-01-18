@@ -1,7 +1,3 @@
-
-
-######### Functii pentru notes ########
-
 function n() { 
 	 nvim ~/Documents/notes/"$*".md 
 }
@@ -55,8 +51,4 @@ function ndia() {
 }
 
 alias oa='python3 ~/Documents/utility_scripts/AllNotes/allNotes.py'
-
-############## END FUNCTII NOTES ##########################
-
-
 

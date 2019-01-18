@@ -1,12 +1,13 @@
 # BASHRC 
 read -p "Continue with updating bashrc file? (yes/no)" userResponse
 if [ "$userResponse" = 'yes' ]; then
-	echo -e '\nfunction preview() { \n\tsensible-browser "http://localhost:4200/map/5b7fc83bd69af0748e066545"\n}' >> ~/.bashrc
-	echo -e '\nfunction designer() { \n\tsensible-browser "http://localhost:8091"\n}' >> ~/.bashrc
-	echo -e '\nfunction tracker() { \n\tsensible-browser "http://tracker.jlg.ro/agiles/68-20/69-368"\n}' >> ~/.bashrc
-	echo -e '\nfunction lastpass() { \n\tsensible-browser "https://lastpass.com/?ac=1"\n}' >> ~/.bashrc
-	cat ./functii_scurtaturi.sh >> ~/.bashrc
-	cat ./functii_erent.sh >> ~/.bashrc
+
+	echo "source ~/Documents/utility_scripts/functii_scurtaturi.sh" >> ~/.bashrc
+	echo "source ~/Documents/utility_scripts/functii_erent.sh" >> ~/.bashrc
+	echo "\n\n" >> ~/.bashrc
+	echo "############ DOCKER ################" >> ~/.bashrc
+	echo "source ~/Documents/utility_scripts/docker-functions.sh" >> ~/.bashrc
+	echo "\n\n" >> ~/.bashrc
 fi
 
 # VIDEO CARD
@@ -16,13 +17,17 @@ if [ "$userResponse" = 'yes' ]; then
 	sudo reboot
 fi
 
-
+# NOTES
 read -p "Continue with notes setup(yes/no)" userResponse
 if [ "$userResponse" = 'yes' ]; then
 	if [ ! -d ~/Documents/notes ]; then
 		mkdir ~/Documents/notes
 	fi
-	cat ./functii_notes.sh >> ~/.bashrc
+
+	echo "######### NOTES ########" >> ~/.bashrc
+	echo "source ~/Documents/utility_scripts/notes.aliases.sh" >> ~/.bashrc
+	echo "source ~/Documents/utility_scripts/functii_notes.sh" >> ~/.bashrc
+	echo "\n\n" >> ~/.bashrc
 fi
 
 
@@ -33,7 +38,7 @@ if [ "$userResponse" = 'yes' ]; then
 		mkdir ~/Documents/notes/exercitii/ts
 	fi
 
-	cat ./functii_exercitii.sh >> ~/.bashrc
+	echo "source ~/Documents/utility_scripts/functii_exercitii.sh" >> ~/.bashrc
 fi
 
 read -p "Continue with cowntdown(yes/no)" userResponse
@@ -48,15 +53,15 @@ fi
 
 read -p "Continue with ASUS monitor installation? (yes/no)" userResponse
 if [ "$userResponse" = 'yes' ]; then
-	sensible-browser 'http://www.displaylink.com/downloads/file?id=1123'
+	sensible-browser 'http://www.displaylink.com/downloads/file?id=1261' #1123
 	read -p "Download driver in ~/Downloads folder then press to continue" varContinue
 	mv ~/Downloads/DisplayLink* ~/Downloads/assus_driver.zip
 	unzip $( find ~/Downloads -name assus_driver.zip ) -d ~/Downloads/ASSUS_DRIVER
 	chmod +x ~/Downloads/ASSUS_DRIVER/displaylink*.run
 	~/Downloads/ASSUS_DRIVER/displaylink-driver*.run --keep --noexec
-	sensible-browser 'https://askubuntu.com/questions/744364/displaylink-asus-mb168b-issues'
 	read -p "Update detect_distro function" varContinue
 	vi displaylink-driver*/displaylink-installer.sh
+	sensible-browser 'https://askubuntu.com/questions/744364/displaylink-asus-mb168b-issues' &
 	sudo ./displaylink-installer.sh install
 
 	# Sa verific si asta daca merge
