@@ -27,8 +27,12 @@ def chooseFile(files):
     for f in files:
         print ("%s %d %s %s %s" %(colors.WARNING, counter, colors.OKGREEN, f, colors.ENDC) )
         counter = counter + 1
-    answer = int(input("Which one?  "))
+    answer = input("Which one?[Enter to continue] ")
     result = None
+    if len(answer) == 0:
+        return result
+    
+    answer = int(answer)
     if answer < 0 or answer > len(files) - 1:
         print("Incorrect option")
     else:
@@ -62,16 +66,21 @@ if len(sys.argv) == 1:
     print("There are not enough arguments")
     sys.exit(1)
 
-
 files = os.listdir(notesDirectory)
 files = files + os.listdir(booksDirectory)
 files = files + os.listdir(pythonBooksDirectory)
 
 files = filterFilesAfterArgument(files)
-chosenFile = chooseFile(files)
-if chosenFile is None:
-    searchOnline(sys.argv[1:])
-else:
-    openChosenOption(chosenFile)
+
+try:
+    chosenFile = chooseFile(files)
+    if chosenFile is None:
+        searchOnline(sys.argv[1:])
+    else:
+        openChosenOption(chosenFile)
+except KeyboardInterrupt:
+    print("\nUser interrupted")
+    sys.exit(0)
+
 
 
