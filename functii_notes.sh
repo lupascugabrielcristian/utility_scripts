@@ -52,3 +52,10 @@ function ndia() {
 
 alias oa='python3 ~/Documents/utility_scripts/AllNotes/allNotes.py'
 
+function mongo_notes(){
+	note_project_location="~/Documents/exercises/python/tinydb/"
+	source ~/Documents/utility_scripts/mongo_notes/env/bin/activate
+	python3.6 ~/Documents/utility_scripts/mongo_notes/mongo_notes.py $*
+	deactivate
+}
+

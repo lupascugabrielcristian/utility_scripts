@@ -1,3 +1,39 @@
+# ANSI color codes
+RS="\[\033[0m\]"    # reset
+HC="\[\033[1m\]"    # hicolor
+UL="\[\033[4m\]"    # underline
+INV="\[\033[7m\]"   # inverse background and foreground
+FBLK="\[\033[30m\]" # foreground black
+FRED="\[\033[31m\]" # foreground red
+FGRN="\[\033[32m\]" # foreground green
+FYEL="\[\033[33m\]" # foreground yellow
+FBLE="\[\033[34m\]" # foreground blue
+FMAG="\[\033[35m\]" # foreground magenta
+FCYN="\[\033[36m\]" # foreground cyan
+FWHT="\[\033[37m\]" # foreground white
+BBLK="\[\033[40m\]" # background black
+BRED="\[\033[41m\]" # background red
+BGRN="\[\033[42m\]" # background green
+BYEL="\[\033[43m\]" # background yellow
+BBLE="\[\033[44m\]" # background blue
+BMAG="\[\033[45m\]" # background magenta
+BCYN="\[\033[46m\]" # background cyan
+BWHT="\[\033[47m\]" # background white
+
+# ANSI color codes for printf
+RS2="\033[0m"    # reset
+HC2="\033[1m"    # hicolor
+UL2="\033[4m"    # underline
+INV2="\033[7m"   # inverse background and foreground
+FBLK2="\033[30m" # foreground black
+FRED2="\033[31m" # foreground red
+FGRN2="\033[32m" # foreground green
+FYEL2="\033[33m"	# foreground yellow
+
+function dc-preview() { 
+	google-chrome --auto-open-devtools-for-tabs "http://localhost:80/map/5c18ffceeb4c1f10b193bfdc"
+}
+
 alias doImages='sudo docker images'
 alias doContainers='sudo docker ps -a'
 
@@ -130,3 +166,14 @@ function tryRemoveFile() {
 	fi
 }
 
+# Opens cAdvisor panel
+alias cadvisor='firefox http://localhost:8080/docker/'
+
+alias dcb='docker-compose build $1'
+alias dcd='docker-compose down'
+alias dcu='docker-compose up -d'
+alias edit_docker_file='nvim ~/Documents/utility_scripts/docker-functions.sh'
+function check_static() {
+	printf "$FYEL2 Files at /usr/share/nginx/html in the container with given id $RS2 \n"
+	docker exec -it "$1" ls /usr/share/nginx/html
+}
