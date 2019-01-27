@@ -11,9 +11,12 @@ def printAllFromDatabase():
 def main():
     args = parser.parse_args()
     note = db_connection.getById(args.id)
+    if note is None:
+        print("Note with this id was not found")
+        return
     if args.delete:
         input(f'Deleting note {note.name}')
-        db_connection.deleteOne(str(note.id))
+        db_connection.deleteOne(note.id)
         return
     elif len(args.change_name) > 0:
         input(f'Changing the note name from {note.name} into {args.change_name}')

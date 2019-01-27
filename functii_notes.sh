@@ -56,6 +56,7 @@ function oa(){
 	deactivate
 }
 
+alias mn='mongo_notes'
 function mongo_notes(){
 	note_project_location="~/Documents/exercises/python/tinydb/"
 	source ~/Documents/utility_scripts/mongo_notes/env/bin/activate
@@ -63,6 +64,7 @@ function mongo_notes(){
 	deactivate
 }
 
+alias cmn='change_mongo_note'
 function change_mongo_note() {
 	note_project_location="~/Documents/exercises/python/tinydb/"
 	source ~/Documents/utility_scripts/mongo_notes/env/bin/activate
@@ -70,6 +72,7 @@ function change_mongo_note() {
 	deactivate
 }
 
+alias smn='search_mongo_notes'
 function search_mongo_notes() {
 	source ~/Documents/utility_scripts/mongo_notes/env/bin/activate
 	python3.6 ~/Documents/utility_scripts/mongo_notes/search_mongo_note.py $*

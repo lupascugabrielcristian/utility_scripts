@@ -1,5 +1,6 @@
 from pymongo import MongoClient
 from pymongo.errors import ConnectionFailure
+from bson.objectid import ObjectId
 
 from note import Note
 
@@ -20,8 +21,9 @@ def getCollection():
     return collection
 
 def deleteOne(idString):
-    print(f'deleting {idString}')
-    cursor = getCollection().delete_one({"_id": idString})
+    deleteResult = getCollection().delete_one({"_id": ObjectId(idString)})
+    if deleteResult.deleted_count != 1:
+        print(f'Operation not successful. Deleted {deleteResult.deleted_count}')
     return cursor
 
 def getAll():
