@@ -50,12 +50,29 @@ function ndia() {
 	fi
 }
 
-alias oa='python3 ~/Documents/utility_scripts/AllNotes/allNotes.py'
+function oa(){
+	source ~/Documents/utility_scripts/mongo_notes/env/bin/activate
+	python3.6 ~/Documents/utility_scripts/mongo_notes/allNotes.py $*
+	deactivate
+}
 
 function mongo_notes(){
 	note_project_location="~/Documents/exercises/python/tinydb/"
 	source ~/Documents/utility_scripts/mongo_notes/env/bin/activate
-	python3.6 ~/Documents/utility_scripts/mongo_notes/mongo_notes.py $*
+	python3.6 ~/Documents/utility_scripts/mongo_notes/add_mongo_note.py $*
+	deactivate
+}
+
+function change_mongo_note() {
+	note_project_location="~/Documents/exercises/python/tinydb/"
+	source ~/Documents/utility_scripts/mongo_notes/env/bin/activate
+	python3.6 ~/Documents/utility_scripts/mongo_notes/change_mongo_note.py $*
+	deactivate
+}
+
+function search_mongo_notes() {
+	source ~/Documents/utility_scripts/mongo_notes/env/bin/activate
+	python3.6 ~/Documents/utility_scripts/mongo_notes/search_mongo_note.py $*
 	deactivate
 }
 

@@ -1,4 +1,5 @@
 import time
+import os
 from datetime import datetime
 
 
@@ -40,6 +41,7 @@ def readFile():
         tasks = list(map(lambda contentLine: extractTaskFromLine(contentLine), content))
         tasks = list(filter(lambda task: task.name != "", tasks))
         print("\n\nThere are " + str(len(tasks)) + " tasks")
+        os.system("clear")
         for t in tasks:
             printTask(t)
         time.sleep(60)
