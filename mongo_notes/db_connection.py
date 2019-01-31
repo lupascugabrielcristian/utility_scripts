@@ -24,7 +24,6 @@ def deleteOne(idString):
     deleteResult = getCollection().delete_one({"_id": ObjectId(idString)})
     if deleteResult.deleted_count != 1:
         print(f'Operation not successful. Deleted {deleteResult.deleted_count}')
-    return cursor
 
 def getAll():
     cursor = getCollection().find({})

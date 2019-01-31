@@ -20,3 +20,5 @@ vnoremap <leader>> <esc>`<i<<esc>`>ea><esc>
 " Sorround selection with ( )
 vnoremap <leader>( <esc>`<i(<esc>`>ea)<esc>
 vnoremap <leader>) <esc>`<i(<esc>`>ea)<esc>
+
+vnoremap <leader>" <esc>`<i(<esc>`>ea)<esc>

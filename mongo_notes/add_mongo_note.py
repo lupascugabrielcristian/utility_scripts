@@ -13,9 +13,8 @@ def printListForm():
         print(f'{n.name.lower()} {n.id}')
 
 parser = argparse.ArgumentParser()
-parser.add_argument('-t', '--title', default='', required=False)
-parser.add_argument('-c', '--content', nargs='+', default='', required=False)
 parser.add_argument('-l', '--list', dest='list', action='store_true', default=False, help='Show under list form', required=False)
+parser.add_argument('-a', '--all', dest='all', action='store_true', default=False, help='Show all with details', required=False)
 args = parser.parse_args()
 
 ### From here
@@ -23,17 +22,18 @@ if args.list:
     printListForm()
     sys.exit(0)
 
+if args.all:
+    printAllFromDatabase()
+    sys.exit(0)
 
-if len(args.title) > 1 and len(args.content) > 1:
-    note = Note(args.title)
-    contents = [ " ".join(args.content) ]
-    note.contents = contents
+title = input("Title: ")
+content = input("Content: ")
+
+if len(title) > 1 and len(content) > 1:
+    note = Note(title)
+    note.contents.append(content.strip())
     input("Adding new note with name " + note.name + "?")
     db_connection.getCollection().insert_one(note.toMap())
-else:
-    print("Only displaying notes")
-
-printAllFromDatabase()
 
 # To update an existing one
 # Print in colors

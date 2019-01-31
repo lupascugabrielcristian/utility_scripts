@@ -1,5 +1,3 @@
-# Create FoundResult class for holding file, extension and appropriate command to run
-
 import os, sys
 import subprocess
 from subprocess import call
@@ -87,6 +85,7 @@ def openChosenOption(foundResult):
 
 def searchOnline(searchTextParts):
     searchText = '+'.join(searchTextParts)
+    searchText = searchText.replace('+--no-mongo', '')
     googleSearchPage="https://www.google.com/search?client=ubuntu&channel=fs&q="
     input("Search online for %s?" % searchText)
     call(["w3m", googleSearchPage+searchText])
@@ -122,8 +121,11 @@ if len(sys.argv) == 1:
     sys.exit(1)
 
 ## Starts here
-allResults = searchFiles() + \
-             searchMongoNotes(sys.argv[1]) 
+# so skip mongo add --no-mongo
+allResults = searchFiles()
+
+if "".join(sys.argv[1:]).find('--no-mongo') == -1:
+    allResults += searchMongoNotes(sys.argv[1]) 
 
 try:
     chosenFile = chooseFile(allResults)

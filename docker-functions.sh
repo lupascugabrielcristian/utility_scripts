@@ -30,10 +30,6 @@ FRED2="\033[31m" # foreground red
 FGRN2="\033[32m" # foreground green
 FYEL2="\033[33m"	# foreground yellow
 
-function dc-preview() { 
-	google-chrome --auto-open-devtools-for-tabs "http://localhost:80/map/5c18ffceeb4c1f10b193bfdc"
-}
-
 alias doImages='sudo docker images'
 alias doContainers='sudo docker ps -a'
 
@@ -171,9 +167,18 @@ alias cadvisor='firefox http://localhost:8080/docker/'
 
 alias dcb='docker-compose build $1'
 alias dcd='docker-compose down'
-alias dcu='docker-compose up -d'
+alias dcu='docker-compose up -d --scale adaptation=0'
+alias dcua='docker-compose up -d'
 alias edit_docker_file='nvim ~/Documents/utility_scripts/docker-functions.sh'
 function check_static() {
 	printf "$FYEL2 Files at /usr/share/nginx/html in the container with given id $RS2 \n"
 	docker exec -it "$1" ls /usr/share/nginx/html
+}
+
+dcim() {
+	docker inspect mongodb | grep "\bGateway.*\?[0-9]"
+}
+
+dclogs() {
+	docker-compose logs $1
 }
