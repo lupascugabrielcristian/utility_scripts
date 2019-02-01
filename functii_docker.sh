@@ -175,10 +175,21 @@ function check_static() {
 	docker exec -it "$1" ls /usr/share/nginx/html
 }
 
-dcim() {
+dcmongo() {
 	docker inspect mongodb | grep "\bGateway.*\?[0-9]"
 }
 
 dclogs() {
 	docker-compose logs $1
+}
+
+dclogspreview() {
+	docker-compose logs preview-back-end > ~/Desktop/docker-container-log.tmp
+	sed -i '/Consumer raised exception/d' ~/Desktop/docker-container-log.tmp	
+	sed -i '/Restarting Consumer/d' ~/Desktop/docker-container-log.tmp	
+	sed -i -e 's/preview-back-end/[X]/g' ~/Desktop/docker-container-log.tmp	
+	sed -i -r 's/.+  : /:[X]/g' ~/Desktop/docker-container-log.tmp	
+	sed -i -e 's/ro.jlg.skykit.core./[SK]/g' ~/Desktop/docker-container-log.tmp	
+
+	nvim ~/Desktop/docker-container-log.tmp
 }
