@@ -1,3 +1,11 @@
+read -p "HOME_FOLDER env variable is exported? (yes/no)" userResponse
+if [ "$userResponse" = 'yes' ]; then
+	echo "Proceding..."
+else
+	echo "before running this script run 'export HOME_FOLDER=/home/cristi/'"
+	exit 1
+fi
+
 # BASHRC 
 read -p "Continue with updating bashrc file? (yes/no)" userResponse
 if [ "$userResponse" = 'yes' ]; then
@@ -16,20 +24,6 @@ if [ "$userResponse" = 'yes' ]; then
 	sudo apt-get install nvidia-384
 	sudo reboot
 fi
-
-# NOTES
-read -p "Continue with notes setup(yes/no)" userResponse
-if [ "$userResponse" = 'yes' ]; then
-	if [ ! -d ~/Documents/notes ]; then
-		mkdir ~/Documents/notes
-	fi
-
-	echo "######### NOTES ########" >> ~/.bashrc
-	echo "source ~/Documents/utility_scripts/notes.aliases.sh" >> ~/.bashrc
-	echo "source ~/Documents/utility_scripts/functii_notes.sh" >> ~/.bashrc
-	echo "\n\n" >> ~/.bashrc
-fi
-
 
 read -p "Continue with exercitii setup(yes/no)" userResponse
 if [ "$userResponse" = 'yes' ]; then
@@ -74,8 +68,9 @@ if [ "$userResponse" = 'yes' ]; then
 	sudo apt install openjdk-8-jdk
 fi
 
-read -p "Continue with git, node, npm, tsc and angular-cli installation? (yes/no)" userResponse
+read -p "Continue with all required dependencies installation? (yes/no)" userResponse
 if [ "$userResponse" = 'yes' ]; then
+	sudo apt update
 	sudo apt-get install xclip # comanda pentru a copia in clipboard: pwd | xclip -sel clip
 	sudo apt install tsc
 	sudo apt install git
@@ -113,7 +108,9 @@ if [ "$userResponse" = 'yes' ]; then
 	sudo apt-get install apt-transport-https
 	sudo apt-get update
 	sudo apt install code
-	sudo apt install python-pip
+	sudo apt install python3.6
+	sudo apt install python3-pip
+	sudo apt install python3-venv
 	sudo apt install gnome-tweak-tool
 	sudo apt install iftop
 	sudo apt install slurm
@@ -127,6 +124,45 @@ if [ "$userResponse" = 'yes' ]; then
 	git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 	~/.fzf/install # For keybingings https://github.com/junegunn/fzf
 fi
+
+# DOCKER
+# NOTES
+read -p "Continue with docker?(yes/no)" userResponse
+if [ "$userResponse" = 'yes' ]; then
+	sudo apt install apt-transport-https ca-certificates curl software-properties-common
+	curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+	sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
+	sudo apt update
+	apt-cache policy docker-ce
+	sudo apt install docker-ce
+	sudo systemctl status docker
+	read -p "Is docker deamon started?"
+fi
+
+# NOTES
+read -p "Continue with notes setup(yes/no)" userResponse
+if [ "$userResponse" = 'yes' ]; then
+	if [ ! -d $HOME_FOLDER/Documents/notes ]; then
+		mkdir $HOME_FOLDER/Documents/notes
+	fi
+
+	if [ ! -d $HOME_FOLDER/Documents/Books ]; then
+		mkdir $HOME_FOLDER/Documents/Books
+	fi
+
+	pip3 install virtualenv
+	cd mongo_notes/
+	python3.6 -m venv env
+	source env/bin/activate
+	pip install pymongo
+	deactivate
+
+	echo "######### NOTES ########" >> ~/.bashrc
+	echo "source $HOME_FOLDER/Documents/utility_scripts/notes.aliases.sh" >> ~/.bashrc
+	echo "source $HOME_FOLDER/Documents/utility_scripts/functii_notes.sh" >> ~/.bashrc
+	echo "\n\n" >> ~/.bashrc
+fi
+
 
 # GIT Configuration
 read -p "Continue with GIT configuration? (yes/no)" userResponse

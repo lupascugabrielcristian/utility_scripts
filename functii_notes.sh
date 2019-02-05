@@ -58,7 +58,6 @@ function oa(){
 
 alias mn='mongo_notes'
 function mongo_notes(){
-	note_project_location="~/Documents/exercises/python/tinydb/"
 	source ~/Documents/utility_scripts/mongo_notes/env/bin/activate
 	python3.6 ~/Documents/utility_scripts/mongo_notes/add_mongo_note.py $*
 	deactivate
@@ -66,7 +65,6 @@ function mongo_notes(){
 
 alias cmn='change_mongo_note'
 function change_mongo_note() {
-	note_project_location="~/Documents/exercises/python/tinydb/"
 	source ~/Documents/utility_scripts/mongo_notes/env/bin/activate
 	python3.6 ~/Documents/utility_scripts/mongo_notes/change_mongo_note.py $*
 	deactivate
