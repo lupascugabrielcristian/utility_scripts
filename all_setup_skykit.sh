@@ -1,8 +1,8 @@
-read -p "HOME_FOLDER env variable is exported? (yes/no)" userResponse
-if [ "$userResponse" = 'yes' ]; then
-	echo "Proceding..."
+if [ -n "$HOME_FOLDER" ]
+then
+	echo "HOME_FOLDER environment variable is set"
 else
-	echo "before running this script run 'export HOME_FOLDER=/home/cristi/'"
+	echo "Before running this script run 'export HOME_FOLDER=/home/cristi/'"
 	exit 1
 fi
 
@@ -139,6 +139,30 @@ if [ "$userResponse" = 'yes' ]; then
 	read -p "Is docker deamon started?"
 fi
 
+# Mongo installation
+read -p "Continue with MongoDB installation? (yes/no)" userResponse
+if [ "$userResponse" = 'yes' ]; then
+	sudoParameter="yes"
+	read -p "Runing in docker? (yes/no)" userResponse
+	if [ "$userResponse" = 'yes' ]; then
+		sudoParameter=""
+	fi
+	echo '\n\n====== Mongo instaltion =====\n\n'
+	$sudoParameter apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 9DA31620334BD75D9DCB49F368818C72E52529D4
+	echo "deb [ arch=amd64 ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.0 multiverse" | $sudoParameter tee /etc/apt/sources.list.d/mongodb-org-4.0.list
+	$sudoParameter apt-get update
+	$sudoParameter apt-get install -y mongodb-org
+	$sudoParameter mkdir /data/
+	$sudoParameter mkdir /data/db
+	if [ "$userResponse" = 'yes' ]; then
+		mongod &
+	else
+		$sudoParameter service mongod start
+	fi
+
+	mongoimport --db notes_database --collection notes_collection --file notes_database.mongoexport
+fi
+
 # NOTES
 read -p "Continue with notes setup(yes/no)" userResponse
 if [ "$userResponse" = 'yes' ]; then
@@ -160,9 +184,7 @@ if [ "$userResponse" = 'yes' ]; then
 	echo "######### NOTES ########" >> ~/.bashrc
 	echo "source $HOME_FOLDER/Documents/utility_scripts/notes.aliases.sh" >> ~/.bashrc
 	echo "source $HOME_FOLDER/Documents/utility_scripts/functii_notes.sh" >> ~/.bashrc
-	echo "\n\n" >> ~/.bashrc
 fi
-
 
 # GIT Configuration
 read -p "Continue with GIT configuration? (yes/no)" userResponse
@@ -198,18 +220,6 @@ if [ "$userResponse" = 'yes' ]; then
 		echo "Probably instalation changed"
 	fi
 fi
-
-# Mongo installation
-read -p "Continue with MongoDB installation? (yes/no)" userResponse
-if [ "$userResponse" = 'yes' ]; then
-	echo '\n\n====== Mongo instaltion =====\n\n'
-	sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 9DA31620334BD75D9DCB49F368818C72E52529D4
-	echo "deb [ arch=amd64 ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.0.list
-	sudo apt-get update
-	sudo apt-get install -y mongodb-org
-	sudo service mongod start
-fi
-
 
 # Rabitmq installation
 read -p "Continue with RabbitMQ installation? (yes/no)" userResponse

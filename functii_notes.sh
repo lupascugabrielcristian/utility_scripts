@@ -57,10 +57,14 @@ function oa(){
 }
 
 alias mn='mongo_notes'
-function mongo_notes(){
+mongo_notes(){
 	source ~/Documents/utility_scripts/mongo_notes/env/bin/activate
 	python3.6 ~/Documents/utility_scripts/mongo_notes/add_mongo_note.py $*
 	deactivate
+	if [ "$#" -eq 0 ]; then
+		echo "Exporting database collection"
+		mongoexport --db notes_database --collection notes_collection --out ~/Documents/utility_scripts/notes_database.mongoexport
+	fi
 }
 
 alias cmn='change_mongo_note'
@@ -68,6 +72,8 @@ function change_mongo_note() {
 	source ~/Documents/utility_scripts/mongo_notes/env/bin/activate
 	python3.6 ~/Documents/utility_scripts/mongo_notes/change_mongo_note.py $*
 	deactivate
+	echo "Exporting database collection"
+	mongoexport --db notes_database --collection notes_collection --out ~/Documents/utility_scripts/notes_database.mongoexport
 }
 
 alias smn='search_mongo_notes'

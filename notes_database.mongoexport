@@ -1,0 +1,14 @@
+{"_id":{"$oid":"5c48c113b47d58271865e95c"},"name":"getopt","contents":["https://stackabuse.com/command-line-arguments-in-python/"]}
+{"_id":{"$oid":"5c499bc1b47d583d15a20f81"},"name":"python lambda filter ","contents":[" result = filter(lambda x: x % 2, fib)"]}
+{"_id":{"$oid":"5c49a369b47d584e862e0553"},"name":"import python code file ","contents":[" https://stackoverflow.com/questions/2349991/how-to-import-other-python-files"]}
+{"_id":{"$oid":"5c49a4d3b47d585294e90095"},"name":"explorer key view","contents":["E"]}
+{"_id":{"$oid":"5c4f56aeb47d5820ebb74d93"},"name":"ports list","contents":["netstat -ltnp | grep -w ':80'"]}
+{"_id":{"$oid":"5c4f5715b47d5822467d5064"},"name":"nginx quick reference","contents":["https://github.com/trimstray/nginx-quick-reference#base-rules"]}
+{"_id":{"$oid":"5c50636db47d58494634198f"},"name":"docker components","contents":["https://www.draw.io/?state=%7B%22folderId%22:%221zrhfatuuShG6Peu68HxZp3xd98w14iq_%22,%22action%22:%22create%22,%22userId%22:%22100603927830202935554%22%7D#G102OMODyHvUlU2yLh1houcpBzzLygI0zo"]}
+{"_id":{"$oid":"5c530917b47d58310766e51f"},"name":"initialize array","contents":["String[] arguments = { \"asfasd\", \"iadfassasd\", \"222\"};"]}
+{"_id":{"$oid":"5c5859f7b47d583b33b5ef1c"},"name":"run docker interactive","contents":["docker container run -it [name] /bin/sh"]}
+{"_id":{"$oid":"5c585a2ab47d583b5ad618b7"},"name":"build docker container","contents":["docker image build ."]}
+{"_id":{"$oid":"5c62ba61b47d582f47d916d8"},"name":"export mongo database","contents":["mongoexport --db notes_database --out ~/Desktop/notes_database_export"]}
+{"_id":{"$oid":"5c62e916b47d5808518d78ea"},"name":"docker containter start tag","contents":["docker build -t foo ."]}
+{"_id":{"$oid":"5c62fabeb47d586a3f266bee"},"name":"mongo import","contents":["mongoimport --db notes_database --collection notes_collection --file notes_database.mongoexport"]}
+{"_id":{"$oid":"5c62fe8db47d5872f88c5145"},"name":"file size","contents":["ls -ls filename"]}

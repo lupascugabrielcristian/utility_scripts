@@ -14,10 +14,11 @@ RUN apt -y update && \
 	apt install -y neovim && \
 	apt install -y vifm && \
 	mkdir /home/cristi/ && \
-	mkdir /home/cristi/Documents/
+	mkdir /home/cristi/Documents/ && \
 	mkdir /home/cristi/Documents/utility_scripts/
 
 COPY ./all_setup_skykit.sh /home/cristi/Documents/utility_scripts/all_setup_skykit.sh
+COPY ./*.mongoexport /home/cristi/Documents/utility_scripts/
 COPY ./functii_notes.sh /home/cristi/Documents/utility_scripts/functii_notes.sh
 COPY ./functii_* /home/cristi/Documents/utility_scripts/
 COPY ./mongo_notes/*.py /home/cristi/Documents/utility_scripts/mongo_notes/

@@ -1,12 +1,15 @@
 
 #========== Aliases ==========
-alias rm=sendToTrash $
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 alias ee='exit'
 alias tcowndown='nvim ~/Documents/countdown/tasks'
 alias editbash='nvim ~/.bashrc'
+alias cdsk='cd ~/Documents/SkyKit/'
+alias cdex='cd ~/Documents/exercises/skykitStart/'
+alias cdut='cd ~/Documents/utility_scripts/'
+alias rm=sendToTrash $*
 
 #========== End of aliases ==========   
 
@@ -49,35 +52,6 @@ function tryRemoveFile() {
 	fi
 }
 
-function downloads() {
-	nautilus ~/Downloads/
-}
-
-function w3m-google() {
-	googleSearchPage="https://www.google.com/search?client=ubuntu&channel=fs&q="
-	all=""
-	all="$*"
-	searchString=""
-	for word in $all; do
-		searchString=$searchString+$word
-	done
-	searchString=${searchString:1}
-	echo Searching for $searchString
-	w3m $googleSearchPage$searchString
-}
-
-function search-google() {
-	googleSearchPage="https://www.google.com/search?client=ubuntu&channel=fs&q="
-	all=""
-	all="$*"
-	searchString=""
-	for word in $all; do
-		searchString=$searchString+$word
-	done
-	searchString=${searchString:1}
-	echo Searching for $searchString
-	sensible-browser $googleSearchPage$searchString
-}
 
 function tab-name() {
 	newName="$*"
