@@ -10,15 +10,20 @@ autocmd BufNewFile,BufRead *.ts setlocal filetype=typescript
 " Exit terminal mode with Esc key
 tnoremap <Esc> <C-\><C-n>
 
-" Sorround word with quotes
+" Surround word with quotes
 nnoremap <leader>" viw<esc>a"<esc>bi"<esc>lel
 
-" Sorround selection with < >
+" Surround selection with < >
 vnoremap <leader>< <esc>`<i<<esc>`>ea><esc>
 vnoremap <leader>> <esc>`<i<<esc>`>ea><esc>
 
-" Sorround selection with ( )
+" Surround selection with ( )
 vnoremap <leader>( <esc>`<i(<esc>`>ea)<esc>
 vnoremap <leader>) <esc>`<i(<esc>`>ea)<esc>
 
 vnoremap <leader>" <esc>`<i(<esc>`>ea)<esc>
+
+" Adds a semicolon to the end of the line
+function semicolonEnd()
+	execute "normal! mqA;\<esc>`q"
+endfunction

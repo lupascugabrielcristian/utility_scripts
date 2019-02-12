@@ -179,6 +179,16 @@ if [ "$userResponse" = 'yes' ]; then
 	if [ ! -d ~/.config/nvim ]; then
 		sudo mkdir ~/.config/nvim/
 	fi
+
+	if [ ! -d ~/.local/share/nvim/site ]; then
+		mkdir ~/.local/share/nvim/site/
+	fi
+
+	if [ ! -d ~/.local/share/nvim/site/plugin ]; then
+		mkdir ~/.local/share/nvim/site/plugin/
+	fi
+
+	cp ./vim-plugins/grep-operator.vim ~/.local/share/nvim/site/plugin/grep-operator.vim
 	cat ./configurari_vim.vim > ~/.config/nvim/init.vim
 
 	if [  -d /usr/share/nvim/runtime/syntax ]; then
