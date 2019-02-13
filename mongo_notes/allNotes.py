@@ -2,6 +2,7 @@ import os, sys
 import subprocess
 from subprocess import call
 from  search_mongo_note import searchAllNotes
+from enum import Enum
 
 notesDirectory = "/home/cristi/Documents/notes/"
 booksDirectory = "/home/cristi/Documents/Books/"
@@ -14,9 +15,17 @@ class colors:
     OKGREEN = '\033[92m'
     WARNING = '\033[93m'
     FAIL = '\033[91m'
+    LIGHT_BLUE = '\033[96m'
+    PINK = '\033[95m'
     ENDC = '\033[0m'
     BOLD = '\033[1m'
     UNDERLINE = '\033[4m'
+
+class FoundResultType(Enum):
+    BOOK = 0
+    NOTE = 1
+    URL = 2
+    COMMAND = 3
 
 class FoundResult:
     UNKNOWN_APPLICATION = "unknown_application"
@@ -27,6 +36,7 @@ class FoundResult:
         self.extension = FoundResult.WITHOUT_EXTENSION
         self.what = what
         self.where = ""
+        self.type = FoundResultType.BOOK
 
 
 def chooseFile(foundResults):
@@ -34,7 +44,17 @@ def chooseFile(foundResults):
     if len(foundResults) == 0:
         return None
     for f in foundResults:
-        print ("%s %d %s %s %s" %(colors.WARNING, counter, colors.OKGREEN, f.what, colors.ENDC) )
+        #print ("%s %d %s %s %s" %(colors.WARNING, counter, colors.OKGREEN, f.what, colors.ENDC) )
+        typeColor = colors.ENDC
+        if f.type == FoundResultType.BOOK:
+            typeColor = colors.WARNING
+        elif f.type == FoundResultType.URL:
+            typeColor = colors.LIGHT_BLUE
+        elif f.type == FoundResultType.NOTE:
+            typeColor = colors.OKGREEN
+        elif f.type == FoundResultType.COMMAND:
+            typeColor = colors.PINK
+        print(f'{counter:>3} {typeColor} {f.type.name:>7} {colors.ENDC} {f.what.strip()}')
         counter = counter + 1
     answer = input("Which one?[Enter to continue] ")
     
@@ -61,16 +81,21 @@ def fileToFoundResult(fileFound):
     if extension == "pdf":
         result.application = "evince"
         result.where = booksDirectory
+        result.type = FoundResultType.BOOK
         if os.path.exists(pythonBooksDirectory + result.what):
             result.where = pythonBooksDirectory
     elif extension == "txt" or extension == "md":
         result.application = "nvim"
+        result.type = FoundResultType.NOTE
     elif extension == "xmind":
         result.application = "XMind"
+        result.type = FoundResultType.NOTE
     elif extension == "dia":
         result.application = "dia"
+        result.type = FoundResultType.NOTE
     elif extension == "gv":
         result.application = "vimdot"
+        result.type = FoundResultType.NOTE
     return result
 
 
@@ -100,8 +125,10 @@ def createResultFromMongoContent(content):
     result = FoundResult(content)
     if content.find("http") != -1:
         result.application = "w3m"
+        result.type = FoundResultType.URL
     else:
         result.application = FoundResult.UNKNOWN_APPLICATION
+        result.type = FoundResultType.COMMAND
     return result
 
 def searchMongoNotes(forWhat):
