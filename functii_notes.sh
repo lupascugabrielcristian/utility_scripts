@@ -1,20 +1,20 @@
 function n() { 
-	 nvim ~/Documents/notes/"$*".md 
+	 nvim /home/cristi/Documents/notes/"$*".md 
 }
 
 function nn() {
-	cd ~/Documents/notes/
+	cd /home/cristi/Documents/notes/
 	ll
 }
 
 function nls() { 
-	 ls -c ~/Documents/notes/ | grep "$*" 
+	 ls -c /home/cristi/Documents/notes/ | grep "$*" 
 }
 
 function no() {
 	files=$(ls ~/Documents/notes/ | grep "$*")
 	echo $files
-	nvim ~/Documents/notes/$files 
+	nvim /home/cristi/Documents/notes/$files 
 }
 
 function degandit() {
@@ -46,20 +46,20 @@ function ndia() {
 		echo "No arguments. Starting DIA"
 		dia
 	else 
-		dia ~/Documents/notes/"$1".dia
+		dia /home/cristi/Documents/notes/"$1".dia
 	fi
 }
 
 function oa(){
-	source ~/Documents/utility_scripts/mongo_notes/env/bin/activate
-	python3.6 ~/Documents/utility_scripts/mongo_notes/allNotes.py $*
+	source /home/cristi/Documents/utility_scripts/mongo_notes/env/bin/activate
+	python3.6 /home/cristi/Documents/utility_scripts/mongo_notes/allNotes.py $*
 	deactivate
 }
 
 alias mn='mongo_notes'
 mongo_notes(){
-	source ~/Documents/utility_scripts/mongo_notes/env/bin/activate
-	python3.6 ~/Documents/utility_scripts/mongo_notes/add_mongo_note.py $*
+	source /home/cristi/Documents/utility_scripts/mongo_notes/env/bin/activate
+	python3.6 /home/cristi/Documents/utility_scripts/mongo_notes/add_mongo_note.py $*
 	deactivate
 	if [ "$#" -eq 0 ]; then
 		echo "Exporting database collection"
@@ -69,8 +69,8 @@ mongo_notes(){
 
 alias cmn='change_mongo_note'
 function change_mongo_note() {
-	source ~/Documents/utility_scripts/mongo_notes/env/bin/activate
-	python3.6 ~/Documents/utility_scripts/mongo_notes/change_mongo_note.py $*
+	source /home/cristi/Documents/utility_scripts/mongo_notes/env/bin/activate
+	python3.6 /home/cristi/Documents/utility_scripts/mongo_notes/change_mongo_note.py $*
 	deactivate
 	echo "Exporting database collection"
 	mongoexport --db notes_database --collection notes_collection --out ~/Documents/utility_scripts/notes_database.mongoexport
@@ -78,8 +78,8 @@ function change_mongo_note() {
 
 alias smn='search_mongo_notes'
 function search_mongo_notes() {
-	source ~/Documents/utility_scripts/mongo_notes/env/bin/activate
-	python3.6 ~/Documents/utility_scripts/mongo_notes/search_mongo_note.py $*
+	source /home/cristi/Documents/utility_scripts/mongo_notes/env/bin/activate
+	python3.6 /home/cristi/Documents/utility_scripts/mongo_notes/search_mongo_note.py $*
 	deactivate
 }
 

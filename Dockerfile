@@ -19,8 +19,11 @@ RUN apt -y update && \
 
 COPY ./all_setup_skykit.sh /home/cristi/Documents/utility_scripts/all_setup_skykit.sh
 COPY ./*.mongoexport /home/cristi/Documents/utility_scripts/
-COPY ./functii_notes.sh /home/cristi/Documents/utility_scripts/functii_notes.sh
-COPY ./functii_* /home/cristi/Documents/utility_scripts/
+COPY ./*.sh /home/cristi/Documents/utility_scripts/
+COPY ./*.py /home/cristi/Documents/utility_scripts/
 COPY ./mongo_notes/*.py /home/cristi/Documents/utility_scripts/mongo_notes/
+COPY ./*.vim /home/cristi/Documents/utility_scripts/
+COPY ./tasks /home/cristi/Documents/utility_scripts/
+
 
 CMD sh /home/cristi/Documents/utility_scripts/all_setup_skykit.sh

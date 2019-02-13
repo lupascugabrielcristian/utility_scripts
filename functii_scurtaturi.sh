@@ -4,7 +4,7 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 alias ee='exit'
-alias tcowndown='nvim ~/Documents/countdown/tasks'
+alias tcowndown='nvim ~/Documents/utility_scripts/tasks'
 alias editbash='nvim ~/.bashrc'
 alias cdsk='cd ~/Documents/SkyKit/'
 alias cdex='cd ~/Documents/exercises/skykitStart/'
@@ -59,7 +59,8 @@ function tab-name() {
 }
 
 function cowntdown() {
-	cd ~/Documents/countdown
-	python3 ~/Documents/countdown/countdown.py
+	cd ~/Documents/utility_scripts/
+	python3 ~/Documents/utility_scripts/countdown.py
 }
+
 

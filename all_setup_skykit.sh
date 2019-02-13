@@ -6,16 +6,27 @@ else
 	exit 1
 fi
 
+read -p "Runing in docker? (yes/no)" userResponse
+if [ "$userResponse" = 'yes' ]; then
+	sudoParameter=""
+fi
+
 # BASHRC 
 read -p "Continue with updating bashrc file? (yes/no)" userResponse
 if [ "$userResponse" = 'yes' ]; then
 
+	echo -e "\n" >> ~/.bashrc
+	echo "############ SCURTATURI ################" >> ~/.bashrc
 	echo "source ~/Documents/utility_scripts/functii_scurtaturi.sh" >> ~/.bashrc
+	echo -e "\n" >> ~/.bashrc
+
+	echo "############ SWAP ################" >> ~/.bashrc
 	echo "source ~/Documents/utility_scripts/functii_erent.sh" >> ~/.bashrc
-	echo "\n\n" >> ~/.bashrc
+	echo -e "\n" >> ~/.bashrc
+
 	echo "############ DOCKER ################" >> ~/.bashrc
 	echo "source ~/Documents/utility_scripts/docker-functions.sh" >> ~/.bashrc
-	echo "\n\n" >> ~/.bashrc
+	echo -e "\n" >> ~/.bashrc
 fi
 
 # VIDEO CARD
@@ -37,12 +48,12 @@ fi
 
 read -p "Continue with cowntdown(yes/no)" userResponse
 if [ "$userResponse" = 'yes' ]; then
-	if [ ! -d ~/Documents/countdown ]; then
-		mkdir ~/Documents/countdown
+	if [ ! -d /home/cristi/Documents/countdown ]; then
+		mkdir /home/cristi/Documents/countdown
 	fi
 
-	cp ./countdown.py ~/Documents/countdown
-	cp ./tasks ~/Documents/countdown
+	cp ./countdown.py /home/cristi/Documents/countdown
+	cp ./tasks /home/cristi/Documents/countdown
 fi
 
 read -p "Continue with ASUS monitor installation? (yes/no)" userResponse
@@ -126,7 +137,6 @@ if [ "$userResponse" = 'yes' ]; then
 fi
 
 # DOCKER
-# NOTES
 read -p "Continue with docker?(yes/no)" userResponse
 if [ "$userResponse" = 'yes' ]; then
 	sudo apt install apt-transport-https ca-certificates curl software-properties-common
@@ -182,7 +192,6 @@ if [ "$userResponse" = 'yes' ]; then
 	deactivate
 
 	echo "######### NOTES ########" >> ~/.bashrc
-	echo "source $HOME_FOLDER/Documents/utility_scripts/notes.aliases.sh" >> ~/.bashrc
 	echo "source $HOME_FOLDER/Documents/utility_scripts/functii_notes.sh" >> ~/.bashrc
 fi
 
