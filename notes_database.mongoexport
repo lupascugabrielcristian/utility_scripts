@@ -14,3 +14,4 @@
 {"_id":{"$oid":"5c62fe8db47d5872f88c5145"},"name":"file size","contents":["ls -ls filename"]}
 {"_id":{"$oid":"5c642822b47d585bfd841056"},"name":"echo cu escape characters","contents":["echo -e \"\\n \\n \\n Test ok\" \u003e outputfile.bashrc"]}
 {"_id":{"$oid":"5c642993b47d585dfb152560"},"name":"list aliases","contents":["ls | alias"]}
+{"_id":{"$oid":"5c6568c2b47d58374db51f36"},"name":"oracle filter regex","contents":["regexp_like(SINGLE_POINTID, 'NOP')"]}

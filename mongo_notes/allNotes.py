@@ -101,9 +101,9 @@ def fileToFoundResult(fileFound):
 
 def openChosenOption(foundResult):
     if foundResult.application == FoundResult.UNKNOWN_APPLICATION:
-        os.system("xclip -sel clip < " + foundResult.what)
+        os.system("xclip -sel clip < " + foundResult.what.strip())
         print("Copied to clipboard")
-    if foundResult.application == "w3m":
+    elif foundResult.application == "w3m":
         call([foundResult.application, foundResult.what])
     else:
         call([foundResult.application, foundResult.where + foundResult.what])
