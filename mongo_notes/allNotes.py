@@ -90,6 +90,9 @@ def fileToFoundResult(fileFound):
     elif extension == "xmind":
         result.application = "XMind"
         result.type = FoundResultType.NOTE
+    elif extension == "xmi":
+        result.application = "umbrello5"
+        result.type = FoundResultType.NOTE
     elif extension == "dia":
         result.application = "dia"
         result.type = FoundResultType.NOTE

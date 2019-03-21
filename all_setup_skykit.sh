@@ -129,6 +129,7 @@ if [ "$userResponse" = 'yes' ]; then
 	sudo apt install vifm 						# terminal file manager with vim keybindings
 	sudo apt install w3m 						# terminal browser
 	sudo apt install trash-cli 					# sends files to trash
+	sudo apt-get install zathura zathura-djvu zathura-ps zathura-cb # pdf readder with vim-like key bindings
 	sudo snap install --classic heroku
 	echo "Comenzile pentru network monitors sunt in fisierul comenzi"
 

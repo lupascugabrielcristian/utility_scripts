@@ -15,3 +15,14 @@
 {"_id":{"$oid":"5c642822b47d585bfd841056"},"name":"echo cu escape characters","contents":["echo -e \"\\n \\n \\n Test ok\" \u003e outputfile.bashrc"]}
 {"_id":{"$oid":"5c642993b47d585dfb152560"},"name":"list aliases","contents":["ls | alias"]}
 {"_id":{"$oid":"5c6568c2b47d58374db51f36"},"name":"oracle filter regex","contents":["regexp_like(SINGLE_POINTID, 'NOP')"]}
+{"_id":{"$oid":"5c6bd025b47d5839bdadef1a"},"name":"python environment activate","contents":[". django-env/bin/activate"]}
+{"_id":{"$oid":"5c6da8beb47d587493e16bc2"},"name":"mongo remote script","contents":["mongo 172.21.0.1:27017/skykit \u003c get_airspaces.js"]}
+{"_id":{"$oid":"5c6ec119b47d5818ffa9fa44"},"name":"bash and ","contents":["if [ \"$#\" -gt 0 -a \"$1\" = \"e\" ]; then"]}
+{"_id":{"$oid":"5c79126cb47d580a41fa4a78"},"name":"run r2 debugger radare2","contents":["r2 -d a.out"]}
+{"_id":{"$oid":"5c7e5ba7b47d58708832ba21"},"name":"crypto terminal ","contents":["curl rate.sx/"]}
+{"_id":{"$oid":"5c80dc76b47d581afbe6b3f6"},"name":"debugger documentation radare2","contents":["https://radare.gitbooks.io/radare2book/content/"]}
+{"_id":{"$oid":"5c80fef9b47d585e18222325"},"name":"tilix themes","contents":["https://github.com/storm119/Tilix-Themes/blob/master/Themes.md"]}
+{"_id":{"$oid":"5c822e23b47d5826768ec389"},"name":"radare2 comment","contents":["CCa [address] [comment]"]}
+{"_id":{"$oid":"5c827b2bb47d583cda185af1"},"name":"optional empty cast","contents":["Optional.\u003cAirspaceFixPoint\u003eempty()"]}
+{"_id":{"$oid":"5c8bc7d1b47d586478886da2"},"name":"multiple grep","contents":["grep -e pattern1 -e pattern2"]}
+{"_id":{"$oid":"5c91f4c7b47d5824a9ca7118"},"name":"mongo cheatsheet","contents":["https://gto76.github.io/python-cheatsheet/"]}
