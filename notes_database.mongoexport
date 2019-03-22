@@ -26,3 +26,4 @@
 {"_id":{"$oid":"5c827b2bb47d583cda185af1"},"name":"optional empty cast","contents":["Optional.\u003cAirspaceFixPoint\u003eempty()"]}
 {"_id":{"$oid":"5c8bc7d1b47d586478886da2"},"name":"multiple grep","contents":["grep -e pattern1 -e pattern2"]}
 {"_id":{"$oid":"5c91f4c7b47d5824a9ca7118"},"name":"mongo cheatsheet","contents":["https://gto76.github.io/python-cheatsheet/"]}
+{"_id":{"$oid":"5c94bdecb47d587c41152a63"},"name":"tor check w3m","contents":["torsocks w3m 'https://check.torproject.org/'"]}

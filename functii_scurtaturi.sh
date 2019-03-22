@@ -63,4 +63,8 @@ function cowntdown() {
 	python3 ~/Documents/utility_scripts/countdown.py
 }
 
+letstor() {
+	torsocks w3m 'https://check.torproject.org/'
+}
+
 
