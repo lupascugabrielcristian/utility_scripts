@@ -79,7 +79,7 @@ def fileToFoundResult(fileFound):
     result.extension = extension
     result.where = notesDirectory
     if extension == "pdf":
-        result.application = "evince"
+        result.application = "zathura"
         result.where = booksDirectory
         result.type = FoundResultType.BOOK
         if os.path.exists(pythonBooksDirectory + result.what):

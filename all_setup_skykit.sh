@@ -130,7 +130,7 @@ if [ "$userResponse" = 'yes' ]; then
 	sudo apt install w3m 						# terminal browser
 	sudo apt install torsocks					# to browse to onion sites
 	sudo apt install trash-cli 					# sends files to trash
-	sudo apt-get install zathura zathura-djvu zathura-ps zathura-cb # pdf readder with vim-like key bindings
+	sudo apt-get install zathura zathura-djvu zathura-ps zathura-cb # pdf reader with vim-like key bindings
 	sudo snap install --classic heroku
 	echo "Comenzile pentru network monitors sunt in fisierul comenzi"
 
@@ -231,6 +231,13 @@ if [ "$userResponse" = 'yes' ]; then
 		echo "Probably instalation changed"
 	fi
 fi
+
+#VIFM Configuration
+# the config file is at ~/.config/vifm
+# Add 
+#		\ {Open with vim}
+#		\ vim %f,
+# at the web section for filextype
 
 # Rabitmq installation
 read -p "Continue with RabbitMQ installation? (yes/no)" userResponse
