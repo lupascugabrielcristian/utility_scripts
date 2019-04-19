@@ -240,6 +240,8 @@ if [ "$userResponse" = 'yes' ]; then
 	fi
 
 	# This part is for denite plugin
+	# Documentation
+	# https://github.com/Shougo/denite.nvim/blob/master/doc/denite.txt
 	wget https://github.com/Shougo/denite.nvim/archive/master.zip -O denite.zip
 	unzip denite.zip
 	$sudoParameter cp -R denite.nvim-master/* /home/cristi/.config/nvim/
