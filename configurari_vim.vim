@@ -24,6 +24,4 @@ vnoremap <leader>) <esc>`<i(<esc>`>ea)<esc>
 vnoremap <leader>" <esc>`<i(<esc>`>ea)<esc>
 
 " Adds a semicolon to the end of the line
-function semicolonEnd()
-	execute "normal! mqA;\<esc>`q"
-endfunction
+nnoremap <leader>;; mqA;<esc>`q

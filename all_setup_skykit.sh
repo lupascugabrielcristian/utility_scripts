@@ -238,6 +238,13 @@ if [ "$userResponse" = 'yes' ]; then
 		echo "Need to have this folder in place: /usr/share/nvim/runtime/syntax"
 		echo "Probably instalation changed"
 	fi
+
+	# This part is for denite plugin
+	wget https://github.com/Shougo/denite.nvim/archive/master.zip -O denite.zip
+	unzip denite.zip
+	$sudoParameter cp -R denite.nvim-master/* /home/cristi/.config/nvim/
+	rm denite.zip
+	rm -R denite.nvim-master
 fi
 
 #VIFM Configuration
