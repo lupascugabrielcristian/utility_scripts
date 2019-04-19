@@ -33,7 +33,9 @@ new_project_css() {
 	touch $PROJECT_NAME/styles.css
 
 	cp require/bootstrap/js/bootstrap.min.js $PROJECT_NAME/bootstrap.min.js
+	cp require/bootstrap/js/bootstrap.min.js.map $PROJECT_NAME/bootstrap.min.js.map
 	cp require/bootstrap/css/bootstrap.min.css $PROJECT_NAME/bootstrap.min.css
+	cp require/bootstrap/css/bootstrap.min.css.map $PROJECT_NAME/bootstrap.min.css.map
 	cp require/jquery-3.3.1.min.js $PROJECT_NAME/jquery.min.js
 
 	HTML="

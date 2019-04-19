@@ -28,3 +28,4 @@
 {"_id":{"$oid":"5c91f4c7b47d5824a9ca7118"},"name":"mongo cheatsheet","contents":["https://gto76.github.io/python-cheatsheet/"]}
 {"_id":{"$oid":"5c94bdecb47d587c41152a63"},"name":"tor check w3m","contents":["torsocks w3m 'https://check.torproject.org/'"]}
 {"_id":{"$oid":"5c98f199b47d582f218c422c"},"name":"external ip","contents":["curl http://canhazip.com"]}
+{"_id":{"$oid":"5cb71dc7b47d5816089d3417"},"name":"fix tty console ","contents":["sudo kbd_mode -s"]}
