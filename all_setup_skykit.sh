@@ -38,10 +38,18 @@ fi
 
 read -p "Continue with exercitii setup(yes/no)" userResponse
 if [ "$userResponse" = 'yes' ]; then
-	if [ ! -d ~/Documents/notes/exercitii ]; then
-		mkdir ~/Documents/notes/exercitii
-		mkdir ~/Documents/notes/exercitii/ts
+	if [ ! -d ~/Documents/exercises ]; then
+		mkdir ~/Documents/exercises
 	fi
+	mkdir ~/Documents/exercises/angular
+	mkdir ~/Documents/exercises/css
+	mkdir ~/Documents/exercises/python
+	mkdir ~/Documents/exercises/typescript
+	cp ./new_project_scripts/new_project_css.sh ~/Documents/exercises/css/new_project.sh
+	cp ./new_project_scripts/require/ ~/Documents/exercises/css/
+	cp ./new_project_scripts/new_project_angular.sh ~/Documents/exercises/angular/new_project.sh
+	cp ./new_project_scripts/new_project_typescript.sh ~/Documents/exercises/typescript/new_project.sh
+	cp ./new_project_scripts/tsconfig.json ~/Documents/exercises/typescript/tsconfig.json
 
 	echo "source ~/Documents/utility_scripts/functii_exercitii.sh" >> ~/.bashrc
 fi
