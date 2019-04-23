@@ -66,8 +66,8 @@ fi
 
 read -p "Continue with ASUS monitor installation? (yes/no)" userResponse
 if [ "$userResponse" = 'yes' ]; then
-	sensible-browser 'http://www.displaylink.com/downloads/file?id=1261' #1123
-	read -p "Download driver in ~/Downloads folder then press to continue" varContinue
+	sensible-browser 'https://www.displaylink.com/downloads/ubuntu' #1123
+	read -p "Download latest driver in ~/Downloads folder then press to continue" varContinue
 	mv ~/Downloads/DisplayLink* ~/Downloads/assus_driver.zip
 	unzip $( find ~/Downloads -name assus_driver.zip ) -d ~/Downloads/ASSUS_DRIVER
 	chmod +x ~/Downloads/ASSUS_DRIVER/displaylink*.run
@@ -141,6 +141,7 @@ if [ "$userResponse" = 'yes' ]; then
 	sudo apt-get install zathura zathura-djvu zathura-ps zathura-cb # pdf reader with vim-like key bindings
 	sudo snap install --classic heroku
 	echo "Comenzile pentru network monitors sunt in fisierul comenzi"
+	$sudoParameter apt-install qutebrowser		# browser like vim
 
 	git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 	~/.fzf/install # For keybingings https://github.com/junegunn/fzf
