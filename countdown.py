@@ -1,25 +1,42 @@
 import time
 import os
 from datetime import datetime
+from subprocess import call
 
 
 tasksFileName = 'tasks'
 separator = '#'
 
+class colors:
+    HEADER = '\033[95m'
+    OKBLUE = '\033[94m'
+    OKGREEN = '\033[92m'
+    WARNING = '\033[93m'
+    FAIL = '\033[91m'
+    LIGHT_BLUE = '\033[96m'
+    PINK = '\033[95m'
+    ENDC = '\033[0m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
 
 class CountdownTask:
     name = ""
     endHour = 0
     endMinute = 0
+    command = ""
 
 def extractTaskFromLine(line):
     parts = line.split(separator)
     task = CountdownTask()
-    if len(parts) != 3:
+    if len(parts) < 3:
         return task
     task.name = parts[0]
     task.endHour = int(parts[1])
     task.endMinute = int(parts[2])
+
+    if len(parts) >= 4:
+        task.command = parts[3]
+
     return task
 
 def printTask(task):
@@ -27,10 +44,12 @@ def printTask(task):
     nowInMinutes = datetime.now().hour * 60 + datetime.now().minute
     remaining = taskEndInMinutes - nowInMinutes
     if remaining < 0:
-        print("[%s] END" % task.name)
+        print(f'{colors.FAIL} [{task.name}] END {colors.ENDC}' )
+    elif remaining == 0:
+        print(f'{colors.WARNING} [{task.name}] END {colors.ENDC}' )
+        os.system(task.command)
     else:
-        print("[%s] Ends in %d" % (task.name, remaining))
-
+        print(f'{colors.OKGREEN} [{task.name}] Ends in {remaining} {colors.ENDC}')
 
 
 def readFile():
@@ -40,12 +59,17 @@ def readFile():
 
         tasks = list(map(lambda contentLine: extractTaskFromLine(contentLine), content))
         tasks = list(filter(lambda task: task.name != "", tasks))
-        print("\n\nThere are " + str(len(tasks)) + " tasks")
         os.system("clear")
+        print(f"{colors.LIGHT_BLUE} {len(tasks)} tasks {colors.ENDC}")
         for t in tasks:
             printTask(t)
-        time.sleep(60)
-
-
+        time.sleep(15)
+        print(f"{colors.LIGHT_BLUE}.{colors.ENDC}")
+        time.sleep(15)
+        print(f"{colors.LIGHT_BLUE}.{colors.ENDC}")
+        time.sleep(15)
+        print(f"{colors.LIGHT_BLUE}.{colors.ENDC}")
+        time.sleep(15)
+        print(f"{colors.LIGHT_BLUE}.{colors.ENDC}")
 
 readFile()
