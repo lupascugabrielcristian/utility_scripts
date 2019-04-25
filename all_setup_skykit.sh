@@ -141,7 +141,8 @@ if [ "$userResponse" = 'yes' ]; then
 	sudo apt-get install zathura zathura-djvu zathura-ps zathura-cb # pdf reader with vim-like key bindings
 	sudo snap install --classic heroku
 	echo "Comenzile pentru network monitors sunt in fisierul comenzi"
-	$sudoParameter apt-install qutebrowser		# browser like vim
+	$sudoParameter apt install qutebrowser		# browser like vim
+	$sudoParameter apt install httpie			# testing http calls in terminal
 
 	git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 	~/.fzf/install # For keybingings https://github.com/junegunn/fzf
