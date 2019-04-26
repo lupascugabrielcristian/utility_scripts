@@ -217,7 +217,9 @@ fi
 # VIM Configuration
 read -p "Continue with VIM configuration? (yes/no)" userResponse
 if [ "$userResponse" = 'yes' ]; then
-	git clone https://github.com/zxqfl/tabnine-vim # This is for autocomplete plugin TabNine
+	# This is for autocomplete plugin TabNine. Replace path with the clone location
+	git clone https://github.com/zxqfl/tabnine-vim
+	echo "set rtp+=/home/cristi/Documents/utility_scripts/tabnine-vim"
 
 	if [ ! -d ~/.config/nvim ]; then
 		sudo mkdir ~/.config/nvim/

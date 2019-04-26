@@ -29,3 +29,5 @@
 {"_id":{"$oid":"5c94bdecb47d587c41152a63"},"name":"tor check w3m","contents":["torsocks w3m 'https://check.torproject.org/'"]}
 {"_id":{"$oid":"5c98f199b47d582f218c422c"},"name":"external ip","contents":["curl http://canhazip.com"]}
 {"_id":{"$oid":"5cb71dc7b47d5816089d3417"},"name":"fix tty console ","contents":["sudo kbd_mode -s"]}
+{"_id":{"$oid":"5cc1aef0b47d580c269edf0d"},"name":"qutebrowser cheat sheet","contents":["https://www.shortcutfoo.com/app/dojos/qutebrowser/cheatsheet"]}
+{"_id":{"$oid":"5cc1afdcb47d580c88b16dec"},"name":"qutebrowser new tab","contents":[":open -t [ce vreau sa caut]"]}
