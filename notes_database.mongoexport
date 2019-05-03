@@ -31,3 +31,5 @@
 {"_id":{"$oid":"5cb71dc7b47d5816089d3417"},"name":"fix tty console ","contents":["sudo kbd_mode -s"]}
 {"_id":{"$oid":"5cc1aef0b47d580c269edf0d"},"name":"qutebrowser cheat sheet","contents":["https://www.shortcutfoo.com/app/dojos/qutebrowser/cheatsheet"]}
 {"_id":{"$oid":"5cc1afdcb47d580c88b16dec"},"name":"qutebrowser new tab","contents":[":open -t [ce vreau sa caut]"]}
+{"_id":{"$oid":"5cc2d4cfb47d5836e8e47757"},"name":"system fonts","contents":["/usr/share/fonts/[new dir]"]}
+{"_id":{"$oid":"5cc401b9b47d582a4856f9da"},"name":"gnome color schemes","contents":["https://github.com/Mayccoll/Gogh"]}

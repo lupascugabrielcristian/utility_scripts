@@ -7,8 +7,11 @@ alias ee='exit'
 alias tcowndown='nvim ~/Documents/utility_scripts/tasks'
 alias editbash='nvim ~/.bashrc'
 alias cdsk='cd ~/Documents/SkyKit/'
-alias cdex='cd ~/Documents/exercises/skykitStart/'
+alias cdex='cd ~/Documents/exercises/'
 alias cdut='cd ~/Documents/utility_scripts/'
+alias cder='cd ~/Documents/ERent/'
+alias cdera='cd ~/Documents/ERent/erent-app/src/app/'
+alias cders='cd ~/Documents/ERent/server/E-Rent-Server/'
 alias rm=sendToTrash $*
 
 #========== End of aliases ==========   

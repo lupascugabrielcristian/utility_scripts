@@ -114,7 +114,7 @@ if [ "$userResponse" = 'yes' ]; then
 	sudo apt install graphviz
 	sudo apt-get install elvish # interactive terminal language
 	sudo apt-get install dia
-	sudo apt install tilix # Terminal simulator
+	sudo apt install tilix # Terminal
 	sudo apt install tldr # Easy to understand man pages
 
 	wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
@@ -132,7 +132,7 @@ if [ "$userResponse" = 'yes' ]; then
 	sudo apt install python3-venv
 	sudo apt install gnome-tweak-tool
 	sudo apt install iftop
-	sudo apt install slurm
+	sudo apt install slurm						# network monitor
 	sudo apt install glances
 	sudo apt install vifm 						# terminal file manager with vim keybindings
 	sudo apt install w3m 						# terminal browser
@@ -143,6 +143,7 @@ if [ "$userResponse" = 'yes' ]; then
 	echo "Comenzile pentru network monitors sunt in fisierul comenzi"
 	$sudoParameter apt install qutebrowser		# browser like vim
 	$sudoParameter apt install httpie			# testing http calls in terminal
+	$sudoParameter apt install buku				# bookmark manager
 
 	git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 	~/.fzf/install # For keybingings https://github.com/junegunn/fzf
@@ -220,6 +221,12 @@ if [ "$userResponse" = 'yes' ]; then
 	# This is for autocomplete plugin TabNine. Replace path with the clone location
 	git clone https://github.com/zxqfl/tabnine-vim
 	echo "set rtp+=/home/cristi/Documents/utility_scripts/tabnine-vim"
+
+	# Kuroi color scheme
+	$sudoParameter mkdir ~/.config/nvim/colors
+	wget https://github.com/aonemd/kuroi.vim/archive/master.zip
+	unzip kuroi.vim-master.zip
+	cp kuroi.vim-master/colors/kuroi.vim ~/.config/nvim/color/
 
 	if [ ! -d ~/.config/nvim ]; then
 		sudo mkdir ~/.config/nvim/
