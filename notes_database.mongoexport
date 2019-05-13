@@ -33,3 +33,7 @@
 {"_id":{"$oid":"5cc1afdcb47d580c88b16dec"},"name":"qutebrowser new tab","contents":[":open -t [ce vreau sa caut]"]}
 {"_id":{"$oid":"5cc2d4cfb47d5836e8e47757"},"name":"system fonts","contents":["/usr/share/fonts/[new dir]"]}
 {"_id":{"$oid":"5cc401b9b47d582a4856f9da"},"name":"gnome color schemes","contents":["https://github.com/Mayccoll/Gogh"]}
+{"_id":{"$oid":"5ccd9784b47d584e513aa923"},"name":"qutebrowser open hint in new tab","contents":["F(:hint all tab) to select a link then it will be opened in new tab"]}
+{"_id":{"$oid":"5cd6cde0b47d58730209565b"},"name":"openlayers address","contents":["https://gist.github.com/ThomasG77/26e61508217ba86a04c19a67cbda0e99"]}
+{"_id":{"$oid":"5cd80321b47d582a626e3f0e"},"name":"vifm color themes","contents":["https://github.com/vifm/vifm-colors"]}
+{"_id":{"$oid":"5cd81a94b47d585d2b00f51d"},"name":"heremaps examples","contents":["https://developer.here.com/api-explorer/maps-js/v3.0"]}

@@ -93,7 +93,7 @@ if [ "$userResponse" = 'yes' ]; then
 	sudo apt-get install xclip # comanda pentru a copia in clipboard: pwd | xclip -sel clip
 	sudo apt install tsc
 	sudo apt install git
-	sudo apt install node
+	sudo apt install nodejs
 	sudo apt install npm
 	sudo apt install node-typescript
 	sudo npm install -g @angular/cli
@@ -266,6 +266,8 @@ fi
 #		\ {Open with vim}
 #		\ vim %f,
 # at the web section for filextype
+git clone https://github.com/vifm/vifm-colors ~/.config/vifm/colors
+# set the default color scheme in ~/.config/vifm/vifmrc
 
 # Rabitmq installation
 read -p "Continue with RabbitMQ installation? (yes/no)" userResponse
