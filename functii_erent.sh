@@ -33,4 +33,6 @@ function erent() {
 	fi
 }
 
+alias ers='firefox -new-window localhost:4200'
+
 # ========================================

@@ -177,6 +177,7 @@ if [ "$userResponse" = 'yes' ]; then
 	$sudoParameter apt-get install -y mongodb-org
 	$sudoParameter mkdir /data/
 	$sudoParameter mkdir /data/db
+	$sudoParameter systemctl enable mongod
 	if [ "$userResponse" = 'yes' ]; then
 		mongod &
 	else

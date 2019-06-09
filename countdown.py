@@ -30,14 +30,17 @@ def extractTaskFromLine(line):
     task = CountdownTask()
     if len(parts) < 3:
         return task
-    task.name = parts[0]
-    task.endHour = int(parts[1])
-    task.endMinute = int(parts[2])
+    try:
+        task.name = parts[0]
+        task.endHour = int(parts[1])
+        task.endMinute = int(parts[2])
 
-    if len(parts) >= 4:
-        task.command = parts[3]
+        if len(parts) >= 4:
+            task.command = parts[3]
 
-    return task
+        return task
+    except ValueError:
+        return task
 
 def printTask(task):
     taskEndInMinutes = task.endHour * 60 + task.endMinute

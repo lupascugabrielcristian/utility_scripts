@@ -37,3 +37,7 @@
 {"_id":{"$oid":"5cd6cde0b47d58730209565b"},"name":"openlayers address","contents":["https://gist.github.com/ThomasG77/26e61508217ba86a04c19a67cbda0e99"]}
 {"_id":{"$oid":"5cd80321b47d582a626e3f0e"},"name":"vifm color themes","contents":["https://github.com/vifm/vifm-colors"]}
 {"_id":{"$oid":"5cd81a94b47d585d2b00f51d"},"name":"heremaps examples","contents":["https://developer.here.com/api-explorer/maps-js/v3.0"]}
+{"_id":{"$oid":"5cdac511b47d581c5adf2965"},"name":"git shit change","contents":["https://ohshitgit.com/"]}
+{"_id":{"$oid":"5ce2da58b47d580d7696a2b9"},"name":"pyton colors","contents":["CEND      = '\\33[0m'"]}
+{"_id":{"$oid":"5ce2da6ab47d580fcc146c92"},"name":"python colors","contents":["https://stackoverflow.com/questions/287871/how-to-print-colored-text-in-terminal-in-python"]}
+{"_id":{"$oid":"5ce55de2b47d58262e09957e"},"name":"virtual boxes","contents":["https://www.osboxes.org/virtualbox-images/"]}
