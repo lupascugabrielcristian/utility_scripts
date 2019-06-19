@@ -99,6 +99,9 @@ def fileToFoundResult(fileFound):
     elif extension == "gv":
         result.application = "vimdot"
         result.type = FoundResultType.NOTE
+    elif extension == "ctd" or extension == "ctb":
+        result.application = "cherrytree"
+        result.type = FoundResultType.NOTE
     return result
 
 

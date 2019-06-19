@@ -41,3 +41,13 @@
 {"_id":{"$oid":"5ce2da58b47d580d7696a2b9"},"name":"pyton colors","contents":["CEND      = '\\33[0m'"]}
 {"_id":{"$oid":"5ce2da6ab47d580fcc146c92"},"name":"python colors","contents":["https://stackoverflow.com/questions/287871/how-to-print-colored-text-in-terminal-in-python"]}
 {"_id":{"$oid":"5ce55de2b47d58262e09957e"},"name":"virtual boxes","contents":["https://www.osboxes.org/virtualbox-images/"]}
+{"_id":{"$oid":"5cfe9378b47d58766b5a3ec6"},"name":"ngClass ","contents":["\u003cspan [ngClass]=\"{ 'active': !!orderService.getOrder().payment.hasOwnProperty('cardNumber') }\"\u003eCard\u003c/span\u003e"]}
+{"_id":{"$oid":"5d0116feb47d5806f64db1ea"},"name":"logs","contents":["https://help.ubuntu.com/community/LinuxLogFiles"]}
+{"_id":{"$oid":"5d0119dbb47d58138f57d4b8"},"name":"users","contents":["cat /etc/passwd"]}
+{"_id":{"$oid":"5d011a66b47d5814e5e9a42f"},"name":"owner, user, stat of folder","contents":["stat /path/to/folder"]}
+{"_id":{"$oid":"5d011c3fb47d581bee82a6c0"},"name":"user owner","contents":["sudo chown username:folder"]}
+{"_id":{"$oid":"5d011ce1b47d581ef37b364e"},"name":"services status","contents":["service --status-all"]}
+{"_id":{"$oid":"5d011db9b47d58203b84d672"},"name":"services list","contents":["systemctl list-unit-files --type=service"]}
+{"_id":{"$oid":"5d011e51b47d58211c383f32"},"name":"service status","contents":["systemctl status rabbit-server.service"]}
+{"_id":{"$oid":"5d012452b47d5825d3e698ad"},"name":"service enable","contents":["sudo systemctl enable rabbitmq-server.service"]}
+{"_id":{"$oid":"5d020fb0b47d581803c1e815"},"name":"ports open ","contents":["netstat"]}

@@ -144,6 +144,7 @@ if [ "$userResponse" = 'yes' ]; then
 	$sudoParameter apt install qutebrowser		# browser like vim
 	$sudoParameter apt install httpie			# testing http calls in terminal
 	$sudoParameter apt install buku				# bookmark manager
+	$sudoParameter apt install cherrytree 		# text notes in tree form
 
 	git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 	~/.fzf/install # For keybingings https://github.com/junegunn/fzf
