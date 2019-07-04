@@ -51,3 +51,9 @@
 {"_id":{"$oid":"5d011e51b47d58211c383f32"},"name":"service status","contents":["systemctl status rabbit-server.service"]}
 {"_id":{"$oid":"5d012452b47d5825d3e698ad"},"name":"service enable","contents":["sudo systemctl enable rabbitmq-server.service"]}
 {"_id":{"$oid":"5d020fb0b47d581803c1e815"},"name":"ports open ","contents":["netstat"]}
+{"_id":{"$oid":"5d0a1a8ab47d5826e7ba4c28"},"name":"git remove cache","contents":["git rm -r --cached [folder or file name]"]}
+{"_id":{"$oid":"5d0b423cb47d581435edd2b7"},"name":"make a service","contents":["https://help.ubuntu.com/community/UbuntuBootupHowto"]}
+{"_id":{"$oid":"5d0b82f4b47d586500af10ee"},"name":"mongo node exit","contents":["quit()"]}
+{"_id":{"$oid":"5d1098aeb47d585084d67053"},"name":"stop service","contents":["sudo systemctl stop [service name]"]}
+{"_id":{"$oid":"5d136f7cb47d583c4bb5550a"},"name":"Denite folder up","contents":["CTRL + N in insert mode"]}
+{"_id":{"$oid":"5d148acbb47d5830a66ed6ce"},"name":"install deb","contents":["sudo dpkg -i /path/to/deb/file"]}

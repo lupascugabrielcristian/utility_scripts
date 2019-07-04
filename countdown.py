@@ -1,10 +1,10 @@
 import time
 import os
+import sys
 from datetime import datetime
 from subprocess import call
 
 
-tasksFileName = 'tasks'
 separator = '#'
 
 class colors:
@@ -52,13 +52,13 @@ def printTask(task):
         print(f'{colors.WARNING} [{task.name}] END {colors.ENDC}' )
         os.system(task.command)
     else:
-        print(f'{colors.OKGREEN} [{task.name}] Ends in {remaining} {colors.ENDC}')
+        print(f'{colors.OKGREEN} [{task.name}] {remaining} {colors.ENDC}')
 
 
-def readFile():
+def readFile(tasksFile):
     while(1):
-        with open(tasksFileName) as tasksFile:
-            content = tasksFile.readlines()
+        with open(tasksFile) as t:
+            content = t.readlines()
 
         tasks = list(map(lambda contentLine: extractTaskFromLine(contentLine), content))
         tasks = list(filter(lambda task: task.name != "", tasks))
@@ -75,4 +75,9 @@ def readFile():
         time.sleep(15)
         print(f"{colors.LIGHT_BLUE}.{colors.ENDC}")
 
-readFile()
+if len(sys.argv) < 2:
+    print("Need the path to tasks file")
+    exit(1)
+
+tasksFile = sys.argv[1]
+readFile(tasksFile)
