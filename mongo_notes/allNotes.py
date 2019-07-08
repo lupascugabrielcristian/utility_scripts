@@ -74,7 +74,7 @@ def filterFilesAfterArgument(files):
 
 def fileToFoundResult(fileFound):
     result = FoundResult(fileFound)
-    dotPosition = fileFound.find('.') + 1
+    dotPosition = fileFound.rfind('.') + 1
     extension = fileFound[dotPosition:]
     result.extension = extension
     result.where = notesDirectory
