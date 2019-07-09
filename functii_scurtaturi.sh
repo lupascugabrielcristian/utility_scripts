@@ -56,7 +56,6 @@ function tryRemoveFile() {
 	fi
 }
 
-
 function tab-name() {
 	newName="$*"
 	PROMPT_COMMAND='echo -en "\033]0;$newName\a"'
@@ -116,4 +115,24 @@ function findsuid() {
 			fi
 		fi
 	done
+}
+
+search() {
+	printf "Choose browser: \n1. Firefox \n2. Chrome\n3. W3M\n4. Qute\n"
+	read userResponse
+	if [ $userResponse -eq 1 ]; then
+		firefox "duckduckgo.com"
+	fi
+
+	if [ $userResponse -eq 2 ]; then
+		google-chrome "duckduckgo.com"
+	fi
+
+	if [ $userResponse -eq 3 ]; then
+		w3m "duckduckgo.com"
+	fi
+
+	if [ $userResponse -eq 4 ]; then
+		qutebrowser "duckduckgo.com"
+	fi
 }

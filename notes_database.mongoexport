@@ -57,3 +57,5 @@
 {"_id":{"$oid":"5d1098aeb47d585084d67053"},"name":"stop service","contents":["sudo systemctl stop [service name]"]}
 {"_id":{"$oid":"5d136f7cb47d583c4bb5550a"},"name":"Denite folder up","contents":["CTRL + N in insert mode"]}
 {"_id":{"$oid":"5d148acbb47d5830a66ed6ce"},"name":"install deb","contents":["sudo dpkg -i /path/to/deb/file"]}
+{"_id":{"$oid":"5d232c1db47d584dc932792d"},"name":"rxjs combining streams","contents":["https://www.sitepoint.com/rxjs-functions-with-examples/"]}
+{"_id":{"$oid":"5d233486b47d5852a5bbbc35"},"name":"merging rxjs observables","contents":["https://rxjs-dev.firebaseapp.com/api/index/function/merge"]}
