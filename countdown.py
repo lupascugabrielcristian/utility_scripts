@@ -3,7 +3,7 @@ import os
 import sys
 from datetime import datetime
 from subprocess import call
-
+import subprocess
 
 separator = '#'
 
@@ -50,7 +50,7 @@ def printTask(task):
         print(f'{colors.FAIL} [{task.name}] END {colors.ENDC}' )
     elif remaining == 0:
         print(f'{colors.WARNING} [{task.name}] END {colors.ENDC}' )
-        os.system(task.command)
+        subprocess.run(task.command[:-1], stderr=subprocess.DEVNULL)
     else:
         print(f'{colors.OKGREEN} [{task.name}] {remaining} {colors.ENDC}')
 

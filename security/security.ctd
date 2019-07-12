@@ -1,0 +1,61 @@
+<?xml version="1.0" ?>
+<cherrytree>
+	<node custom_icon_id="0" foreground="" is_bold="False" name="listing" prog_lang="custom-colors" readonly="False" tags="" ts_creation="1562833817.66" ts_lastsave="1562834052.12" unique_id="1">
+		<rich_text></rich_text>
+		<node custom_icon_id="0" foreground="" is_bold="False" name="listing ports" prog_lang="custom-colors" readonly="False" tags="" ts_creation="1562833797.26" ts_lastsave="1562835873.08" unique_id="2">
+			<rich_text>
+0 - 1023 – the Well Known Ports, also referred to as System Ports.
+1024 - 49151 – the Registered Ports, also known as User Ports.
+49152 - 65535 – the Dynamic Ports, also referred to as the Private Ports.
+
+
+netstat
+
+netstat -ntlp | grep LISTEN
+-l – prints only listening sockets
+-n – shows port number
+-t – enables listing of tcp ports
+-u – enables listing of udp ports
+
+netstat -lntu
+
+ss -lntu
+
+                                               </rich_text>
+		</node>
+		<node custom_icon_id="0" foreground="" is_bold="False" name="listing proceses" prog_lang="custom-colors" readonly="False" tags="" ts_creation="1562833805.15" ts_lastsave="1562837942.08" unique_id="3">
+			<rich_text weight="heavy">lsof</rich_text>
+			<rich_text>   This lists the open files in the system. That is, it lists anything that is being handled as though it were a file.
+</rich_text>
+			<rich_text link="webs https://www.howtogeek.com/426031/HOW-TO-USE-THE-LINUX-LSOF-COMMAND/">https://www.howtogeek.com/426031/HOW-TO-USE-THE-LINUX-LSOF-COMMAND/</rich_text>
+			<rich_text> 
+lsof | less
+
+sudo lsof /var/log/kern.log             To see the processes that have opened a certain file, provide the name of the file as a parameter to lso
+sudo lsof +D /var/log/                    To see all the files that are open in the /var/log/ directory, use this command
+sudo lsof -c ssh -c init                    To see the files that have been opened by a particular process, use the -c (command) option. 
+                                                             Note that you can provide more than one search term to lsof at once
+sudo lsof -u mary                           to see files opened by a user 
+sudo lsof +D /home -u ^mary        Excluding FIles Opened by a User
+sudo lsof - p 4610                          List FIles Opened by a Process
+lsof -i                                             files associated with internet connections
+sudo lsof -i -a -p 606
+sudo lsof -i :22
+sudo lsof -i tcp
+
+
+
+fuser   The fuser command can also be used to find out the pid of the program. The sytanx is
+fuser -k -n protocol portno</rich_text>
+		</node>
+	</node>
+	<node custom_icon_id="0" foreground="" is_bold="False" name="closing" prog_lang="custom-colors" readonly="False" tags="" ts_creation="1562834052.12" ts_lastsave="1562834061.35" unique_id="4">
+		<rich_text></rich_text>
+		<node custom_icon_id="0" foreground="" is_bold="False" name="closing ports" prog_lang="custom-colors" readonly="False" tags="" ts_creation="1562834061.35" ts_lastsave="1562834095.76" unique_id="5">
+			<rich_text></rich_text>
+		</node>
+		<node custom_icon_id="0" foreground="" is_bold="False" name="closing services" prog_lang="custom-colors" readonly="False" tags="" ts_creation="1562834095.76" ts_lastsave="1562834095.76" unique_id="6">
+			<rich_text></rich_text>
+		</node>
+	</node>
+</cherrytree>

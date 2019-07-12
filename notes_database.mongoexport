@@ -59,3 +59,4 @@
 {"_id":{"$oid":"5d148acbb47d5830a66ed6ce"},"name":"install deb","contents":["sudo dpkg -i /path/to/deb/file"]}
 {"_id":{"$oid":"5d232c1db47d584dc932792d"},"name":"rxjs combining streams","contents":["https://www.sitepoint.com/rxjs-functions-with-examples/"]}
 {"_id":{"$oid":"5d233486b47d5852a5bbbc35"},"name":"merging rxjs observables","contents":["https://rxjs-dev.firebaseapp.com/api/index/function/merge"]}
+{"_id":{"$oid":"5d27389cb47d58424ace124f"},"name":"open gnome terminal ","contents":["gnome-terminal --geometry 180x45 -e \"command\""]}
