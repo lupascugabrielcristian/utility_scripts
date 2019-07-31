@@ -12,6 +12,8 @@ alias cdut='cd ~/Documents/utility_scripts/'
 alias cder='cd ~/Documents/ERent/'
 alias cdera='cd ~/Documents/ERent/erent-app/src/app/'
 alias cders='cd ~/Documents/ERent/server/E-Rent-Server/'
+alias cddw='cd ~/Downloads/'
+alias cdd='cd ~/Documents/'
 alias rm=sendToTrash $*
 alias cat='cat -n'
 
@@ -82,6 +84,10 @@ function numberlines() {
 
 letstor() {
 	torsocks w3m 'https://check.torproject.org/'
+}
+
+firefoxdev() {
+	~/Downloads/firefox-69.0b7/firefox/firefox
 }
 
 function findsuid() {

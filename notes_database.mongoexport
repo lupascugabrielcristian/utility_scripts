@@ -60,3 +60,8 @@
 {"_id":{"$oid":"5d232c1db47d584dc932792d"},"name":"rxjs combining streams","contents":["https://www.sitepoint.com/rxjs-functions-with-examples/"]}
 {"_id":{"$oid":"5d233486b47d5852a5bbbc35"},"name":"merging rxjs observables","contents":["https://rxjs-dev.firebaseapp.com/api/index/function/merge"]}
 {"_id":{"$oid":"5d27389cb47d58424ace124f"},"name":"open gnome terminal ","contents":["gnome-terminal --geometry 180x45 -e \"command\""]}
+{"_id":{"$oid":"5d2f0149b47d5840be0f54b9"},"name":"hide vim search highlight","contents":["noh"]}
+{"_id":{"$oid":"5d2f25a3b47d58553dd9f48e"},"name":"bash test file exists","contents":["if [ ! -f /te/foo.txt ]; then"]}
+{"_id":{"$oid":"5d35a7a4b47d58768aa14797"},"name":"previous tab vim","contents":["gT"]}
+{"_id":{"$oid":"5d3869b8b47d586a3aff3f9e"},"name":"base convert number","contents":["echo \"ibase=16; 41\" | bc"]}
+{"_id":{"$oid":"5d3869d3b47d586a5aca1b75"},"name":"base convert number","contents":["echo \"obase=2; 27\" | bc"]}
