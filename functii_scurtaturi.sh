@@ -142,21 +142,22 @@ merge_arguments(){
 
 search() {
 	merge_arguments $*
+	search_string="duckduckgo.com/?q=$searchterm&t=canonical&atb=v77-1&ia=web"
 	printf "Choose browser: \n1. Firefox \n2. Chrome\n3. W3M\n4. Qute\n"
 	read userResponse
 	if [ $userResponse -eq 1 ]; then
-		firefox "duckduckgo.com/?q=$searchterm&t=canonical&atb=v77-1&ia=web"
+		firefox $search_string
 	fi
 
 	if [ $userResponse -eq 2 ]; then
-		google-chrome "duckduckgo.com/?q=$searchterm&t=canonical&atb=v77-1&ia=web"
+		google-chrome $search_string
 	fi
 
 	if [ $userResponse -eq 3 ]; then
-		w3m "duckduckgo.com/?q=$searchterm&t=canonical&atb=v77-1&ia=web"
+		w3m $search_string
 	fi
 
 	if [ $userResponse -eq 4 ]; then
-		qutebrowser "duckduckgo.com/?q=$searchterm&t=canonical&atb=v77-1&ia=web"
+		qutebrowser $search_string
 	fi
 }
