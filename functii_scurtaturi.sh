@@ -16,6 +16,7 @@ alias cddw='cd ~/Downloads/'
 alias cdd='cd ~/Documents/'
 alias rm=sendToTrash $*
 alias cat='cat -n'
+alias pp='ping -a -c 4 www.ubuntu.security.com'
 
 #========== End of aliases ==========   
 
@@ -61,6 +62,7 @@ function tryRemoveFile() {
 function tab-name() {
 	newName="$*"
 	PROMPT_COMMAND='echo -en "\033]0;$newName\a"'
+	export title=$newName
 }
 
 function cowntdown() {
@@ -87,7 +89,7 @@ letstor() {
 }
 
 firefoxdev() {
-	~/Downloads/firefox-69.0b7/firefox/firefox
+	~/Downloads/firefox-69.0b12/firefox/firefox
 }
 
 function findsuid() {
@@ -123,22 +125,38 @@ function findsuid() {
 	done
 }
 
+searchterm=""
+merge_arguments(){
+	str=
+	connector="+"
+	for i in "$@"; do
+		str="$str$connector$i"
+	done
+	searchterm=${str:1}
+}
+
+#Use like this
+#merge_arguments $*
+#echo $searchterm
+
+
 search() {
+	merge_arguments $*
 	printf "Choose browser: \n1. Firefox \n2. Chrome\n3. W3M\n4. Qute\n"
 	read userResponse
 	if [ $userResponse -eq 1 ]; then
-		firefox "duckduckgo.com"
+		firefox "duckduckgo.com/?q=$searchterm&t=canonical&atb=v77-1&ia=web"
 	fi
 
 	if [ $userResponse -eq 2 ]; then
-		google-chrome "duckduckgo.com"
+		google-chrome "duckduckgo.com/?q=$searchterm&t=canonical&atb=v77-1&ia=web"
 	fi
 
 	if [ $userResponse -eq 3 ]; then
-		w3m "duckduckgo.com"
+		w3m "duckduckgo.com/?q=$searchterm&t=canonical&atb=v77-1&ia=web"
 	fi
 
 	if [ $userResponse -eq 4 ]; then
-		qutebrowser "duckduckgo.com"
+		qutebrowser "duckduckgo.com/?q=$searchterm&t=canonical&atb=v77-1&ia=web"
 	fi
 }
