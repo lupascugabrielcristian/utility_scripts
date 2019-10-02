@@ -69,3 +69,8 @@
 {"_id":{"$oid":"5d4c0ab6b47d583b8cc4c14d"},"name":"junit verrify calls arguments","contents":["Mockito.verify(usersRepository, Mockito.times(1)).save(this.valueUser.capture());"]}
 {"_id":{"$oid":"5d4c304ab47d585e11391e81"},"name":"angular router link","contents":["routerLink=\"/import\""]}
 {"_id":{"$oid":"5d528635b47d585c33bcccb7"},"name":"go to route angular","contents":["this.router.navigate(['/heroes']);"]}
+{"_id":{"$oid":"5d737ce9b47d5816f375d15a"},"name":"virtual box error network create","contents":["sudo modprobe vboxnetadp"]}
+{"_id":{"$oid":"5d768721b47d5814a0a99f57"},"name":"virtual box start network interface","contents":["sudo modprobe vboxnetflt"]}
+{"_id":{"$oid":"5d78b610b47d583f1ef88bb6"},"name":"first x lines from output","contents":["netstat -lp | head -10"]}
+{"_id":{"$oid":"5d809e0fb47d5822008f3228"},"name":"copy output to clipboard","contents":["pwd | xclip"]}
+{"_id":{"$oid":"5d809e2db47d58221754c810"},"name":"paste from xclip","contents":["xclip -o"]}
