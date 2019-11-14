@@ -12,3 +12,16 @@ preview() {
 	google-chrome --auto-open-devtools-for-tabs "http://localhost:4200/map/$1" 
 }
 
+firefoxdev1() {
+	~/Downloads/firefox-69.0b12/firefox/firefox http://localhost:4201
+}
+
+firefoxdev3() { 
+	~/Downloads/firefox-69.0b12/firefox/firefox http://localhost:4203 
+}
+
+sk-flight-generator() {
+	~/Downloads/firefox-69.0b12/firefox/firefox http://localhost:4201 &
+	cd ~/Documents/SkyKit/frontend/flights-generator-web/
+	ng s
+}

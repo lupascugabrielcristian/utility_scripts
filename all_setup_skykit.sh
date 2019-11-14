@@ -145,6 +145,7 @@ if [ "$userResponse" = 'yes' ]; then
 	$sudoParameter apt install httpie			# testing http calls in terminal
 	$sudoParameter apt install buku				# bookmark manager
 	$sudoParameter apt install cherrytree 		# text notes in tree form
+	$sudoParameter apt install tmux 			# better terminal emulator thats starts in a terminal
 
 	git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 	~/.fzf/install # For keybingings https://github.com/junegunn/fzf
@@ -270,6 +271,9 @@ fi
 # at the web section for filextype
 git clone https://github.com/vifm/vifm-colors ~/.config/vifm/colors
 # set the default color scheme in ~/.config/vifm/vifmrc
+
+# Tmux configuration file
+cp configurations/tmux.conf $HOME_FOLDER/.tmux.conf
 
 # Rabitmq installation
 read -p "Continue with RabbitMQ installation? (yes/no)" userResponse
