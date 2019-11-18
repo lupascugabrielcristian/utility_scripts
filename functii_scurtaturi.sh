@@ -17,6 +17,7 @@ alias cdd='cd ~/Documents/'
 alias rm=sendToTrash $*
 alias cat='cat -n'
 alias pp='ping -a -c 4 www.ubuntu.security.com'
+alias identity='python3.7 ~/Documents/utility_scripts/generate_account.py'
 
 #========== End of aliases ==========   
 
