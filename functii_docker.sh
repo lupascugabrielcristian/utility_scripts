@@ -193,3 +193,47 @@ dclogspreview() {
 
 	nvim ~/Desktop/docker-container-log.tmp
 }
+
+alias docker-home='firefox http://localhost:84'
+
+refresh_preview() {
+	# Stop and removing
+	docker-compose -f /home/cristi/Documents/SkyKit/docker/docker-compose.yml stop
+	docker rm preview
+	docker rm preview-back-end
+
+	# Building 
+	cd /home/cristi/Documents/SkyKit/frontend/preview-web
+	ng b --prod
+
+	# Starting
+	docker-compose -f /home/cristi/Documents/SkyKit/docker/docker-compose.yml up -d preview
+
+	cd /home/cristi/Documents/SkyKit/tools/mongo_scripts
+	mongo 127.0.0.1:27000/skykit < get_scenarios.js
+
+	read -p "Go?" ans
+	~/Downloads/firefox-69.0b12/firefox/firefox http://localhost:81/map/5ddbf6b9b8347400010a2388
+
+	docker-compose -f /home/cristi/Documents/SkyKit/docker/docker-compose.yml stop
+}
+
+users_tests() {
+	docker-compose -f /home/cristi/Documents/SkyKit/docker/docker-compose.yml stop
+	docker rm preview
+	docker rm preview-back-end
+	docker rm home
+	docker rm home-back-end
+
+	# Building 
+	cd /home/cristi/Documents/SkyKit/docker
+	sh build_all_clients.sh
+
+	# Starting
+	docker-compose -f /home/cristi/Documents/SkyKit/docker/docker-compose.yml up -d home
+
+	read -p "Go?" ans
+	~/Downloads/firefox-69.0b12/firefox/firefox http://localhost:84
+
+	docker-compose -f /home/cristi/Documents/SkyKit/docker/docker-compose.yml stop
+}

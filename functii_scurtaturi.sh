@@ -90,7 +90,7 @@ letstor() {
 }
 
 firefoxdev() {
-	~/Downloads/firefox-69.0b12/firefox/firefox
+	~/Downloads/firefox-69.0b12/firefox/firefox $1
 }
 
 function findsuid() {
@@ -162,3 +162,4 @@ search() {
 		qutebrowser $search_string
 	fi
 }
+
