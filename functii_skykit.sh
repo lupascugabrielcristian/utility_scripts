@@ -13,11 +13,11 @@ preview() {
 }
 
 firefoxdev1() {
-	~/Downloads/firefox-69.0b12/firefox/firefox http://localhost:4201
+	~/Downloads/firefox-69.0b12/firefox/firefox -devtools http://localhost:4201
 }
 
 firefoxdev3() { 
-	~/Downloads/firefox-69.0b12/firefox/firefox http://localhost:4203 
+	~/Downloads/firefox-69.0b12/firefox/firefox -devtools http://localhost:4203 
 }
 
 sk-flight-generator() {
@@ -27,7 +27,7 @@ sk-flight-generator() {
 }
 
 fd() {
-	~/Downloads/firefox-69.0b12/firefox/firefox http://localhost:$1
+	~/Downloads/firefox-69.0b12/firefox/firefox -devtools http://localhost:$1
 }
 
 functii_scurtaturi_help() {

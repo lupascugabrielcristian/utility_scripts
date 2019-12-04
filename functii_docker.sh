@@ -233,7 +233,7 @@ users_tests() {
 	docker-compose -f /home/cristi/Documents/SkyKit/docker/docker-compose.yml up -d home
 
 	read -p "Go?" ans
-	~/Downloads/firefox-69.0b12/firefox/firefox http://localhost:84
+	~/Downloads/firefox-69.0b12/firefox/firefox -devtools http://localhost:84
 
 	docker-compose -f /home/cristi/Documents/SkyKit/docker/docker-compose.yml stop
 }
