@@ -1,11 +1,12 @@
 import os, sys
 import subprocess
+import pdb
 from subprocess import call
 from  search_mongo_note import searchAllNotes
 from enum import Enum
 
 notesDirectory = "/home/cristi/Documents/notes/"
-researchNotesDirectory = "/home/cristi/Documents/research/notes"
+researchNotesDirectory = "/home/cristi/Documents/research/notes/"
 booksDirectory = "/home/cristi/Documents/Books/"
 pythonBooksDirectory = "/home/cristi/Documents/Books/PythonBundle/"
 xmindLocation = "/home/cristi/Downloads/xmind-8-update8-linux/XMind_amd64/"
@@ -73,18 +74,18 @@ def chooseFile(foundResults):
 def filterFilesAfterArgument(files):
     return list(filter(lambda f: f.lower().find(sys.argv[1]) != -1, files))
 
-def fileToFoundResult(fileFound):
+def fileToFoundResult(fileFound, directory):
     result = FoundResult(fileFound)
     dotPosition = fileFound.rfind('.') + 1
     extension = fileFound[dotPosition:]
     result.extension = extension
-    result.where = notesDirectory
+    result.where = directory
     if extension == "pdf":
         result.application = "zathura"
-        result.where = booksDirectory
+        #result.where = booksDirectory
         result.type = FoundResultType.BOOK
-        if os.path.exists(pythonBooksDirectory + result.what):
-            result.where = pythonBooksDirectory
+        #if os.path.exists(pythonBooksDirectory + result.what):
+        #    result.where = pythonBooksDirectory
     elif extension == "txt" or extension == "md":
         result.application = "nvim"
         result.type = FoundResultType.NOTE
@@ -144,12 +145,26 @@ def searchMongoNotes(forWhat):
     return list( map( lambda c: createResultFromMongoContent(c), mongoNotesContents ) )
 
 def searchFiles():
+    found_results = []
     files = os.listdir(notesDirectory)
-    files = files + os.listdir(researchNotesDirectory)
-    files = files + os.listdir(booksDirectory)
-    files = files + os.listdir(pythonBooksDirectory)
     files = filterFilesAfterArgument(files)
-    return list( map( lambda f: fileToFoundResult(f), files ) )
+    found_results += list( map( lambda f: fileToFoundResult(f, notesDirectory), files ) )
+
+    files = os.listdir(researchNotesDirectory)
+    files = filterFilesAfterArgument(files)
+    found_results += list( map( lambda f: fileToFoundResult(f, researchNotesDirectory), files ) )
+
+    files = os.listdir(booksDirectory)
+    files = filterFilesAfterArgument(files)
+    found_results += list( map( lambda f: fileToFoundResult(f, booksDirectory), files ) )
+
+    files = os.listdir(pythonBooksDirectory)
+    files = filterFilesAfterArgument(files)
+    found_results += list( map( lambda f: fileToFoundResult(f, pythonBooksDirectory), files ) )
+
+    #files = filterFilesAfterArgument(files)
+    #return list( map( lambda f: fileToFoundResult(f), files ) )
+    return found_results
 
 if len(sys.argv) == 1:
     print("There are not enough arguments")
