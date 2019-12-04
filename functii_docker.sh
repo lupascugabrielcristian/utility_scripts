@@ -237,3 +237,7 @@ users_tests() {
 
 	docker-compose -f /home/cristi/Documents/SkyKit/docker/docker-compose.yml stop
 }
+
+functii_docker_help() {
+	echo "user_tests - removes preview f&b containers, home f&b, re-builds and starts the browser"
+}

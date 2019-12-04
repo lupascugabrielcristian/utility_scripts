@@ -5,6 +5,7 @@ from  search_mongo_note import searchAllNotes
 from enum import Enum
 
 notesDirectory = "/home/cristi/Documents/notes/"
+researchNotesDirectory = "/home/cristi/Documents/research/notes"
 booksDirectory = "/home/cristi/Documents/Books/"
 pythonBooksDirectory = "/home/cristi/Documents/Books/PythonBundle/"
 xmindLocation = "/home/cristi/Downloads/xmind-8-update8-linux/XMind_amd64/"
@@ -144,6 +145,7 @@ def searchMongoNotes(forWhat):
 
 def searchFiles():
     files = os.listdir(notesDirectory)
+    files = files + os.listdir(researchNotesDirectory)
     files = files + os.listdir(booksDirectory)
     files = files + os.listdir(pythonBooksDirectory)
     files = filterFilesAfterArgument(files)

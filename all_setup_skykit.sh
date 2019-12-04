@@ -27,6 +27,9 @@ if [ "$userResponse" = 'yes' ]; then
 	echo "############ DOCKER ################" >> ~/.bashrc
 	echo "source ~/Documents/utility_scripts/docker-functions.sh" >> ~/.bashrc
 	echo -e "\n" >> ~/.bashrc
+
+	echo "export EDITOR='nvim'"
+	echo -e "\n" >> ~/.bashrc
 fi
 
 # VIDEO CARD

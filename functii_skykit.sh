@@ -25,3 +25,14 @@ sk-flight-generator() {
 	cd ~/Documents/SkyKit/frontend/flights-generator-web/
 	ng s
 }
+
+fd() {
+	~/Downloads/firefox-69.0b12/firefox/firefox http://localhost:$1
+}
+
+functii_scurtaturi_help() {
+	echo "kpreview - opens the chrome browser with devel open" 
+	echo "firefoxdev1 - the other firefox at localhost:4201" 
+	echo "firefoxdev3 - the other firefox at localhost:4203" 
+	echo "fd [port number] - the other fireofx at localhost:port you entered"
+}
