@@ -220,10 +220,10 @@ refresh_preview() {
 
 users_tests() {
 	docker-compose -f /home/cristi/Documents/SkyKit/docker/docker-compose.yml stop
-	docker rm preview
-	docker rm preview-back-end
+	#docker rm preview
+	#docker rm preview-back-end
 	docker rm home
-	docker rm home-back-end
+	#docker rm home-back-end
 
 	# Building 
 	cd /home/cristi/Documents/SkyKit/docker

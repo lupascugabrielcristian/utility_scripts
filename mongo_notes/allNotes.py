@@ -72,7 +72,7 @@ def chooseFile(foundResults):
     return result
 
 def filterFilesAfterArgument(files):
-    return list(filter(lambda f: f.lower().find(sys.argv[1]) != -1, files))
+    return list(filter(lambda f: f.lower().find(sys.argv[1]) != -1 and '~' not in f, files))
 
 def fileToFoundResult(fileFound, directory):
     result = FoundResult(fileFound)
@@ -82,10 +82,7 @@ def fileToFoundResult(fileFound, directory):
     result.where = directory
     if extension == "pdf":
         result.application = "zathura"
-        #result.where = booksDirectory
         result.type = FoundResultType.BOOK
-        #if os.path.exists(pythonBooksDirectory + result.what):
-        #    result.where = pythonBooksDirectory
     elif extension == "txt" or extension == "md":
         result.application = "nvim"
         result.type = FoundResultType.NOTE
