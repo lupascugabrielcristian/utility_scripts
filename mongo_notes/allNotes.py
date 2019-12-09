@@ -10,6 +10,7 @@ researchNotesDirectory = "/home/cristi/Documents/research/notes/"
 booksDirectory = "/home/cristi/Documents/Books/"
 pythonBooksDirectory = "/home/cristi/Documents/Books/PythonBundle/"
 xmindLocation = "/home/cristi/Downloads/xmind-8-update8-linux/XMind_amd64/"
+keepLocation = "/home/cristi/Documents/keep.com"
 
 class colors:
     HEADER = '\033[95m'
@@ -46,7 +47,6 @@ def chooseFile(foundResults):
     if len(foundResults) == 0:
         return None
     for f in foundResults:
-        #print ("%s %d %s %s %s" %(colors.WARNING, counter, colors.OKGREEN, f.what, colors.ENDC) )
         typeColor = colors.ENDC
         if f.type == FoundResultType.BOOK:
             typeColor = colors.WARNING
@@ -106,8 +106,8 @@ def fileToFoundResult(fileFound, directory):
 
 def openChosenOption(foundResult):
     if foundResult.application == FoundResult.UNKNOWN_APPLICATION:
-        os.system("xclip -sel clip < " + foundResult.what.strip())
-        print("Copied to clipboard")
+        os.system("echo '" + foundResult.what.strip() + "' | xclip")
+        print("Use xclip -o to paste")
     elif foundResult.application == "w3m":
         call([foundResult.application, foundResult.what])
     else:
@@ -163,6 +163,23 @@ def searchFiles():
     #return list( map( lambda f: fileToFoundResult(f), files ) )
     return found_results
 
+def keepToFoundResult(line, location):
+    found_result = FoundResult(line)
+    found_result.type = FoundResultType.NOTE
+    found_result.where = location
+    found_result.application = FoundResult.UNKNOWN_APPLICATION
+    return found_result
+
+def searchKeepFile():
+    found_results = []
+    if os.path.exists(keepLocation):
+        with open(keepLocation, "r") as keep_file:
+            lines = keep_file.readlines()
+            lines = list(filter( lambda line: sys.argv[1] in line, lines ))
+            found_results = list( map( lambda line: keepToFoundResult(line, keepLocation), lines))
+        
+    return found_results
+
 if len(sys.argv) == 1:
     print("There are not enough arguments")
     sys.exit(1)
@@ -173,6 +190,8 @@ allResults = searchFiles()
 
 if "".join(sys.argv[1:]).find('--no-mongo') == -1:
     allResults += searchMongoNotes(sys.argv[1]) 
+
+allResults += searchKeepFile()
 
 try:
     chosenFile = chooseFile(allResults)
