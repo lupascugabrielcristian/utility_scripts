@@ -75,3 +75,5 @@
 {"_id":{"$oid":"5d809e0fb47d5822008f3228"},"name":"copy output to clipboard","contents":["pwd | xclip"]}
 {"_id":{"$oid":"5d809e2db47d58221754c810"},"name":"paste from xclip","contents":["xclip -o"]}
 {"_id":{"$oid":"5dcd52f1b47d580c2e1b7495"},"name":"merge?","contents":["test content"]}
+{"_id":{"$oid":"5def9c20b47d58068c4dea88"},"name":"docker list running containers","contents":["docker ps"]}
+{"_id":{"$oid":"5def9c8db47d5806e1a1f9d8"},"name":"docker attach to container","contents":["docker attach [container_name]"]}

@@ -145,7 +145,7 @@ merge_arguments(){
 search() {
 	merge_arguments $*
 	search_string="duckduckgo.com/?q=$searchterm&t=canonical&atb=v77-1&ia=web"
-	printf "Choose browser: \n1. Firefox \n2. Chrome\n3. W3M\n4. Qute\n"
+	printf "Choose browser: \n1. Firefox \n2. Chrome\n3. W3M\n4. Qute\n5. Midori\n"
 	read userResponse
 	if [ $userResponse -eq 1 ]; then
 		firefox $search_string
@@ -161,6 +161,10 @@ search() {
 
 	if [ $userResponse -eq 4 ]; then
 		qutebrowser $search_string
+	fi
+
+	if [ $userResponse -eq 5 ]; then
+		midori "http://www."$search_string
 	fi
 }
 

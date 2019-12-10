@@ -27,7 +27,11 @@ sk-flight-generator() {
 }
 
 fd() {
-	~/Downloads/firefox-69.0b12/firefox/firefox -devtools http://localhost:$1/map/$2
+	~/Downloads/firefox-69.0b12/firefox/firefox -devtools http://localhost:$1/$2
+}
+
+md() {
+	midori -a http://localhost:$1
 }
 
 functii_scurtaturi_help() {

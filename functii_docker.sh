@@ -238,6 +238,23 @@ users_tests() {
 	docker-compose -f /home/cristi/Documents/SkyKit/docker/docker-compose.yml stop
 }
 
+test_designer_web() {
+	docker-compose -f /home/cristi/Documents/SkyKit/docker/docker-compose.yml stop
+	docker rm designer-web
+
+	cd /home/cristi/Documents/SkyKit/docker/
+	sh build_all_servers.sh
+
+	docker-compose -f /home/cristi/Documents/SkyKit/docker/docker-compose.yml up -d designer-web
+
+	read -p "Go?" ans
+	~/Downloads/firefox-69.0b12/firefox/firefox -devtools http://localhost:8091
+
+	docker-compose -f /home/cristi/Documents/SkyKit/docker/docker-compose.yml stop
+}
+
 functii_docker_help() {
 	echo "user_tests - removes preview f&b containers, home f&b, re-builds and starts the browser"
+	echo "test_designer_web - builds all server projects and starts the old designer in docker"
 }
+
