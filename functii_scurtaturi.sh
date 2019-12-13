@@ -19,7 +19,7 @@ alias cat='cat -n'
 alias pp='ping -a -c 4 www.ubuntu.security.com'
 alias identity='python3.7 ~/Documents/utility_scripts/generate_account.py'
 alias .='vifm .'
-alias all_time_script='sh /home/cristi/Documents/utility_scripts/research_script.sh'
+alias all_time_script='sh /home/cristi/Documents/utility_scripts/make_all_time_script.sh'
 
 #========== End of aliases ==========   
 
@@ -167,5 +167,12 @@ search() {
 	if [ $userResponse -eq 5 ]; then
 		midori "http://www."$search_string
 	fi
+}
+
+go_to_today_scripts() {
+	base_path=/home/cristi/Documents/research/all_the_time_scrips/$date
+	date=$(date '+%Y-%m-%d')
+	cd $base_path/$date
+	ls
 }
 
