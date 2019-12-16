@@ -11,6 +11,7 @@ booksDirectory = "/home/cristi/Documents/Books/"
 pythonBooksDirectory = "/home/cristi/Documents/Books/PythonBundle/"
 xmindLocation = "/home/cristi/Downloads/xmind-8-update8-linux/XMind_amd64/"
 keepLocation = "/home/cristi/Documents/keep.com"
+allTheTimeScriptsDirectory = "/home/cristi/Documents/research/all_the_time_scrips/"
 
 class colors:
     HEADER = '\033[95m'
@@ -29,10 +30,12 @@ class FoundResultType(Enum):
     NOTE = 1
     URL = 2
     COMMAND = 3
+    SCRIPT = 4
 
 class FoundResult:
     UNKNOWN_APPLICATION = "unknown_application"
     WITHOUT_EXTENSION = "without_extension"
+    BASH = "sh"
 
     def __init__(self, what):
         self.application = FoundResult.UNKNOWN_APPLICATION
@@ -56,6 +59,8 @@ def chooseFile(foundResults):
             typeColor = colors.OKGREEN
         elif f.type == FoundResultType.COMMAND:
             typeColor = colors.PINK
+        elif f.type == FoundResultType.SCRIPT:
+            typeColor = colors.OKBLUE 
         print(f'{counter:>3} {typeColor} {f.type.name:>7} {colors.ENDC} {f.what.strip()}')
         counter = counter + 1
     answer = input("Which one?[Enter to continue] ")
@@ -108,6 +113,8 @@ def openChosenOption(foundResult):
     if foundResult.application == FoundResult.UNKNOWN_APPLICATION:
         os.system("echo '" + foundResult.what.strip() + "' | xclip")
         print("Use xclip -o to paste")
+    elif foundResult.type == FoundResultType.SCRIPT:
+        call([foundResult.application, foundResult.where])
     elif foundResult.application == "w3m":
         call([foundResult.application, foundResult.what])
     else:
@@ -180,11 +187,39 @@ def searchKeepFile():
         
     return found_results
 
+
+def allTimeScriptToFoundResult(foundLine, filePath) -> FoundResult:
+    found_result = FoundResult(foundLine)
+    found_result.type = FoundResultType.SCRIPT
+    found_result.where = filePath
+    found_result.application = "nvim"
+    return found_result
+
+
+def searchInsideScript(path) -> []:
+    if not os.path.exists(keepLocation):
+        return []
+
+    with open(path, "r") as script_file:
+        lines = script_file.readlines()
+        return list(filter( lambda line: "function " + sys.argv[1] in line or \
+                                           sys.argv[1] in line, lines ))
+    
+
+def searchAllTimeScripts():
+    found_results = []
+    for (dirpath, dirnames, filenames) in os.walk(allTheTimeScriptsDirectory):
+        for filename in filenames:
+            linesFound = searchInsideScript(dirpath + "/" + filename)
+            found_results += list( map (lambda line: allTimeScriptToFoundResult(line, dirpath + "/" + filename), linesFound))
+    return found_results
+
+
+######## Starts here ########
 if len(sys.argv) == 1:
     print("There are not enough arguments")
     sys.exit(1)
 
-## Starts here
 # so skip mongo add --no-mongo
 allResults = searchFiles()
 
@@ -192,6 +227,7 @@ if "".join(sys.argv[1:]).find('--no-mongo') == -1:
     allResults += searchMongoNotes(sys.argv[1]) 
 
 allResults += searchKeepFile()
+allResults += searchAllTimeScripts()
 
 try:
     chosenFile = chooseFile(allResults)

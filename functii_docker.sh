@@ -253,8 +253,35 @@ test_designer_web() {
 	docker-compose -f /home/cristi/Documents/SkyKit/docker/docker-compose.yml stop
 }
 
+show_scenarios() {
+	pushd /home/cristi/Documents/SkyKit/tools/mongo_scripts
+	mongo 127.0.0.1:27000/skykit < get_scenarios.js
+	popd
+}
+
+test_scenario() {
+	docker-compose -f /home/cristi/Documents/SkyKit/docker/docker-compose.yml stop
+	docker rm designer-web
+	docker rm designer-back-end
+	docker rm trajectory-generator
+
+	pushd /home/cristi/Documents/SkyKit/docker/
+	sh build_all_servers.sh
+	popd
+
+	docker-compose -f /home/cristi/Documents/SkyKit/docker/docker-compose.yml up -d designer-web
+	show_scenarios
+
+	# http://localhost:8091/#/simulation/view/5df3911b27bb8d0001662929
+	read -p "Scenario id: " scenario_id
+	~/Downloads/firefox-69.0b12/firefox/firefox -devtools http://localhost:8091/#/simulation/view/$scenario_id
+
+	docker-compose -f /home/cristi/Documents/SkyKit/docker/docker-compose.yml stop
+}
+
 help_functii_docker() {
 	echo "user_tests - removes preview f&b containers, home f&b, re-builds and starts the browser"
 	echo "test_designer_web - builds all server projects and starts the old designer in docker"
+	echo "test_scenario - restart docker containers specific to scenario view and opens the browser at location"
 }
 
