@@ -218,16 +218,17 @@ refresh_preview() {
 	docker-compose -f /home/cristi/Documents/SkyKit/docker/docker-compose.yml stop
 }
 
-users_tests() {
+test_docker_home() {
 	docker-compose -f /home/cristi/Documents/SkyKit/docker/docker-compose.yml stop
-	#docker rm preview
-	#docker rm preview-back-end
+	docker rm preview
+	docker rm preview-back-end
 	docker rm home
-	#docker rm home-back-end
+	docker rm home-back-end
 
 	# Building 
 	cd /home/cristi/Documents/SkyKit/docker
 	sh build_all_clients.sh
+	sh build_all_servers.sh
 
 	# Starting
 	docker-compose -f /home/cristi/Documents/SkyKit/docker/docker-compose.yml up -d home
@@ -259,7 +260,7 @@ show_scenarios() {
 	popd
 }
 
-test_scenario() {
+test_docker_scenario() {
 	docker-compose -f /home/cristi/Documents/SkyKit/docker/docker-compose.yml stop
 	docker rm designer-web
 	docker rm designer-back-end
@@ -280,8 +281,8 @@ test_scenario() {
 }
 
 help_functii_docker() {
-	echo "user_tests - removes preview f&b containers, home f&b, re-builds and starts the browser"
+	echo "test_docker_home - removes preview f&b containers, home f&b, re-builds and starts the browser"
 	echo "test_designer_web - builds all server projects and starts the old designer in docker"
-	echo "test_scenario - restart docker containers specific to scenario view and opens the browser at location"
+	echo "test_docker_scenario - restart docker containers specific to scenario view and opens the browser at location"
 }
 

@@ -34,7 +34,7 @@ md() {
 	midori -a http://localhost:$1
 }
 
-functii_scurtaturi_help() {
+help_functii_scurtaturi() {
 	echo "kpreview - opens the chrome browser with devel open" 
 	echo "firefoxdev1 - the other firefox at localhost:4201" 
 	echo "firefoxdev3 - the other firefox at localhost:4203" 

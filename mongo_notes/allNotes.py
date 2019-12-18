@@ -166,8 +166,6 @@ def searchFiles():
     files = filterFilesAfterArgument(files)
     found_results += list( map( lambda f: fileToFoundResult(f, pythonBooksDirectory), files ) )
 
-    #files = filterFilesAfterArgument(files)
-    #return list( map( lambda f: fileToFoundResult(f), files ) )
     return found_results
 
 def keepToFoundResult(line, location):
@@ -188,31 +186,28 @@ def searchKeepFile():
     return found_results
 
 
-def allTimeScriptToFoundResult(foundLine, filePath) -> FoundResult:
-    found_result = FoundResult(foundLine)
+def allTimeScriptToFoundResult(fileName, filePath) -> FoundResult:
+    found_result = FoundResult(fileName)
     found_result.type = FoundResultType.SCRIPT
     found_result.where = filePath
     found_result.application = "nvim"
     return found_result
 
 
-def searchInsideScript(path) -> []:
-    if not os.path.exists(keepLocation):
-        return []
+def searchInsideScript(path) -> bool:
+    if not os.path.exists(path):
+        return False
 
     with open(path, "r") as script_file:
         lines = script_file.readlines()
-        return list(filter( lambda line: "function " + sys.argv[1] in line or \
-                                           sys.argv[1] in line, lines ))
+        return len( list(filter( lambda line: "function " + sys.argv[1] in line or \
+                sys.argv[1] in line, lines ))) > 0
     
 
 def searchAllTimeScripts():
-    found_results = []
     for (dirpath, dirnames, filenames) in os.walk(allTheTimeScriptsDirectory):
-        for filename in filenames:
-            linesFound = searchInsideScript(dirpath + "/" + filename)
-            found_results += list( map (lambda line: allTimeScriptToFoundResult(line, dirpath + "/" + filename), linesFound))
-    return found_results
+        return list(map( lambda filename: allTimeScriptToFoundResult(filename, dirpath + "/" + filename), 
+              list(filter( lambda filename: searchInsideScript(dirpath + "/" + filename), filenames))))
 
 
 ######## Starts here ########
