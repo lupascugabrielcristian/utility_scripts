@@ -284,5 +284,6 @@ help_functii_docker() {
 	echo "test_docker_home - removes preview f&b containers, home f&b, re-builds and starts the browser"
 	echo "test_designer_web - builds all server projects and starts the old designer in docker"
 	echo "test_docker_scenario - restart docker containers specific to scenario view and opens the browser at location"
+	echo "docker_generate_preview"
 }
 

@@ -4,6 +4,7 @@ import pdb
 from subprocess import call
 from  search_mongo_note import searchAllNotes
 from enum import Enum
+import glob
 
 notesDirectory = "/home/cristi/Documents/notes/"
 researchNotesDirectory = "/home/cristi/Documents/research/notes/"
@@ -50,7 +51,7 @@ def chooseFile(foundResults):
     if len(foundResults) == 0:
         return None
     for f in foundResults:
-        typeColor = colors.ENDC
+        ypeColor = colors.ENDC
         if f.type == FoundResultType.BOOK:
             typeColor = colors.WARNING
         elif f.type == FoundResultType.URL:
@@ -186,8 +187,9 @@ def searchKeepFile():
     return found_results
 
 
-def allTimeScriptToFoundResult(fileName, filePath) -> FoundResult:
-    found_result = FoundResult(fileName)
+def allTimeScriptToFoundResult(filePath) -> FoundResult:
+    what = filePath.split('/')[-1].split('.')[0] 
+    found_result = FoundResult(what)
     found_result.type = FoundResultType.SCRIPT
     found_result.where = filePath
     found_result.application = "nvim"
@@ -197,6 +199,8 @@ def allTimeScriptToFoundResult(fileName, filePath) -> FoundResult:
 def searchInsideScript(path) -> bool:
     if not os.path.exists(path):
         return False
+    if sys.argv[1] in path.split(".")[-2]:
+        return True
 
     with open(path, "r") as script_file:
         lines = script_file.readlines()
@@ -205,9 +209,9 @@ def searchInsideScript(path) -> bool:
     
 
 def searchAllTimeScripts():
-    for (dirpath, dirnames, filenames) in os.walk(allTheTimeScriptsDirectory):
-        return list(map( lambda filename: allTimeScriptToFoundResult(filename, dirpath + "/" + filename), 
-              list(filter( lambda filename: searchInsideScript(dirpath + "/" + filename), filenames))))
+    files = glob.glob(allTheTimeScriptsDirectory + "**/*.sh", recursive=True)
+    files_with_results = list(filter(lambda f: searchInsideScript(f), files))
+    return list(map(lambda found_file: allTimeScriptToFoundResult(found_file), files_with_results))
 
 
 ######## Starts here ########
