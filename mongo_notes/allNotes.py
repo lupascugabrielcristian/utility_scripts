@@ -78,7 +78,7 @@ def chooseFile(foundResults):
     return result
 
 def filterFilesAfterArgument(files):
-    return list(filter(lambda f: f.lower().find(sys.argv[1]) != -1 and '~' not in f, files))
+    return list(filter(lambda f: f.lower().find(sys.argv[1].lower()) != -1 and '~' not in f, files))
 
 def fileToFoundResult(fileFound, directory):
     result = FoundResult(fileFound)
@@ -219,12 +219,13 @@ if len(sys.argv) == 1:
     print("There are not enough arguments")
     sys.exit(1)
 
-# so skip mongo add --no-mongo
+# to skip mongo add --no-mongo
 allResults = searchFiles()
 
 if "".join(sys.argv[1:]).find('--no-mongo') == -1:
     allResults += searchMongoNotes(sys.argv[1]) 
 
+all
 allResults += searchKeepFile()
 allResults += searchAllTimeScripts()
 
