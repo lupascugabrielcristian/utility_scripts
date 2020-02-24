@@ -6,6 +6,7 @@ set smartindent
 set t_Co=256
 set termguicolors
 set background=dark
+set scrolloff=3
 "colorscheme kuroi
 set rtp+=/home/cristi/Downloads/tabnine-vim
 
