@@ -6,6 +6,9 @@ else
 	exit 1
 fi
 
+echo "[+] Current working directoty: $PWD"
+
+
 read -p "Runing in docker? (yes/no)" userResponse
 if [ "$userResponse" = 'yes' ]; then
 	sudoParameter=""
@@ -15,21 +18,13 @@ fi
 read -p "Continue with updating bashrc file? (yes/no)" userResponse
 if [ "$userResponse" = 'yes' ]; then
 
-	echo -e "\n" >> ~/.bashrc
-	echo "############ SCURTATURI ################" >> ~/.bashrc
-	echo "source ~/Documents/utility_scripts/functii_scurtaturi.sh" >> ~/.bashrc
-	echo -e "\n" >> ~/.bashrc
+	echo "\n############ SCURTATURI ################" >> ~/.bashrc
+	echo "source $PWD/functii_scurtaturi.sh" >> ~/.bashrc
 
-	echo "############ SWAP ################" >> ~/.bashrc
-	echo "source ~/Documents/utility_scripts/functii_erent.sh" >> ~/.bashrc
-	echo -e "\n" >> ~/.bashrc
+	echo "\n############ SWAP ################" >> ~/.bashrc
+	echo "source $PWD/functii_erent.sh" >> ~/.bashrc
 
-	echo "############ DOCKER ################" >> ~/.bashrc
-	echo "source ~/Documents/utility_scripts/docker-functions.sh" >> ~/.bashrc
-	echo -e "\n" >> ~/.bashrc
-
-	echo "export EDITOR='nvim'"
-	echo -e "\n" >> ~/.bashrc
+	echo "\nexport EDITOR='nvim'\n" >> ~/.bashrc
 fi
 
 # VIDEO CARD
@@ -93,61 +88,55 @@ fi
 read -p "Continue with all required dependencies installation? (yes/no)" userResponse
 if [ "$userResponse" = 'yes' ]; then
 	sudo apt update
-	sudo apt-get install xclip # comanda pentru a copia in clipboard: pwd | xclip -sel clip
-	sudo apt install tsc
-	sudo apt install git
-	sudo apt install nodejs
-	sudo apt install npm
-	sudo apt install node-typescript
-	sudo npm install -g @angular/cli
+	sudo apt-get install xclip -y # comanda pentru a copia in clipboard: pwd | xclip -sel clip
+	sudo apt install tsc -y
+	sudo apt install git -y
+	sudo apt install nodejs -y
+	sudo apt install npm -y
+	sudo apt install node-typescript -y
+	sudo npm install -g @angular/cli -y
 
-	sudo apt-get install software-properties-common
+	sudo apt-get install software-properties-common -y
 	sudo apt-add-repository ppa:neovim-ppa/stable
-	sudo apt-get update
-	sudo apt-get install neovim
-	sudo apt-get install htop
-	sudo apt-get install synaptic
-	sudo snap install slack --classic
-	sudo snap install mailspring
-	sudo snap install chromium
-	sudo apt install klavaro
-	sudo apt install curl
-	sudo apt install bmon
-	sudo apt install tcptrack
-	sudo apt install graphviz
-	sudo apt-get install elvish # interactive terminal language
-	sudo apt-get install dia
-	sudo apt install tilix # Terminal
-	sudo apt install tldr # Easy to understand man pages
+	sudo apt-get update -y
+	sudo apt-get install neovim -y
+	sudo apt-get install htop -y
+	sudo apt-get install synaptic -y
+	sudo snap install slack --classic -y
+	sudo apt install curl -y
+	sudo apt install bmon -y
+	sudo apt install graphviz -y
+	#sudo apt-get install elvish # interactive terminal language
+	sudo apt-get install dia -y
+	#sudo apt install tilix # Terminal
+	sudo apt install tldr -y # Easy to understand man pages
 
 	wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
 	echo 'deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main' | sudo tee /etc/apt/sources.list.d/google-chrome.list
 	sudo apt-get update
-	sudo apt-get install google-chrome-stable
-	curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
-	sudo mv microsoft.gpg /etc/apt/trusted.gpg.d/microsoft.gpg
+	sudo apt-get install google-chrome-stable -y
+	#curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
+	#sudo mv microsoft.gpg /etc/apt/trusted.gpg.d/microsoft.gpg
 	sudo sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list'
-	sudo apt-get install apt-transport-https
+	sudo apt-get install apt-transport-https -y
 	sudo apt-get update
-	sudo apt install code
-	sudo apt install python3.6
-	sudo apt install python3-pip
-	sudo apt install python3-venv
-	sudo apt install gnome-tweak-tool
-	sudo apt install iftop
-	sudo apt install slurm						# network monitor
-	sudo apt install glances
-	sudo apt install vifm 						# terminal file manager with vim keybindings
-	sudo apt install w3m 						# terminal browser
-	sudo apt install torsocks					# to browse to onion sites
+	#sudo apt install code -y
+	sudo apt install python3.6 -y
+	sudo apt install gnome-tweak-tool -y
+	sudo apt install iftop -y
+	sudo apt install slurm -y					# network monitor
+	sudo apt install glances -y 
+	sudo apt install vifm -y 					# terminal file manager with vim keybindings
+	sudo apt install w3m -y 					# terminal browser
+	#sudo apt install torsocks					# to browse to onion sites
 	sudo apt install trash-cli 					# sends files to trash
 	sudo apt-get install zathura zathura-djvu zathura-ps zathura-cb # pdf reader with vim-like key bindings
-	sudo snap install --classic heroku
+	#sudo snap install --classic heroku
 	echo "Comenzile pentru network monitors sunt in fisierul comenzi"
-	$sudoParameter apt install qutebrowser		# browser like vim
-	$sudoParameter apt install httpie			# testing http calls in terminal
-	$sudoParameter apt install buku				# bookmark manager
-	$sudoParameter apt install cherrytree -y 	# text notes in tree form
+	$sudoParameter apt install qutebrowser -y		# browser like vim
+	$sudoParameter apt install httpie -y 			# testing http calls in terminal
+	$sudoParameter apt install buku -y			# bookmark manager
+	$sudoParameter apt install cherrytree -y 	 	# text notes in tree form
 	$sudoParameter apt install tmux -y			# better terminal emulator thats starts in a terminal
 	$sudoParameter apt install nmon -y 			# system monitor with network cpu, memory and processes
 
