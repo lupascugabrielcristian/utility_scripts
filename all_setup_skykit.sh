@@ -1,10 +1,8 @@
-#if [ -n "$HOME_FOLDER" ]
-#then
-#	echo "HOME_FOLDER environment variable is set"
-#else
-#	echo "Before running this script run 'export HOME_FOLDER=/home/cristi/'"
-#	exit 1
-#fi
+if [ $(id -u) != "0" ]
+then
+	echo "Need to run the script as root"
+	exit 1
+fi
 
 HOME_FOLDER=$1
 read -p "HOME_FOLDER variable is $HOME_FOLDER?(yes/no)" userResponse
