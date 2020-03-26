@@ -1,18 +1,25 @@
-if [ -n "$HOME_FOLDER" ]
-then
-	echo "HOME_FOLDER environment variable is set"
-else
-	echo "Before running this script run 'export HOME_FOLDER=/home/cristi/'"
+#if [ -n "$HOME_FOLDER" ]
+#then
+#	echo "HOME_FOLDER environment variable is set"
+#else
+#	echo "Before running this script run 'export HOME_FOLDER=/home/cristi/'"
+#	exit 1
+#fi
+
+HOME_FOLDER=$1
+read -p "HOME_FOLDER variable is $HOME_FOLDER?(yes/no)" userResponse
+if [ "$userResponse" != 'yes' ]; then
+	echo "Set first parameter"
 	exit 1
 fi
 
-echo "[+] Current working directoty: $PWD"
+echo "[+] Current working directory: $PWD"
 
 
-read -p "Runing in docker? (yes/no)" userResponse
-if [ "$userResponse" = 'yes' ]; then
-	sudoParameter=""
-fi
+#read -p "Runing in docker? (yes/no)" userResponse
+#if [ "$userResponse" = 'yes' ]; then
+#	sudoParameter=""
+#fi
 
 # BASHRC 
 read -p "Continue with updating bashrc file? (yes/no)" userResponse
@@ -120,12 +127,12 @@ general_package_install() {
 		sudo apt-get install zathura zathura-djvu zathura-ps zathura-cb # pdf reader with vim-like key bindings
 		#sudo snap install --classic heroku
 		echo "Comenzile pentru network monitors sunt in fisierul comenzi"
-		$sudoParameter apt-get install qutebrowser -y		# browser like vim
-		$sudoParameter apt-get install httpie -y		# testing http calls in terminal
-		$sudoParameter apt-get install buku -y			# bookmark manager
-		$sudoParameter apt-get install cherrytree -y 	 	# text notes in tree form
-		$sudoParameter apt-get install tmux -y			# better terminal emulator thats starts in a terminal
-		$sudoParameter apt-get install nmon -y 			# system monitor with network cpu, memory and processes
+		sudo apt-get install qutebrowser -y		# browser like vim
+		sudo apt-get install httpie -y		# testing http calls in terminal
+		sudo apt-get install buku -y			# bookmark manager
+		sudo apt-get install cherrytree -y 	 	# text notes in tree form
+		sudo apt-get install tmux -y			# better terminal emulator thats starts in a terminal
+		sudo apt-get install nmon -y 			# system monitor with network cpu, memory and processes
 
 		git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 		~/.fzf/install # For keybingings https://github.com/junegunn/fzf
