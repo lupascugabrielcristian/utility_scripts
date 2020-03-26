@@ -19,138 +19,155 @@ echo "[+] Current working directory: $PWD"
 #	sudoParameter=""
 #fi
 
-# BASHRC 
-read -p "Continue with updating bashrc file? (yes/no)" userResponse
-if [ "$userResponse" = 'yes' ]; then
+bashrc() {
+	read -p "Continue with updating bashrc file? (yes/no)" userResponse
+	if [ "$userResponse" = 'yes' ]; then
+		echo "\n############ SCURTATURI ################" >> ~/.bashrc
+		echo "source $PWD/functii_scurtaturi.sh" >> ~/.bashrc
 
-	echo "\n############ SCURTATURI ################" >> ~/.bashrc
-	echo "source $PWD/functii_scurtaturi.sh" >> ~/.bashrc
+		echo "\n############ SWAP ################" >> ~/.bashrc
+		echo "source $PWD/functii_erent.sh" >> ~/.bashrc
 
-	echo "\n############ SWAP ################" >> ~/.bashrc
-	echo "source $PWD/functii_erent.sh" >> ~/.bashrc
-
-	echo "\nexport EDITOR='nvim'\n" >> ~/.bashrc
-fi
-
-
-# VIDEO CARD
-read -p "Continue with video card installation? This will reboot after. Continue from here(yes/no)" userResponse
-if [ "$userResponse" = 'yes' ]; then
-	sudo apt-get install nvidia-384
-	sudo reboot
-fi
-
-read -p "Continue with exercitii setup(yes/no)" userResponse
-if [ "$userResponse" = 'yes' ]; then
-	if [ ! -d ~/Documents/exercises ]; then
-		mkdir ~/Documents/exercises
+		echo "\nexport EDITOR='nvim'\n" >> ~/.bashrc
 	fi
-	mkdir ~/Documents/exercises/angular
-	mkdir ~/Documents/exercises/css
-	mkdir ~/Documents/exercises/python
-	mkdir ~/Documents/exercises/typescript
-	cp ./new_project_scripts/new_project_css.sh ~/Documents/exercises/css/new_project.sh
-	cp ./new_project_scripts/require/ ~/Documents/exercises/css/
-	cp ./new_project_scripts/new_project_angular.sh ~/Documents/exercises/angular/new_project.sh
-	cp ./new_project_scripts/new_project_typescript.sh ~/Documents/exercises/typescript/new_project.sh
-	cp ./new_project_scripts/tsconfig.json ~/Documents/exercises/typescript/tsconfig.json
+}
 
-	echo "source ~/Documents/utility_scripts/functii_exercitii.sh" >> ~/.bashrc
-fi
-
-read -p "Continue with cowntdown(yes/no)" userResponse
-if [ "$userResponse" = 'yes' ]; then
-	if [ ! -d /home/cristi/Documents/countdown ]; then
-		mkdir /home/cristi/Documents/countdown
+video_card() {
+	# VIDEO CARD
+	read -p "Continue with video card installation? This will reboot after. Continue from here(yes/no)" userResponse
+	if [ "$userResponse" = 'yes' ]; then
+		sudo apt-get install nvidia-384
+		sudo reboot
 	fi
+}
 
-	cp ./countdown.py /home/cristi/Documents/countdown
-	cp ./tasks /home/cristi/Documents/countdown
-fi
+exercitii() {
+	read -p "Continue with exercitii setup(yes/no)" userResponse
+	if [ "$userResponse" = 'yes' ]; then
+		if [ ! -d ~/Documents/exercises ]; then
+			mkdir ~/Documents/exercises
+		fi
+		mkdir ~/Documents/exercises/angular
+		mkdir ~/Documents/exercises/css
+		mkdir ~/Documents/exercises/python
+		mkdir ~/Documents/exercises/typescript
+		cp ./new_project_scripts/new_project_css.sh ~/Documents/exercises/css/new_project.sh
+		cp ./new_project_scripts/require/ ~/Documents/exercises/css/
+		cp ./new_project_scripts/new_project_angular.sh ~/Documents/exercises/angular/new_project.sh
+		cp ./new_project_scripts/new_project_typescript.sh ~/Documents/exercises/typescript/new_project.sh
+		cp ./new_project_scripts/tsconfig.json ~/Documents/exercises/typescript/tsconfig.json
 
-read -p "Continue with ASUS monitor installation? (yes/no)" userResponse
-if [ "$userResponse" = 'yes' ]; then
-	sensible-browser 'https://www.displaylink.com/downloads/ubuntu' #1123
-	read -p "Download latest driver in ~/Downloads folder then press to continue" varContinue
-	mv ~/Downloads/DisplayLink* ~/Downloads/assus_driver.zip
-	unzip $( find ~/Downloads -name assus_driver.zip ) -d ~/Downloads/ASSUS_DRIVER
-	chmod +x ~/Downloads/ASSUS_DRIVER/displaylink*.run
-	~/Downloads/ASSUS_DRIVER/displaylink-driver*.run --keep --noexec
-	read -p "Update detect_distro function" varContinue
-	vi displaylink-driver*/displaylink-installer.sh
-	sensible-browser 'https://askubuntu.com/questions/744364/displaylink-asus-mb168b-issues' &
-	sudo ./displaylink-installer.sh install
+		echo "source ~/Documents/utility_scripts/functii_exercitii.sh" >> ~/.bashrc
+	fi
+}
 
-	# Sa verific si asta daca merge
-	# https://support.displaylink.com/forums/287786-displaylink-feature-suggestions/suggestions/7988955-support-linux-on-all-your-devices
-	# https://www.alteeve.com/w/ASUS_MB169B%2B_on_Fedora_27
-fi
+countdown() {
+	read -p "Continue with cowntdown(yes/no)" userResponse
+	if [ "$userResponse" = 'yes' ]; then
+		if [ ! -d /home/cristi/Documents/countdown ]; then
+			mkdir /home/cristi/Documents/countdown
+		fi
 
-read -p "Continue with JDK installation? (yes/no)" userResponse
-if [ "$userResponse" = 'yes' ]; then
-	sudo apt install openjdk-8-jdk -y
-fi
+		cp ./countdown.py /home/cristi/Documents/countdown
+		cp ./tasks /home/cristi/Documents/countdown
+	fi
+}
+
+ASUS_monitor() {
+	read -p "Continue with ASUS monitor installation? (yes/no)" userResponse
+	if [ "$userResponse" = 'yes' ]; then
+		sensible-browser 'https://www.displaylink.com/downloads/ubuntu' #1123
+		read -p "Download latest driver in ~/Downloads folder then press to continue" varContinue
+		mv ~/Downloads/DisplayLink* ~/Downloads/assus_driver.zip
+		unzip $( find ~/Downloads -name assus_driver.zip ) -d ~/Downloads/ASSUS_DRIVER
+		chmod +x ~/Downloads/ASSUS_DRIVER/displaylink*.run
+		~/Downloads/ASSUS_DRIVER/displaylink-driver*.run --keep --noexec
+		read -p "Update detect_distro function" varContinue
+		vi displaylink-driver*/displaylink-installer.sh
+		sensible-browser 'https://askubuntu.com/questions/744364/displaylink-asus-mb168b-issues' &
+		sudo ./displaylink-installer.sh install
+
+		# Sa verific si asta daca merge
+		# https://support.displaylink.com/forums/287786-displaylink-feature-suggestions/suggestions/7988955-support-linux-on-all-your-devices
+		# https://www.alteeve.com/w/ASUS_MB169B%2B_on_Fedora_27
+	fi
+}
+
+JDK() {
+	read -p "Continue with JDK installation? (yes/no)" userResponse
+	if [ "$userResponse" = 'yes' ]; then
+		sudo apt install openjdk-8-jdk -y
+	fi
+}
+
 
 general_package_install() {
 	read -p "Continue with all required dependencies installation? (yes/no)" userResponse
 	if [ "$userResponse" = 'yes' ]; then
-		sudo apt-get update
-		sudo apt-get install xclip -y # comanda pentru a copia in clipboard: pwd | xclip -sel clip
-		sudo apt-get install tsc -y
-		sudo apt-get install git -y
-		#sudo apt-get install nodejs -y
-		#sudo apt-get install npm -y
-		sudo apt-get install node-typescript -y
-		#sudo npm install -g @angular/cli -y
-		sudo apt-get install software-properties-common -y
-		sudo apt-get install htop -y
-		sudo apt-get install synaptic -y
-		sudo snap install slack --classic -y
-		sudo apt-get install curl -y
-		sudo apt-get install bmon -y
-		sudo apt-get install graphviz -y
-		#sudo apt-get install elvish # interactive terminal language
-		sudo apt-get install dia -y
-		#sudo apt install tilix # Terminal
-		sudo apt-get install tldr -y # Easy to understand man pages
-		sudo apt-get install python3 -y
-		sudo apt-get install gnome-tweak-tool -y
-		sudo apt-get install iftop -y
-		sudo apt-get install slurm -y					# network monitor
-		sudo apt-get install glances -y 				# complex system monitor
-		sudo apt-get install vifm -y 					# terminal file manager with vim keybindings
-		sudo apt-get install w3m -y 					# terminal browser
-		#sudo apt-get install torsocks					# to browse to onion sites
-		sudo apt-get install trash-cli 					# sends files to trash
-		sudo apt-get install zathura zathura-djvu zathura-ps zathura-cb # pdf reader with vim-like key bindings
-		#sudo snap install --classic heroku
+		apt-get update
+		apt-get install xclip -y # comanda pentru a copia in clipboard: pwd | xclip -sel clip
+		apt-get install git -y
+		#apt-get install nodejs -y
+		#apt-get install npm -y
+		#apt-get install node-typescript -y
+		#npm install -g @angular/cli -y
+		apt-get install software-properties-common -y
+		apt-get install htop -y
+		apt-get install synaptic -y
+		apt-get install curl -y
+		apt-get install bmon -y
+		apt-get install graphviz -y
+		#apt-get install elvish # interactive terminal language
+		apt-get install dia -y
+		#apt install tilix # Terminal
+		apt-get install tldr -y # Easy to understand man pages
+		apt-get install python3 -y
+		apt-get install gnome-tweak-tool -y
+		apt-get install iftop -y
+		apt-get install slurm -y					# network monitor
+		apt-get install glances -y 					# complex system monitor
+		apt-get install vifm -y 					# terminal file manager with vim keybindings
+		apt-get install w3m -y 						# terminal browser
+		#apt-get install torsocks					# to browse to onion sites
+		apt-get install trash-cli 					# sends files to trash
+		apt-get install zathura zathura-djvu zathura-ps zathura-cb # pdf reader with vim-like key bindings
 		echo "Comenzile pentru network monitors sunt in fisierul comenzi"
-		sudo apt-get install qutebrowser -y		# browser like vim
-		sudo apt-get install httpie -y		# testing http calls in terminal
-		sudo apt-get install buku -y			# bookmark manager
-		sudo apt-get install cherrytree -y 	 	# text notes in tree form
-		sudo apt-get install tmux -y			# better terminal emulator thats starts in a terminal
-		sudo apt-get install nmon -y 			# system monitor with network cpu, memory and processes
+		apt-get install qutebrowser -y		# browser like vim
+		apt-get install httpie -y		# testing http calls in terminal
+		apt-get install buku -y			# bookmark manager
+		apt-get install cherrytree -y 	 	# text notes in tree form
+		apt-get install tmux -y			# better terminal emulator thats starts in a terminal
+		apt-get install nmon -y 		# system monitor with network cpu, memory and processes
 
 		git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 		~/.fzf/install # For keybingings https://github.com/junegunn/fzf
 
-		sudo apt-add-repository ppa:neovim-ppa/stable
-		sudo apt-get update
-		sudo apt-get install neovim -y
+		apt-add-repository ppa:neovim-ppa/stable
+		apt-get update
+		apt-get install neovim -y
 
 		wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
 		echo 'deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main' | sudo tee /etc/apt/sources.list.d/google-chrome.list
-		sudo apt-get update
-		sudo apt-get install google-chrome-stable -y
+		apt-get update
+		apt-get install google-chrome-stable -y
 
-		sudo add-apt-repository ppa:regolith-linux/release
-		sudo apt install regolith-desktop
+		add-apt-repository ppa:regolith-linux/release
+		apt install regolith-desktop
 
+		snap install slack --classic -y
+		#snap install --classic heroku
 	fi
 }
 
+#bashrc
+#video_card
+#exercitii
+#countdown
+#ASUS_monitor
+#JDK
 general_package_install
+
+validations
 
 # DOCKER
 read -p "Continue with docker?(yes/no)" userResponse
@@ -330,4 +347,3 @@ validations() {
 	check_bashrc_configuration 
 }
 
-validations
