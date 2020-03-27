@@ -105,7 +105,7 @@ general_package_install() {
 	read -p "Continue with all required dependencies installation? (yes/no)" userResponse
 	if [ "$userResponse" = 'yes' ]; then
 		apt-get update
-		apt-get install xclip -y # comanda pentru a copia in clipboard: pwd | xclip -sel clip
+		apt-get install xclip -y 					# comanda pentru a copia in clipboard: pwd | xclip -sel clip
 		apt-get install git -y
 		#apt-get install nodejs -y
 		#apt-get install npm -y
@@ -117,10 +117,10 @@ general_package_install() {
 		apt-get install curl -y
 		apt-get install bmon -y
 		apt-get install graphviz -y
-		#apt-get install elvish # interactive terminal language
+		#apt-get install elvish 					# interactive terminal language
 		apt-get install dia -y
-		#apt install tilix # Terminal
-		apt-get install tldr -y # Easy to understand man pages
+		#apt install tilix 						# Terminal
+		apt-get install tldr -y 					# Easy to understand man pages
 		apt-get install python3 -y
 		apt-get install gnome-tweak-tool -y
 		apt-get install iftop -y
@@ -152,9 +152,9 @@ general_package_install() {
 		apt-get install google-chrome-stable -y
 
 		add-apt-repository ppa:regolith-linux/release
-		apt install regolith-desktop
+		apt install regolith-desktop -y
 
-		snap install slack --classic -y
+		snap install slack --classic
 		#snap install --classic heroku
 	fi
 }
