@@ -12,6 +12,8 @@ if [ "$userResponse" != 'yes' ]; then
 fi
 
 echo "[+] Current working directory: $PWD"
+echo "[?] User name: "
+read USERNAME
 
 
 #read -p "Runing in docker? (yes/no)" userResponse
@@ -159,182 +161,180 @@ general_package_install() {
 	fi
 }
 
-#bashrc
-#video_card
-#exercitii
-#countdown
-#ASUS_monitor
-#JDK
-general_package_install
-
-validations
-
-# DOCKER
-read -p "Continue with docker?(yes/no)" userResponse
-if [ "$userResponse" = 'yes' ]; then
-	sudo apt install apt-transport-https ca-certificates curl software-properties-common
-	curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-	sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
-	sudo apt update
-	apt-cache policy docker-ce
-	sudo apt install docker-ce
-	sudo systemctl status docker
-	read -p "Is docker deamon started?"
-fi
-
-# Mongo installation
-read -p "Continue with MongoDB installation? (yes/no)" userResponse
-if [ "$userResponse" = 'yes' ]; then
-	sudoParameter="yes"
-	read -p "Runing in docker? (yes/no)" userResponse
+docker() {
+	read -p "Continue with docker?(yes/no)" userResponse
 	if [ "$userResponse" = 'yes' ]; then
-		sudoParameter=""
+		sudo apt install apt-transport-https ca-certificates curl software-properties-common
+		curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+		sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
+		sudo apt update
+		apt-cache policy docker-ce
+		sudo apt install docker-ce
+		sudo systemctl status docker
+		read -p "Is docker deamon started?"
 	fi
-	echo '\n\n====== Mongo instaltion =====\n\n'
-	$sudoParameter apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 9DA31620334BD75D9DCB49F368818C72E52529D4
-	echo "deb [ arch=amd64 ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.0 multiverse" | $sudoParameter tee /etc/apt/sources.list.d/mongodb-org-4.0.list
-	$sudoParameter apt-get update
-	$sudoParameter apt-get install -y mongodb-org
-	$sudoParameter mkdir /data/
-	$sudoParameter mkdir /data/db
-	$sudoParameter systemctl enable mongod
+}
+
+mongo() {
+	# Mongo installation
+	read -p "Continue with MongoDB installation? (yes/no)" userResponse
 	if [ "$userResponse" = 'yes' ]; then
-		mongod &
-	else
-		$sudoParameter service mongod start
+		sudoParameter="yes"
+		read -p "Runing in docker? (yes/no)" userResponse
+		if [ "$userResponse" = 'yes' ]; then
+			sudoParameter=""
+		fi
+		echo '\n\n====== Mongo instaltion =====\n\n'
+		$sudoParameter apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 9DA31620334BD75D9DCB49F368818C72E52529D4
+		echo "deb [ arch=amd64 ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.0 multiverse" | $sudoParameter tee /etc/apt/sources.list.d/mongodb-org-4.0.list
+		$sudoParameter apt-get update
+		$sudoParameter apt-get install -y mongodb-org
+		$sudoParameter mkdir /data/
+		$sudoParameter mkdir /data/db
+		$sudoParameter systemctl enable mongod
+		if [ "$userResponse" = 'yes' ]; then
+			mongod &
+		else
+			$sudoParameter service mongod start
+		fi
+
+		mongoimport --db notes_database --collection notes_collection --file notes_database.mongoexport
 	fi
+}
 
-	mongoimport --db notes_database --collection notes_collection --file notes_database.mongoexport
-fi
+notes() {
+	read -p "Continue with notes setup(yes/no)" userResponse
+	if [ "$userResponse" = 'yes' ]; then
+		if [ ! -d $HOME_FOLDER/Documents/notes ]; then
+			mkdir $HOME_FOLDER/Documents/notes
+		fi
 
-# NOTES
-read -p "Continue with notes setup(yes/no)" userResponse
-if [ "$userResponse" = 'yes' ]; then
-	if [ ! -d $HOME_FOLDER/Documents/notes ]; then
-		mkdir $HOME_FOLDER/Documents/notes
+		if [ ! -d $HOME_FOLDER/Documents/Books ]; then
+			mkdir $HOME_FOLDER/Documents/Books
+		fi
+
+		pip3 install virtualenv
+		cd mongo_notes/
+		python3.6 -m venv env
+		source env/bin/activate
+		pip install pymongo
+		deactivate
+
+		echo -e "\n######### NOTES ########" >> ~/.bashrc
+		echo "\nsource $PWD/functii_notes.sh" >> ~/.bashrc
 	fi
+}
 
-	if [ ! -d $HOME_FOLDER/Documents/Books ]; then
-		mkdir $HOME_FOLDER/Documents/Books
+vim_configuration() {
+	# VIM Configuration
+	read -p "Continue with VIM configuration? (yes/no)" userResponse
+	if [ "$userResponse" = 'yes' ]; then
+		if [ ! -d $HOME_FOLDER/.config/nvim ]; then
+			mkdir $HOME_FOLDER/.config/nvim/
+		fi
+
+		if [ ! -d $HOME_FOLDER/.local/share/nvim/site ]; then
+			mkdir $HOME_FOLDER/.local/share/nvim/site/
+		fi
+
+		if [ ! -d $HOME_FOLDER/.local/share/nvim/site/plugin ]; then
+			mkdir $HOME_FOLDER/.local/share/nvim/site/plugin/
+		fi
+
+		cp ./vim-plugins/grep-operator.vim $HOME_FOLDER/.local/share/nvim/site/plugin/grep-operator.vim
+		cat ./configurari_vim.vim > $HOME_FOLDER/.config/nvim/init.vim
+		# nu sunt sigur daca este nevoie de asta
+		#chown $USERNAME:$USERNAME $HOME_FOLDER/.config/nvim/init.vim
+
+		if [  -d /usr/share/nvim/runtime/syntax ]; then
+			sudo cp ./typescript.vim /usr/share/nvim/runtime/syntax/typescript.vim
+		else
+			echo "Need to have this folder in place: /usr/share/nvim/runtime/syntax"
+			echo "Probably instalation changed"
+		fi
+
+		# This part is for denite plugin
+		# Documentation
+		# https://github.com/Shougo/denite.nvim/blob/master/doc/denite.txt
+		wget https://github.com/Shougo/denite.nvim/archive/master.zip -O denite.zip
+		unzip denite.zip
+		cp -R denite.nvim-master/* $HOME_FOLDER/.config/nvim/
+		rm denite.zip
+		rm -R denite.nvim-master
+		
+		## This is for multiple color themes
+		git clone https://github.com/vifm/vifm-colors $HOME_FOLDER/.config/vifm/colors
+
+		# This is for autocomplete plugin TabNine. Replace path with the clone location
+		git clone https://github.com/zxqfl/tabnine-vim $HOME_FOLDER/.local/share/nvim/site/plugin/tabnine
+		echo -e "\nset rtp+=$HOME_FOLDER/.local/share/nvim/site/plugin/tabnine/tabnine-vim" >> $HOME_FOLDER/.config/nvim/init.vim # Add 'set rtp+=[path_to]/tabnine-vim' to your .vimrc
+
+		# Kuroi color scheme
+		mkdir $HOME_FOLDER/.config/nvim/colors
+		wget https://github.com/aonemd/kuroi.vim/archive/master.zip
+		unzip master.zip
+		cp kuroi.vim-master/colors/kuroi.vim $HOME_FOLDER/.config/nvim/colors/
+		rm master.zip
+		rm -rf kuroi.vim-master/
+
+		#VIFM Configuration
+		# the config file is at ~/.config/vifm
+		# Add 
+		#		\ {Open with vim}
+		#		\ vim %f,
+		# at the web section for filextype
+		# set the default color scheme in ~/.config/vifm/vifmrc
 	fi
-
-	pip3 install virtualenv
-	cd mongo_notes/
-	python3.6 -m venv env
-	source env/bin/activate
-	pip install pymongo
-	deactivate
-
-	echo -e "\n######### NOTES ########" >> ~/.bashrc
-	echo "\nsource $PWD/functii_notes.sh" >> ~/.bashrc
-fi
-
-# VIM Configuration
-read -p "Continue with VIM configuration? (yes/no)" userResponse
-if [ "$userResponse" = 'yes' ]; then
-	# This is for autocomplete plugin TabNine. Replace path with the clone location
-	git clone https://github.com/zxqfl/tabnine-vim
-	echo "set rtp+=/home/cristi/Documents/utility_scripts/tabnine-vim"
-
-	# Kuroi color scheme
-	$sudoParameter mkdir ~/.config/nvim/colors
-	wget https://github.com/aonemd/kuroi.vim/archive/master.zip
-	unzip kuroi.vim-master.zip
-	cp kuroi.vim-master/colors/kuroi.vim ~/.config/nvim/color/
-
-	if [ ! -d ~/.config/nvim ]; then
-		sudo mkdir ~/.config/nvim/
-	fi
-
-	if [ ! -d ~/.local/share/nvim/site ]; then
-		mkdir ~/.local/share/nvim/site/
-	fi
-
-	if [ ! -d ~/.local/share/nvim/site/plugin ]; then
-		mkdir ~/.local/share/nvim/site/plugin/
-	fi
-
-	cp ./vim-plugins/grep-operator.vim ~/.local/share/nvim/site/plugin/grep-operator.vim
-	cat ./configurari_vim.vim > ~/.config/nvim/init.vim
-
-	if [  -d /usr/share/nvim/runtime/syntax ]; then
-		sudo cp ./typescript.vim /usr/share/nvim/runtime/syntax/typescript.vim
-	else
-		echo "Need to have this folder in place: /usr/share/nvim/runtime/syntax"
-		echo "Probably instalation changed"
-	fi
-
-	# This part is for denite plugin
-	# Documentation
-	# https://github.com/Shougo/denite.nvim/blob/master/doc/denite.txt
-	wget https://github.com/Shougo/denite.nvim/archive/master.zip -O denite.zip
-	unzip denite.zip
-	$sudoParameter cp -R denite.nvim-master/* /home/cristi/.config/nvim/
-	rm denite.zip
-	rm -R denite.nvim-master
-
-	git clone https://github.com/vifm/vifm-colors ~/.config/vifm/colors
-
-	#VIFM Configuration
-	# the config file is at ~/.config/vifm
-	# Add 
-	#		\ {Open with vim}
-	#		\ vim %f,
-	# at the web section for filextype
-	# set the default color scheme in ~/.config/vifm/vifmrc
-fi
-
+}
 
 # Tmux configuration file
-cp configurations/tmux.conf $HOME_FOLDER/.tmux.conf
+tmux_configuration() {
+	cp configurations/tmux.conf $HOME_FOLDER/.tmux.conf
+}
 
-read -p "Continue with ssh key registration? (yes/no)" userResponse
-if [ "$userResponse" = 'yes' ]; then
-	git config --global user.name "Lupascu Gabriel Cristian"
-	git config --global user.email "lupascugabrielcristian@gmail.com"
+ssh_key_registration(){
+	read -p "Continue with ssh key registration? (yes/no)" userResponse
+	if [ "$userResponse" = 'yes' ]; then
+		git config --global user.name "Lupascu Gabriel Cristian"
+		git config --global user.email "lupascugabrielcristian@gmail.com"
 
-	# This creates a new ssh key, using the provided email as a label
-	ssh-keygen -t rsa -b 4096 -C "lupascugabrielcristian@gmail.com"
+		# This creates a new ssh key, using the provided email as a label
+		ssh-keygen -t rsa -b 4096 -C "lupascugabrielcristian@gmail.com"
 
-	# Add your SSH private key to the ssh-agent. If you created your key 
-	# with a different name, or if you are adding an existing key that has a 
-	# different name, replace id_rsa in the command with the name of your 
-	# private key file.
-	eval `ssh-agent -s`
-	ssh-add ~/.ssh/id_rsa
+		# Add your SSH private key to the ssh-agent. If you created your key 
+		# with a different name, or if you are adding an existing key that has a 
+		# different name, replace id_rsa in the command with the name of your 
+		# private key file.
+		eval `ssh-agent -s`
+		ssh-add ~/.ssh/id_rsa
 
-	xclip -sel clip < ~/.ssh/id_rsa.pub
-	# Copies the contents of the id_rsa.pub file to your clipboard
-	read -p "Add ssh key to github account(CTRL-V). Continue?" varContinue
-fi
+		xclip -sel clip < ~/.ssh/id_rsa.pub
+		# Copies the contents of the id_rsa.pub file to your clipboard
+		read -p "Add ssh key to github account(CTRL-V). Continue?" varContinue
+	fi
+}
 
-read -p "Continue with cloning? (yes/no)" userResponse
-if [ "$userResponse" = 'yes' ]; then
-	git clone git@github.com:jlgcon/SkyKit.git ~/Documents/SkyKit
-	git checkout dev
-fi
+ide() {
+	# JETBRAINS INTELLIJ IDEA 
+	read -p "Continue with IntellijIDEA installation (Documents folder)? (yes/no)" userResponse
+	if [ "$userResponse" = 'yes' ]; then
+		read -p 'This might not be last version or not working at all. Update script with correct download link' varContinue
+		wget -P ~/Documents https://download.jetbrains.com/idea/ideaIU-2018.2.2.tar.gz
+		tar -xvzf ~/Documents/ideaIU*.tar.gz -C ~/Documents
+		echo 'fs.inotify.max_user_watches = 524288' | sudo tee --append /etc/sysctl.d/idea.conf
+		sudo sysctl -p --system
+		rm ~/Documents/ideaIU*.tar.gz
+		sh ~/Documents/idea-*/bin/idea.sh
+		# To start use '/usr/local/bin/idea'
 
-# JETBRAINS INTELLIJ IDEA 
-read -p "Continue with IntellijIDEA installation (Documents folder)? (yes/no)" userResponse
-if [ "$userResponse" = 'yes' ]; then
-	read -p 'This might not be last version or not working at all. Update script with correct download link' varContinue
-	wget -P ~/Documents https://download.jetbrains.com/idea/ideaIU-2018.2.2.tar.gz
-	tar -xvzf ~/Documents/ideaIU*.tar.gz -C ~/Documents
-	echo 'fs.inotify.max_user_watches = 524288' | sudo tee --append /etc/sysctl.d/idea.conf
-	sudo sysctl -p --system
-	rm ~/Documents/ideaIU*.tar.gz
-	sh ~/Documents/idea-*/bin/idea.sh
-	# To start use '/usr/local/bin/idea'
-
-	read -p 'Set JDK in project?' varContinue
-	read -p 'Run Configurations ready?' varContinue
-	read -p 'Test maven compile and build?' varContinue
-	read -p 'Updated bada folder path in bada-api application.properties?' varContinue
-	
-	cp jetbrains-idea.desktop ~/.local/share/applications/jetbrains-idea.desktop # This is to add favorites icon
-fi
-
-echo -e '\n\n====== All done! ======='
+		read -p 'Set JDK in project?' varContinue
+		read -p 'Run Configurations ready?' varContinue
+		read -p 'Test maven compile and build?' varContinue
+		read -p 'Updated bada folder path in bada-api application.properties?' varContinue
+		
+		cp jetbrains-idea.desktop ~/.local/share/applications/jetbrains-idea.desktop # This is to add favorites icon
+	fi
+}
 
 check_bashrc_configuration() {
 	if grep "functii_scurtaturi.sh" ~/.bashrc 1> /dev/null 
@@ -347,3 +347,19 @@ validations() {
 	check_bashrc_configuration 
 }
 
+#bashrc
+#video_card
+#exercitii
+#countdown
+#ASUS_monitor
+#JDK
+#general_package_install
+#docker
+#mongo 
+#notes
+#vim_configuration
+#tmux_configuration
+#ssh_key_registration
+#ide
+echo -e '\n\n====== All done! ======='
+validations
