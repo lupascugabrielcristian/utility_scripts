@@ -4,12 +4,8 @@ then
 	exit 1
 fi
 
-HOME_FOLDER=$1
-read -p "HOME_FOLDER variable is $HOME_FOLDER?(yes/no)" userResponse
-if [ "$userResponse" != 'yes' ]; then
-	echo "Set first parameter"
-	exit 1
-fi
+echo "[?] HOME_FOLDER: "
+read HOME_FOLDER
 
 echo "[+] Current working directory: $PWD"
 echo "[?] User name: "
@@ -336,6 +332,23 @@ ide() {
 	fi
 }
 
+protonvpn_install() {
+	read -p "Continue with protonvpn installation? (yes/no)" userResponse
+	if [ "$userResponse" = 'yes' ]; then
+		apt install -y openvpn dialog python3-pip python3-setuptools
+		pip3 install protonvpn-cli
+		sudo protonvpn init
+	fi
+}
+
+check_proton_vpn() {
+	if [[ $(protonvpn -v) =~ "ProtonVPN-CLI" ]]; then
+		echo "[+] ProtonVPN OK"
+	else
+		echo "[-] ProtonVPN FAILED"
+	fi
+}
+
 check_bashrc_configuration() {
 	if grep "functii_scurtaturi.sh" ~/.bashrc 1> /dev/null 
 	then
@@ -345,21 +358,23 @@ check_bashrc_configuration() {
 
 validations() {
 	check_bashrc_configuration 
+	check_proton_vpn
 }
 
-#bashrc
-#video_card
-#exercitii
-#countdown
-#ASUS_monitor
-#JDK
-#general_package_install
-#docker
-#mongo 
-#notes
-#vim_configuration
-#tmux_configuration
-#ssh_key_registration
-#ide
+bashrc
+video_card
+exercitii
+countdown
+ASUS_monitor
+JDK
+general_package_install
+docker
+mongo 
+notes
+vim_configuration
+tmux_configuration
+ssh_key_registration
+ide
+protonvpn_install
 echo -e '\n\n====== All done! ======='
 validations
