@@ -17,16 +17,21 @@ read USERNAME
 #	sudoParameter=""
 #fi
 
+prepare_directories() {
+	mkdir $HOME_FOLDER/apps 
+	mkdir $HOME_FOLDER/projects
+}
+
 bashrc() {
 	read -p "Continue with updating bashrc file? (yes/no)" userResponse
 	if [ "$userResponse" = 'yes' ]; then
-		echo "\n############ SCURTATURI ################" >> ~/.bashrc
-		echo "source $PWD/functii_scurtaturi.sh" >> ~/.bashrc
+		echo "\n############ SCURTATURI ################" >> $HOME_FOLDER/.bashrc
+		echo "source $PWD/functii_scurtaturi.sh" >> $HOME_FOLDER/.bashrc
 
-		echo "\n############ SWAP ################" >> ~/.bashrc
-		echo "source $PWD/functii_erent.sh" >> ~/.bashrc
+		echo "\n############ SWAP ################" >> $HOME_FOLDER/.bashrc
+		echo "source $PWD/functii_erent.sh" >> $HOME_FOLDER/.bashrc
 
-		echo "\nexport EDITOR='nvim'\n" >> ~/.bashrc
+		echo "\nexport EDITOR='nvim'\n" >> $HOME_FOLDER/.bashrc
 	fi
 }
 
@@ -137,23 +142,32 @@ general_package_install() {
 		apt-get install tmux -y			# better terminal emulator thats starts in a terminal
 		apt-get install nmon -y 		# system monitor with network cpu, memory and processes
 
+		# fzf
 		git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 		~/.fzf/install # For keybingings https://github.com/junegunn/fzf
 
+		# NeoVim
 		apt-add-repository ppa:neovim-ppa/stable
 		apt-get update
 		apt-get install neovim -y
 
+		# Chrome
 		wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
 		echo 'deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main' | sudo tee /etc/apt/sources.list.d/google-chrome.list
 		apt-get update
 		apt-get install google-chrome-stable -y
 
+		# Regolith
 		add-apt-repository ppa:regolith-linux/release
 		apt install regolith-desktop -y
 
 		snap install slack --classic
 		#snap install --classic heroku
+
+		# TreeSheets
+		wget http://strlen.com/treesheets/treesheets_linux64.tar.gz
+		tar -xvzf treesheets_linux64.tar.gz -C $HOME_FOLDER/apps/
+		rm treesheets_linux64.tar.gz 
 	fi
 }
 
@@ -361,6 +375,7 @@ validations() {
 	check_proton_vpn
 }
 
+prepare_directories
 bashrc
 video_card
 exercitii
