@@ -351,6 +351,10 @@ protonvpn_install() {
 	fi
 }
 
+system_configurations() {
+	xdg-settings set default-web-browser firefox.desktop
+}
+
 check_proton_vpn() {
 	if [[ $(protonvpn -v) =~ "ProtonVPN-CLI" ]]; then
 		echo "[+] ProtonVPN OK"
