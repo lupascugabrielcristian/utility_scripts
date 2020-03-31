@@ -1,3 +1,4 @@
+#!/bin/bash
 
 #========== Aliases ==========
 alias ll='ls -alF'
@@ -5,22 +6,18 @@ alias la='ls -A'
 alias l='ls -CF'
 alias ee='exit'
 alias tcowndown='nvim ~/Documents/utility_scripts/tasks'
-alias editbash='nvim ~/.bashrc'
-alias cdsk='cd ~/Documents/SkyKit/'
-alias cdex='cd ~/Documents/exercises/'
-alias cdut='cd ~/Documents/utility_scripts/'
-alias cder='cd ~/Documents/ERent/'
-alias cdera='cd ~/Documents/ERent/erent-app/src/app/'
-alias cders='cd ~/Documents/ERent/server/E-Rent-Server/'
+alias eb='nvim ~/.bashrc'
+alias cdex='cd ~/projects/exercises/'
+alias cdut='cd ~/projects/utility_scripts/'
 alias cddw='cd ~/Downloads/'
 alias cdd='cd ~/Documents/'
 alias rm=sendToTrash $*
 alias cat='cat -n'
 alias pp='ping -a -c 4 www.ubuntu.security.com'
-alias identity='python3.7 ~/Documents/utility_scripts/generate_account.py'
+alias identity='python3.7 ~/projects/utility_scripts/generate_account.py'
 alias .='vifm .'
-alias all_time_script='sh /home/cristi/Documents/utility_scripts/make_all_time_script.sh'
-
+alias all_time_script='sh /home/cristi/projects/utility_scripts/make_all_time_script.sh'
+alias buku_put_in_utilities='cp /home/cristi/.local/share/buku/bookmarks.db ~/projects/utility_scripts/buku_database/'
 #========== End of aliases ==========   
 
 
@@ -174,5 +171,9 @@ go_to_today_scripts() {
 	date=$(date '+%Y-%m-%d')
 	cd $base_path/$date
 	ls
+}
+
+grep_in_keep() {
+	grep $1 /home/cristi/Documents/keep.com
 }
 
