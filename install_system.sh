@@ -141,15 +141,11 @@ general_package_install() {
 		apt-get install cherrytree -y 	 	# text notes in tree form
 		apt-get install tmux -y			# better terminal emulator thats starts in a terminal
 		apt-get install nmon -y 		# system monitor with network cpu, memory and processes
+		apt-get install neovim -y
 
 		# fzf
 		git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 		~/.fzf/install # For keybingings https://github.com/junegunn/fzf
-
-		# NeoVim
-		apt-add-repository ppa:neovim-ppa/stable
-		apt-get update
-		apt-get install neovim -y
 
 		# Chrome
 		wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
