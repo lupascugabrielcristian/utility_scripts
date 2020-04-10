@@ -83,16 +83,8 @@ ASUS_monitor() {
 		read -p "Download latest driver in ~/Downloads folder then press to continue" varContinue
 		mv ~/Downloads/DisplayLink* ~/Downloads/assus_driver.zip
 		unzip $( find ~/Downloads -name assus_driver.zip ) -d ~/Downloads/ASSUS_DRIVER
-		chmod +x ~/Downloads/ASSUS_DRIVER/displaylink*.run
-		~/Downloads/ASSUS_DRIVER/displaylink-driver*.run --keep --noexec
-		read -p "Update detect_distro function" varContinue
-		vi displaylink-driver*/displaylink-installer.sh
-		sensible-browser 'https://askubuntu.com/questions/744364/displaylink-asus-mb168b-issues' &
-		sudo ./displaylink-installer.sh install
-
-		# Sa verific si asta daca merge
-		# https://support.displaylink.com/forums/287786-displaylink-feature-suggestions/suggestions/7988955-support-linux-on-all-your-devices
-		# https://www.alteeve.com/w/ASUS_MB169B%2B_on_Fedora_27
+		chmod a+x ~/Downloads/ASSUS_DRIVER/displaylink*.run
+		~/Downloads/ASSUS_DRIVER/displaylink-driver*.run
 	fi
 }
 
@@ -248,7 +240,7 @@ vim_configuration() {
 		fi
 
 		cp ./vim-plugins/grep-operator.vim $HOME_FOLDER/.local/share/nvim/site/plugin/grep-operator.vim
-		cat ./configurari_vim.vim > $HOME_FOLDER/.config/nvim/init.vim
+		cat ./configurations/configurari_vim.vim > $HOME_FOLDER/.config/nvim/init.vim
 		# nu sunt sigur daca este nevoie de asta
 		#chown $USERNAME:$USERNAME $HOME_FOLDER/.config/nvim/init.vim
 
@@ -283,13 +275,11 @@ vim_configuration() {
 		rm master.zip
 		rm -rf kuroi.vim-master/
 
-		#VIFM Configuration
-		# the config file is at ~/.config/vifm
-		# Add 
-		#		\ {Open with vim}
-		#		\ vim %f,
-		# at the web section for filextype
-		# set the default color scheme in ~/.config/vifm/vifmrc
+		# Vimwiki
+		curl -fLo $HOME_FOLDER/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+		sudo mkdir $HOME_FOLDER/.config/nvim/plugged
+		chown $USERNAME:$USERNAME $HOME_FOLDER~/.config/nvim/plugged
+		echo "Open nvim and run :PlugInstall and :UpdateRemotePlugins commands to complete"
 	fi
 }
 
