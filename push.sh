@@ -7,4 +7,4 @@ buku -e ~/Documents/buku_backup.db
 scp -P $server_port 2020-*.zip root@$server_ip:saved_data/.
 rm 2020-*.zip
 rm ~/Documents/buku_backup.db
-~                              
+                             
