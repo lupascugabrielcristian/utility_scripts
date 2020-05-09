@@ -1,0 +1,8 @@
+- books/
+- env/
+- venv/
+- *.ctd~~~
+- *.ctd~~
+- *.ctd~
+- *.pyc
+- backup.zip
