@@ -28,6 +28,13 @@ if [ "$operation" = 'h' -o "$operation" = 'push' -o "$operation" = 'Push' ]; the
                 $home_folder/Documents/research/ \
                 --filter='merge ./sync-filter.txt' \
                 root@104.248.252.160:./sync_folder/research  "$@" > /dev/null 
+
+		buku -e $home_folder/buku_backup.db
+        printf "[+] Sending buku \n"
+        rsync -rzv -e 'ssh -p 8522' --progress \
+                $home_folder/buku_backup.db \
+                root@104.248.252.160:./sync_folder  "$@" > /dev/null
+		rm $home_folder/buku_backup.db
 fi
 
 if [ "$operation" = 'l' -o "$operation" = 'pull' -o "$operation" = 'Pull' ]; then
@@ -54,4 +61,12 @@ if [ "$operation" = 'l' -o "$operation" = 'pull' -o "$operation" = 'Pull' ]; the
         rsync -rzv -e 'ssh -p 8522' --progress \
                 root@104.248.252.160:./sync_folder/research/ \ 
                 $home_folder/Documents/research #"$@" > /dev/null 
+		
+
+        printf "[+] Getting buku file\n"
+        rsync -rzv -e 'ssh -p 8522' --progress \
+                root@104.248.252.160:./sync_folder/buku_backup.db \  
+                $home_folder/. #"$@" > /dev/null 
+		buku -i buku_backup.db
+		rm buku_backup.db
 fi
