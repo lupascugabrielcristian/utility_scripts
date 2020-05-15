@@ -152,10 +152,9 @@ general_package_install() {
 		snap install slack --classic
 		#snap install --classic heroku
 
-		# TreeSheets
-		wget http://strlen.com/treesheets/treesheets_linux64.tar.gz
-		tar -xvzf treesheets_linux64.tar.gz -C $HOME_FOLDER/apps/
-		rm treesheets_linux64.tar.gz 
+		## Alacrity GPU terminal emulator
+		add-apt-repository ppa:mmstick76/alacritty
+		apt install alacritty
 	fi
 }
 
