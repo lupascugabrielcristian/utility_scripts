@@ -134,6 +134,7 @@ general_package_install() {
 		apt-get install tmux -y			# better terminal emulator thats starts in a terminal
 		apt-get install nmon -y 		# system monitor with network cpu, memory and processes
 		apt-get install neovim -y
+		apt-get install x2x -y 			# multiple displays with mouse and keyboard through ssh
 
 		# fzf
 		git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf

@@ -177,3 +177,14 @@ grep_in_keep() {
 	grep $1 /home/cristi/Documents/keep.com
 }
 
+cheat() {
+
+	if [ "$#" -eq 1 ]; then
+		curl cheat.sh/$1
+	fi
+
+	if [ "$#" -eq 0 ]; then
+		curl cheat.sh
+	fi
+}
+
