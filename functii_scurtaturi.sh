@@ -3,7 +3,6 @@
 #========== Aliases ==========
 alias ll='ls -alF'
 alias la='ls -A'
-alias l='ls -CF'
 alias ee='exit'
 alias tcowndown='nvim ~/Documents/utility_scripts/tasks'
 alias eb='nvim ~/.bashrc'
@@ -14,10 +13,11 @@ alias cdd='cd ~/Documents/'
 alias rm=sendToTrash $*
 alias cat='cat -n'
 alias pp='ping -a -c 4 www.ubuntu.security.com'
-alias identity='python3.7 ~/projects/utility_scripts/generate_account.py'
+alias identity='python3.8 ~/projects/utility_scripts/generate_account.py'
 alias .='vifm .'
 alias all_time_script='sh /home/cristi/projects/utility_scripts/make_all_time_script.sh'
 alias buku_put_in_utilities='cp /home/cristi/.local/share/buku/bookmarks.db ~/projects/utility_scripts/buku_database/'
+alias rbal='read_bookmark_at_line'
 #========== End of aliases ==========   
 
 
@@ -173,8 +173,8 @@ go_to_today_scripts() {
 	ls
 }
 
-grep_in_keep() {
-	grep $1 /home/cristi/Documents/keep.com
+gik() {
+	grep $1 /home/cristi/keep.com
 }
 
 cheat() {
@@ -187,4 +187,14 @@ cheat() {
 		curl cheat.sh
 	fi
 }
+
+# Reads from the vimwiki folder, from a bookmarks file and opens in the nvim
+# In the bookmark file, each line should be something like:
+# +145 absolutefilepath
+# In this case the bookmarks file is ~/vimwiki/Models.wiki
+# should absolutely pass the line number of the bookmark want to open
+read_bookmark_at_line() {
+	nvim $(sed -n "$1 p;$1 q" ~/vimwiki/Models.wiki)
+}
+alias rbal='read_bookmark_at_line)'
 

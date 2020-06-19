@@ -1,4 +1,4 @@
-set nu
+set number relativenumber
 set nowrap
 set tabstop=4
 set shiftwidth=4
