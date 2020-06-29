@@ -194,7 +194,13 @@ cheat() {
 # In this case the bookmarks file is ~/vimwiki/Models.wiki
 # should absolutely pass the line number of the bookmark want to open
 read_bookmark_at_line() {
-	nvim $(sed -n "$1 p;$1 q" ~/vimwiki/Models.wiki)
+	nvim $(sed -n "$1 p;$1 q" /home/cristi/vimwiki/ModelsBookmarks.wiki)
 }
-alias rbal='read_bookmark_at_line)'
+alias rbal='read_bookmark_at_line' 
+
+search_bookmark_at_line() {
+	grep -A 1 $1 /home/cristi/vimwiki/ModelsBookmarks.wiki
+}
+alias sbal='search_bookmark_at_line'
+
 

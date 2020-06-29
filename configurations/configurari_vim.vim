@@ -10,6 +10,8 @@ set scrolloff=3
 "colorscheme kuroi
 set rtp+=/home/cristi/Downloads/tabnine-vim
 set nocompatible
+filetype plugin on
+syntax on
 
 autocmd BufNewFile,BufRead *.ts setlocal filetype=typescript
 
@@ -44,6 +46,26 @@ call plug#begin()
 Plug 'vimwiki/vimwiki'
 call plug#end()
 
-filetype plugin on
-syntax on
+""""""""""""""""""""""""""""""
+
+" Denite mappings
+autocmd FileType denite call s:denite_my_settings()
+	function! s:denite_my_settings() abort
+	  nnoremap <silent><buffer><expr> <CR>
+	  \ denite#do_map('do_action')
+	  nnoremap <silent><buffer><expr> d
+	  \ denite#do_map('do_action', 'delete')
+	  nnoremap <silent><buffer><expr> p
+	  \ denite#do_map('do_action', 'preview')
+	  nnoremap <silent><buffer><expr> q
+	  \ denite#do_map('quit')
+	  nnoremap <silent><buffer><expr> i
+	  \ denite#do_map('open_filter_buffer')
+	  nnoremap <silent><buffer><expr> <Space>
+	  \ denite#do_map('toggle_select').'j'
+	  nnoremap <silent><buffer><expr> <Backspace>
+	  \ denite#do_map('move_up_path')
+	endfunction
+nnoremap <leader>D :Denite file/rec <CR> /
+
 """"""""""""""""""""""""""""""

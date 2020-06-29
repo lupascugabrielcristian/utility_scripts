@@ -251,16 +251,17 @@ vim_configuration() {
 			echo "Probably instalation changed"
 		fi
 
-		# This part is for denite plugin
+		# DENITE plugin
 		# Documentation
 		# https://github.com/Shougo/denite.nvim/blob/master/doc/denite.txt
+		pip3 install -U msgpack
 		wget https://github.com/Shougo/denite.nvim/archive/master.zip -O denite.zip
 		unzip denite.zip
 		cp -R denite.nvim-master/* $HOME_FOLDER/.config/nvim/
 		rm denite.zip
 		rm -R denite.nvim-master
 		
-		## This is for multiple color themes
+		## multiple color themes
 		git clone https://github.com/vifm/vifm-colors $HOME_FOLDER/.config/vifm/colors
 
 		# This is for autocomplete plugin TabNine. Replace path with the clone location
