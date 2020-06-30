@@ -266,7 +266,7 @@ vim_configuration() {
 
 		# This is for autocomplete plugin TabNine. Replace path with the clone location
 		git clone https://github.com/zxqfl/tabnine-vim $HOME_FOLDER/.local/share/nvim/site/plugin/tabnine
-		echo -e "\nset rtp+=$HOME_FOLDER/.local/share/nvim/site/plugin/tabnine/tabnine-vim" >> $HOME_FOLDER/.config/nvim/init.vim # Add 'set rtp+=[path_to]/tabnine-vim' to your .vimrc
+		echo "\nset rtp+=$HOME_FOLDER/.local/share/nvim/site/plugin/tabnine/tabnine-vim" >> $HOME_FOLDER/.config/nvim/init.vim # Add 'set rtp+=[path_to]/tabnine-vim' to your .vimrc
 
 		# Kuroi color scheme
 		mkdir $HOME_FOLDER/.config/nvim/colors
@@ -279,7 +279,7 @@ vim_configuration() {
 		# Vimwiki
 		curl -fLo $HOME_FOLDER/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 		sudo mkdir $HOME_FOLDER/.config/nvim/plugged
-		chown $USERNAME:$USERNAME $HOME_FOLDER~/.config/nvim/plugged
+		chown $USERNAME:$USERNAME $HOME_FOLDER/.config/nvim/plugged
 		echo "Open nvim and run :PlugInstall and :UpdateRemotePlugins commands to complete"
 	fi
 }
