@@ -264,7 +264,7 @@ vim_configuration() {
 		## multiple color themes
 		git clone https://github.com/vifm/vifm-colors $HOME_FOLDER/.config/vifm/colors
 
-		# This is for autocomplete plugin TabNine. Replace path with the clone location
+		# TabNine. This is for autocomplete plugin TabNine. Replace path with the clone location
 		git clone https://github.com/zxqfl/tabnine-vim $HOME_FOLDER/.local/share/nvim/site/plugin/tabnine
 		echo -e "\nset rtp+=$HOME_FOLDER/.local/share/nvim/site/plugin/tabnine/tabnine-vim" >> $HOME_FOLDER/.config/nvim/init.vim # Add 'set rtp+=[path_to]/tabnine-vim' to your .vimrc
 

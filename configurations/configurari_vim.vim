@@ -8,8 +8,8 @@ set termguicolors
 set background=dark
 set scrolloff=3
 "colorscheme kuroi
-set rtp+=/home/cristi/Downloads/tabnine-vim
 set nocompatible
+set clipboard=unnamedplus
 filetype plugin on
 syntax on
 
@@ -39,6 +39,11 @@ let g:netrw_banner=0 		" disables banner
 let g:netrw_liststyle=3		" tree view
 let g:netrw_list_hide=netrw_gitignore#Hide()
 let g:netrw_list_hide.=',\(^\|\s\s\)\zs\.\S\+'
+""""""""""""""""""""""""""""""""""""""""""""""""""
+" For TabNine
+" add here the path to the download foleder
+" set rtp+=/home/cristi/.local/share/nvim/site/plugin/tabnine/tabnine-vim
+
 """"""""""""""""""""""""""""""""""""""""""""""""""
 
 " For vim wiki "  
