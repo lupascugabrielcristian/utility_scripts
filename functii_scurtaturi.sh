@@ -1,10 +1,12 @@
 #!/bin/bash
 
+utilities_folder='/home/cristi/projects/utility_scripts'
+
 #========== Aliases ==========
 alias ll='ls -alF'
 alias la='ls -A'
 alias ee='exit'
-alias tcowndown='nvim ~/Documents/utility_scripts/tasks'
+alias tcowndown='nvim $utilities_folder /tasks'
 alias eb='nvim ~/.bashrc'
 alias cdex='cd ~/projects/exercises/'
 alias cdut='cd ~/projects/utility_scripts/'
@@ -66,8 +68,8 @@ function tab-name() {
 }
 
 function cowntdown() {
-	cd ~/Documents/utility_scripts/
-	python3 ~/Documents/utility_scripts/countdown.py ~/Documents/utility_scripts/tasks
+	cd $utilities_folder
+	python3 $utilities_folder/countdown.py $utilities_folder/countdown.tasks
 }
 
 function numberlines() {
@@ -199,7 +201,7 @@ read_bookmark_at_line() {
 alias rbal='read_bookmark_at_line' 
 
 search_bookmark_at_line() {
-	grep -A 1 $1 /home/cristi/vimwiki/ModelsBookmarks.wiki
+	grep -nr --ignore-case -A 1 $1 /home/cristi/vimwiki/ModelsBookmarks.wiki
 }
 alias sbal='search_bookmark_at_line'
 
