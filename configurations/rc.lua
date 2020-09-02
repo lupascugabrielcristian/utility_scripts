@@ -531,6 +531,22 @@ awful.rules.rules = {
     -- Set Firefox to always map on the tag named "2" on screen 1.
     { rule = { class = "Firefox" },
       properties = { tag = "6-browser" } },
+
+
+	-- IntelliJ
+	{ rule = {
+		class = "jetbrains-.*",
+		name = "win.*"
+		},
+	  properties = {
+		titlebars_enabled = false, 
+		focusable = false, 
+		focus = true, 
+		floating = true, 
+		placement = awful.placement.restore
+	  }
+	}
+
 }
 -- }}}
 

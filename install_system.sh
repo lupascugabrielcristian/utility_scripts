@@ -130,7 +130,7 @@ general_package_install() {
 		apt-get install qutebrowser -y		# browser like vim
 		apt-get install httpie -y		# testing http calls in terminal
 		apt-get install buku -y			# bookmark manager
-		apt-get install cherrytree -y 	 	# text notes in tree form
+		apt-get install cherrytree -y 	# text notes in tree form
 		apt-get install tmux -y			# better terminal emulator thats starts in a terminal
 		apt-get install nmon -y 		# system monitor with network cpu, memory and processes
 		apt-get install neovim -y
