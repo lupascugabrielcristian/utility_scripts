@@ -190,6 +190,21 @@ cheat() {
 	fi
 }
 
+connect_monitor() {
+
+	if [ "$1" = "usb_normal" ]; then
+		xrandr --output DVI-I-2-1 --auto --right-of eDP-1-1 --rotate normal
+	fi
+
+	if [ "$1" = "usb_vertical" ]; then
+		xrandr --output DVI-I-2-1 --auto --right-of eDP-1-1 --rotate left
+	fi
+
+	if [ "$#" -eq 0 ]; then
+		echo "Ce fel de monitor? [usb_normal, usb_vertical]"
+	fi
+}
+
 # Reads from the vimwiki folder, from a bookmarks file and opens in the nvim
 # In the bookmark file, each line should be something like:
 # +145 absolutefilepath
