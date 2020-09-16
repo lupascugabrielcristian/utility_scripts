@@ -112,15 +112,12 @@ general_package_install() {
 		apt-get install curl -y
 		apt-get install bmon -y
 		apt-get install graphviz -y
-		#apt-get install elvish 					# interactive terminal language
 		apt-get install dia -y
-		#apt install tilix 						# Terminal
 		apt-get install tldr -y 					# Easy to understand man pages
 		apt-get install python3 -y
 		apt-get install gnome-tweak-tool -y
 		apt-get install iftop -y
 		apt-get install slurm -y					# network monitor
-		apt-get install glances -y 					# complex system monitor
 		apt-get install vifm -y 					# terminal file manager with vim keybindings
 		apt-get install w3m -y 						# terminal browser
 		#apt-get install torsocks					# to browse to onion sites
