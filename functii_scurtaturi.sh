@@ -72,6 +72,10 @@ function cowntdown() {
 	python3 $utilities_folder/countdown.py $utilities_folder/countdown.tasks
 }
 
+function replace_spaces() {
+	python3 $utilities_folder/replace_spaces_in_filenames.py $1
+}
+
 function numberlines() {
 	# awk '{ print NR": "$0 }' < inputfile
 	# alternative to cat -n
@@ -199,6 +203,8 @@ connect_monitor() {
 		xrandr --output DVI-I-2-1 --auto --right-of eDP-1-1 --rotate normal
 	elif [ "$1" = "usb_vertical" ]; then
 		xrandr --output DVI-I-2-1 --auto --right-of eDP-1-1 --rotate left
+	elif [ "$1" = "hdmi" ]; then
+		xrandr --output HDMI-0 --auto --right-of eDP-1-1
 	else 
 		echo "Ce fel de monitor? [usb_normal, usb_vertical]"
 	fi
