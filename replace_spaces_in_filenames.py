@@ -7,4 +7,5 @@ for ( dirpath, dirname, filenames ) in os.walk(directory):
     for f in filenames:
         old_name = str(f)
         new_name = old_name.replace(' ', '_')
+        new_name = new_name.replace(',', '')
         os.rename( os.path.join(dirpath, old_name), os.path.join(dirpath, new_name) )
