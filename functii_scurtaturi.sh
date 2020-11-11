@@ -20,6 +20,7 @@ alias .='vifm .'
 alias all_time_script='sh /home/cristi/projects/utility_scripts/make_all_time_script.sh'
 alias buku_put_in_utilities='cp /home/cristi/.local/share/buku/bookmarks.db ~/projects/utility_scripts/buku_database/'
 alias rbal='read_bookmark_at_line'
+alias open_nautilus='python $utilities_folder/open_nautilus.py'
 #========== End of aliases ==========   
 
 
