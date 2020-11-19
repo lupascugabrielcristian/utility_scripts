@@ -32,6 +32,4 @@ for loc in location_options:
     count +=1
 
 location_number = int(input("Location: "))
-os.system('nautilus ' + location_options[location_number].location )
-
-
+os.system('alacritty --working-directory ' + location_options[location_number].location + ' &' )

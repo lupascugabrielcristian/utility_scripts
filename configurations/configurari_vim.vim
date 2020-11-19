@@ -29,8 +29,6 @@ vnoremap <leader>> <esc>`<i<<esc>`>ea><esc>
 vnoremap <leader>( <esc>`<i(<esc>`>ea)<esc>
 vnoremap <leader>) <esc>`<i(<esc>`>ea)<esc>
 
-vnoremap <leader>" <esc>`<i(<esc>`>ea)<esc>
-
 " Adds a semicolon to the end of the line
 nnoremap <leader>;; mqA;<esc>`q
 
