@@ -29,8 +29,25 @@ vnoremap <leader>> <esc>`<i<<esc>`>ea><esc>
 vnoremap <leader>( <esc>`<i(<esc>`>ea)<esc>
 vnoremap <leader>) <esc>`<i(<esc>`>ea)<esc>
 
+" Surround selection with "
+vnoremap <leader>" <esc>`<i(<esc>`>ea)<esc>
+
 " Adds a semicolon to the end of the line
 nnoremap <leader>;; mqA;<esc>`q
+
+function! CopyLineUp(lines_up)
+	echo "copy from " .a:lines_up. " lines up"
+	execute "normal! 0mq" .a:lines_up. "kyy`qP"
+endfunction
+command -nargs=1 Clu call CopyLineUp(<args>)
+" :Clu 4 has the effect to copy the 4th line up, to current positon
+
+function! CopyLineDown(lines_down)
+	echo "copy from " .a:lines_down. " lines down"
+	execute "normal! 0mq" .a:lines_down. "jyy`qP"
+endfunction
+command -nargs=1 Cld call CopyLineDown(<args>)
+" :Cld 4 has the effect to copy the 4th line down, to current positon
 
 " netwr File browser
 let g:netrw_banner=0 		" disables banner
