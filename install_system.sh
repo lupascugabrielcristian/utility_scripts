@@ -31,6 +31,10 @@ bashrc() {
 		echo "\n############ SWAP ################" >> $HOME_FOLDER/.bashrc
 		echo "source $PWD/functii_erent.sh" >> $HOME_FOLDER/.bashrc
 
+		echo "\n############ NOTES ################" >> $HOME_FOLDER/.bashrc
+		echo "source $PWD/functii_notes.sh" >> $HOME_FOLDER/.bashrc
+		echo "source $HOME_FOLDER/research/all_the_time_scrips/all_the_time_sources.sh" >> $HOME_FOLDER/.bashrc
+
 		echo "\nexport EDITOR='nvim'\n" >> $HOME_FOLDER/.bashrc
 	fi
 }

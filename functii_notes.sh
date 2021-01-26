@@ -51,9 +51,9 @@ function ndia() {
 }
 
 function oa(){
-	source /home/cristi/Documents/utility_scripts/mongo_notes/env/bin/activate
-	python3.6 /home/cristi/Documents/utility_scripts/mongo_notes/allNotes.py $*
-	deactivate
+	#source /home/cristi/Documents/utility_scripts/mongo_notes/env/bin/activate
+	python3.8 /home/cristi/projects/utility_scripts/mongo_notes/allNotes.py $*
+	#deactivate
 }
 
 alias mn='mongo_notes'

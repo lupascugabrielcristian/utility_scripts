@@ -9,9 +9,7 @@ import glob
 notesDirectory = "/home/cristi/Documents/notes/"
 researchNotesDirectory = "/home/cristi/Documents/research/notes/"
 booksDirectory = "/home/cristi/Documents/Books/"
-pythonBooksDirectory = "/home/cristi/Documents/Books/PythonBundle/"
-xmindLocation = "/home/cristi/Downloads/xmind-8-update8-linux/XMind_amd64/"
-keepLocation = "/home/cristi/Documents/keep.com"
+keepLocation = "/home/cristi/keep.com"
 allTheTimeScriptsDirectory = "/home/cristi/Documents/research/all_the_time_scrips/"
 
 class colors:
@@ -119,6 +117,8 @@ def openChosenOption(foundResult):
     elif foundResult.application == "w3m":
         call([foundResult.application, foundResult.what])
     else:
+        print("Aplication: " + foundResult.application)
+        print("Location: " + foundResult.where + foundResult.what)
         call([foundResult.application, foundResult.where + foundResult.what])
 
 def searchOnline(searchTextParts):
@@ -152,6 +152,7 @@ def searchMongoNotes(forWhat):
 def searchFiles():
     found_results = []
     files = os.listdir(notesDirectory)
+
     files = filterFilesAfterArgument(files)
     found_results += list( map( lambda f: fileToFoundResult(f, notesDirectory), files ) )
 
@@ -163,9 +164,13 @@ def searchFiles():
     files = filterFilesAfterArgument(files)
     found_results += list( map( lambda f: fileToFoundResult(f, booksDirectory), files ) )
 
-    files = os.listdir(pythonBooksDirectory)
-    files = filterFilesAfterArgument(files)
-    found_results += list( map( lambda f: fileToFoundResult(f, pythonBooksDirectory), files ) )
+    files = os.listdir(booksDirectory)
+    dirs = list( filter( lambda d: os.path.isdir( booksDirectory ), files) )
+    for d in dirs:
+        files = os.listdir( booksDirectory + d)
+        files = filterFilesAfterArgument(files)
+        found_results += list( map( lambda f: fileToFoundResult(f, booksDirectory + d + "/"), files ) )
+
 
     return found_results
 
@@ -183,6 +188,8 @@ def searchKeepFile():
             lines = keep_file.readlines()
             lines = list(filter( lambda line: sys.argv[1] in line, lines ))
             found_results = list( map( lambda line: keepToFoundResult(line, keepLocation), lines))
+    else:
+        print("Keep file not found")
         
     return found_results
 
@@ -222,8 +229,8 @@ if len(sys.argv) == 1:
 # to skip mongo add --no-mongo
 allResults = searchFiles()
 
-if "".join(sys.argv[1:]).find('--no-mongo') == -1:
-    allResults += searchMongoNotes(sys.argv[1]) 
+#if "".join(sys.argv[1:]).find('--no-mongo') == -1:
+#    allResults += searchMongoNotes(sys.argv[1]) 
 
 all
 allResults += searchKeepFile()
