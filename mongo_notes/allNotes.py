@@ -176,7 +176,7 @@ def searchFiles():
     found_results += list( map( lambda f: fileToFoundResult(f, booksDirectory), files ) )
 
     files = os.listdir(booksDirectory)
-    dirs = list( filter( lambda d: os.path.isdir( booksDirectory ), files) )
+    dirs = list( filter( lambda d: os.path.isdir( booksDirectory + d ) is True, files) )
     for d in dirs:
         files = os.listdir( booksDirectory + d)
         files = filterFilesAfterArgument(files)
