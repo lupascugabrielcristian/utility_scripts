@@ -1,3 +1,11 @@
+# 
+# 
+# Cauta in locatiile de mai jos dupa primul parametru dat la comanda 
+# Functie de ce extensie are fisierul, il afiseaza cu un tag diferit, si il deschide diferit
+# 
+# 
+# 
+
 import os, sys
 import subprocess
 import pdb
@@ -6,13 +14,13 @@ from  search_mongo_note import searchAllNotes
 from enum import Enum
 import glob
 
-notesDirectory = "/home/cristi/Documents/notes/"
-researchNotesDirectory = "/home/cristi/Documents/research/notes/"
-booksDirectory = "/home/cristi/Documents/Books/"
-pythonBooksDirectory = "/home/cristi/Documents/Books/PythonBundle/"
-xmindLocation = "/home/cristi/Downloads/xmind-8-update8-linux/XMind_amd64/"
-keepLocation = "/home/cristi/Documents/keep.com"
+# LOCATIONS
+notesDirectory =            "/home/cristi/Documents/notes/"
+researchNotesDirectory =    "/home/cristi/Documents/research/notes/"
+booksDirectory =            "/home/cristi/Documents/Books/"
+keepLocation =              "/home/cristi/keep.com"
 allTheTimeScriptsDirectory = "/home/cristi/Documents/research/all_the_time_scrips/"
+vimwikiDirectory =          "/home/cristi/vimwiki/"
 
 class colors:
     HEADER = '\033[95m'
@@ -80,6 +88,7 @@ def chooseFile(foundResults):
 def filterFilesAfterArgument(files):
     return list(filter(lambda f: f.lower().find(sys.argv[1].lower()) != -1 and '~' not in f, files))
 
+# Functie de extensia fisierului, seteaza aplicatia cu care sa il deschida
 def fileToFoundResult(fileFound, directory):
     result = FoundResult(fileFound)
     dotPosition = fileFound.rfind('.') + 1
@@ -89,7 +98,7 @@ def fileToFoundResult(fileFound, directory):
     if extension == "pdf":
         result.application = "zathura"
         result.type = FoundResultType.BOOK
-    elif extension == "txt" or extension == "md":
+    elif extension == "txt" or extension == "md" or extension == "wiki":
         result.application = "nvim"
         result.type = FoundResultType.NOTE
     elif extension == "xmind":
@@ -119,6 +128,8 @@ def openChosenOption(foundResult):
     elif foundResult.application == "w3m":
         call([foundResult.application, foundResult.what])
     else:
+        print("Aplication: " + foundResult.application)
+        print("Location: " + foundResult.where + foundResult.what)
         call([foundResult.application, foundResult.where + foundResult.what])
 
 def searchOnline(searchTextParts):
@@ -152,6 +163,7 @@ def searchMongoNotes(forWhat):
 def searchFiles():
     found_results = []
     files = os.listdir(notesDirectory)
+
     files = filterFilesAfterArgument(files)
     found_results += list( map( lambda f: fileToFoundResult(f, notesDirectory), files ) )
 
@@ -163,9 +175,13 @@ def searchFiles():
     files = filterFilesAfterArgument(files)
     found_results += list( map( lambda f: fileToFoundResult(f, booksDirectory), files ) )
 
-    files = os.listdir(pythonBooksDirectory)
-    files = filterFilesAfterArgument(files)
-    found_results += list( map( lambda f: fileToFoundResult(f, pythonBooksDirectory), files ) )
+    files = os.listdir(booksDirectory)
+    dirs = list( filter( lambda d: os.path.isdir( booksDirectory + d ) is True, files) )
+    for d in dirs:
+        files = os.listdir( booksDirectory + d)
+        files = filterFilesAfterArgument(files)
+        found_results += list( map( lambda f: fileToFoundResult(f, booksDirectory + d + "/"), files ) )
+
 
     return found_results
 
@@ -183,6 +199,8 @@ def searchKeepFile():
             lines = keep_file.readlines()
             lines = list(filter( lambda line: sys.argv[1] in line, lines ))
             found_results = list( map( lambda line: keepToFoundResult(line, keepLocation), lines))
+    else:
+        print("Keep file not found")
         
     return found_results
 
@@ -214,6 +232,21 @@ def searchAllTimeScripts():
     return list(map(lambda found_file: allTimeScriptToFoundResult(found_file), files_with_results))
 
 
+def searchVimWiki():
+    results_to_add = []
+    wikis = os.listdir( vimwikiDirectory )
+    for wiki in wikis:
+        if os.path.isdir( vimwikiDirectory + wiki + "/" ) is True:
+            continue
+
+        with open( vimwikiDirectory + wiki, "r") as wiki_file:
+            lines = wiki_file.readlines()
+            found_lines = list( filter( lambda l: sys.argv[1] in l, lines ))
+            if len( found_lines ) > 0:
+                results_to_add.append( fileToFoundResult( wiki, vimwikiDirectory ))
+    return results_to_add
+
+
 ######## Starts here ########
 if len(sys.argv) == 1:
     print("There are not enough arguments")
@@ -222,12 +255,12 @@ if len(sys.argv) == 1:
 # to skip mongo add --no-mongo
 allResults = searchFiles()
 
-if "".join(sys.argv[1:]).find('--no-mongo') == -1:
-    allResults += searchMongoNotes(sys.argv[1]) 
+#if "".join(sys.argv[1:]).find('--no-mongo') == -1:
+#    allResults += searchMongoNotes(sys.argv[1]) 
 
-all
 allResults += searchKeepFile()
 allResults += searchAllTimeScripts()
+allResults += searchVimWiki()
 
 try:
     chosenFile = chooseFile(allResults)
