@@ -1,3 +1,19 @@
+#
+#
+# In cazul PUSH:
+# iau fisierul de pe server denumit last_push.log si il salvez local in [home folder]/last_server_sync.log
+# ma uit in fisierul local last_push.log si memorez userul si timpul ultimului push
+# daca continui cu operatia de push, trimit pe server noul timp si [home folder] introdus de user
+#
+#
+# In cazul PULL:
+# pun in last_push.log local timpul 0
+#
+#
+# In cazul WHO:
+# printez continutul fisierului local last_push.log
+#
+
 read -p "[?] Home folder? " home_folder
 read -p "[?] Push(h)/Pull(l)/Who(w)? " operation
 
@@ -11,6 +27,7 @@ if [ "$operation" = 'h' -o "$operation" = 'push' -o "$operation" = 'Push' ]; the
 		server_time=${array[1]} # memorez cand s-a inregistrat pe server ultimul push
 		server_user=${array[0]} # memorez userul care a facut push ultima data pe server
 
+		# Ma uit in fisierul local last_push.log sa vad cand am facut push ultima data
 		mapfile -t array < last_push.log
 		lpush_time=${array[1]} # memorez cand s-a facut push ultima data de pe calculatorul asta
 
@@ -60,7 +77,7 @@ if [ "$operation" = 'h' -o "$operation" = 'push' -o "$operation" = 'Push' ]; the
 		rm $home_folder/buku_backup.db
 
 
-		#Updatez timpul local de push pentru verificare ultirioara cu serverul
+		# Updatez timpul local de push pentru verificare ultirioara cu serverul
 		time=$(date +%s)
 		echo $home_folder > last_push.log
 		echo $time >> last_push.log
@@ -105,3 +122,7 @@ if [ "$operation" = 'l' -o "$operation" = 'pull' -o "$operation" = 'Pull' ]; the
 		echo 0 >> last_push.log
 fi
 
+if [ "$operation" = 'w' -o "$operation" = 'who' -o "$operation" = 'Who' ]; then
+	echo "Acesta este continutul fisierului last_push.log. Arata cand s-a facut ultimul push de aici. Daca timpul este 0 inseamna ca am facut pull\n"
+	cat last_push.log
+fi
