@@ -14,10 +14,11 @@
 # printez continutul fisierului local last_push.log
 #
 
-read -p "[?] Home folder? " home_folder
 read -p "[?] Push(h)/Pull(l)/Who(w)? " operation
 
 if [ "$operation" = 'h' -o "$operation" = 'push' -o "$operation" = 'Push' ]; then
+
+		read -p "[?] Home folder? " home_folder
 
 		# Iau fisierul de pe server pentru a vedea cand si de catre cine s-a facut ultimul push
         rsync -rzv -e 'ssh -p 8522' --progress \
@@ -41,6 +42,7 @@ if [ "$operation" = 'h' -o "$operation" = 'push' -o "$operation" = 'Push' ]; the
 			echo $lpush_time ..local push time
 			read "[X] Timpul gasit pe server difera de cel la care s-a facut push de pe calculatorul asta. Trebuie facut pull mai intai"
 		fi
+
 
         printf "[+] Pushing to backup server\n"
         printf "[+] Sending keep file\n"
@@ -89,6 +91,9 @@ if [ "$operation" = 'h' -o "$operation" = 'push' -o "$operation" = 'Push' ]; the
 fi
 
 if [ "$operation" = 'l' -o "$operation" = 'pull' -o "$operation" = 'Pull' ]; then
+
+		read -p "[?] Home folder? " home_folder
+
 		printf "[+] Pulling from backup server\n"
         printf "[+] Getting keep file\n"
         rsync -rzv -e 'ssh -p 8522' --progress \
