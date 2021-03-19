@@ -128,6 +128,20 @@ if [ "$operation" = 'l' -o "$operation" = 'pull' -o "$operation" = 'Pull' ]; the
 fi
 
 if [ "$operation" = 'w' -o "$operation" = 'who' -o "$operation" = 'Who' ]; then
-	echo "Acesta este continutul fisierului last_push.log. Arata cand s-a facut ultimul push de aici. Daca timpul este 0 inseamna ca am facut pull\n"
-	cat last_push.log
+		echo "Acesta este continutul fisierului last_push.log. Arata cand s-a facut ultimul push de aici. Daca timpul este 0 inseamna ca am facut pull\n"
+		cat last_push.log
+
+		read -p "[?] Home folder? " home_folder
+
+		# Iau fisierul de pe server pentru a vedea cand si de catre cine s-a facut ultimul push
+		rsync -rzv -e 'ssh -p 8522' --progress \
+				root@104.248.252.160:./sync_folder/last_push.log  $home_folder/last_server_sync.log "$@" > /dev/null
+
+		mapfile -t array < $home_folder/last_server_sync.log
+		server_time=${array[1]} # memorez cand s-a inregistrat pe server ultimul push
+		server_user=${array[0]} # memorez userul care a facut push ultima data pe server
+
+		echo "From server:"
+		echo "User: $server_user" 
+		echo "Time: $server_time" 
 fi
