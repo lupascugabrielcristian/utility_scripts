@@ -155,35 +155,58 @@ def createResultFromMongoContent(content):
         result.type = FoundResultType.COMMAND
     return result
 
+
 def searchMongoNotes(forWhat):
     mongoNotes = searchAllNotes(forWhat)
     mongoNotesContents = mergeNotesContents(mongoNotes);
     return list( map( lambda c: createResultFromMongoContent(c), mongoNotesContents ) )
 
+
 def searchFiles():
     found_results = []
-    files = os.listdir(notesDirectory)
+    files = list_files(notesDirectory)
 
     files = filterFilesAfterArgument(files)
     found_results += list( map( lambda f: fileToFoundResult(f, notesDirectory), files ) )
 
-    files = os.listdir(researchNotesDirectory)
+    files = list_files(researchNotesDirectory)
     files = filterFilesAfterArgument(files)
     found_results += list( map( lambda f: fileToFoundResult(f, researchNotesDirectory), files ) )
 
-    files = os.listdir(booksDirectory)
+    files = list_files(booksDirectory)
     files = filterFilesAfterArgument(files)
     found_results += list( map( lambda f: fileToFoundResult(f, booksDirectory), files ) )
 
-    files = os.listdir(booksDirectory)
-    dirs = list( filter( lambda d: os.path.isdir( booksDirectory + d ) is True, files) )
+    dirs = list_directories(booksDirectory)
     for d in dirs:
-        files = os.listdir( booksDirectory + d)
+        files = list_files( booksDirectory + d )
         files = filterFilesAfterArgument(files)
         found_results += list( map( lambda f: fileToFoundResult(f, booksDirectory + d + "/"), files ) )
 
 
     return found_results
+
+
+def list_files(directory):
+    files = []
+    try:
+        files = os.listdir(directory)
+    except FileNotFoundError as e:
+        print("[ERR] Directory missing " + directory)
+
+    return files
+
+
+def list_directories(directory):
+    dirs = []
+    try:
+        files = os.listdir(booksDirectory)
+        dirs = list( filter( lambda d: os.path.isdir( booksDirectory + d ) is True, files) )
+    except FileNotFoundError as e:
+        print("[ERR] Directory missing " + directory)
+
+    return dirs
+
 
 def keepToFoundResult(line, location):
     found_result = FoundResult(line)
