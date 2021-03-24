@@ -4,10 +4,10 @@ then
 	exit 1
 fi
 
+echo "[+] Current working directory: $PWD"
 echo "[?] HOME_FOLDER: "
 read HOME_FOLDER
 
-echo "[+] Current working directory: $PWD"
 echo "[?] User name: "
 read USERNAME
 
@@ -134,7 +134,7 @@ general_package_install() {
 		apt-get install cherrytree -y 	# text notes in tree form
 		apt-get install tmux -y			# better terminal emulator thats starts in a terminal
 		apt-get install nmon -y 		# system monitor with network cpu, memory and processes
-		apt-get install neovim -y
+		#apt-get install neovim -y		# L-am mutat in configurari vim
 		apt-get install x2x -y 			# multiple displays with mouse and keyboard through ssh
 		apt-get install jq				# to parse json in terminal
 		apt-get install bw				# to login in bitwarden
@@ -150,10 +150,10 @@ general_package_install() {
 		apt-get install google-chrome-stable -y
 
 		# Regolith
-		add-apt-repository ppa:regolith-linux/release
-		apt install regolith-desktop -y
+		#add-apt-repository ppa:regolith-linux/release
+		#apt install regolith-desktop
 
-		snap install slack --classic
+		#snap install slack --classic
 		#snap install --classic heroku
 
 		## Alacrity GPU terminal emulator
@@ -230,17 +230,17 @@ vim_configuration() {
 	# VIM Configuration
 	read -p "Continue with VIM configuration? (yes/no)" userResponse
 	if [ "$userResponse" = 'yes' ]; then
-		if [ ! -d $HOME_FOLDER/.config/nvim ]; then
-			mkdir $HOME_FOLDER/.config/nvim/
-		fi
+		apt-get install git -y
+		apt-get install neovim -y
 
-		if [ ! -d $HOME_FOLDER/.local/share/nvim/site ]; then
-			mkdir $HOME_FOLDER/.local/share/nvim/site/
-		fi
+		mkdir -p $HOME_FOLDER/.config/nvim/
+		mkdir $HOME_FOLDER/.config/nvim/plugged
+		read -p "Am facut .config/nvim" anyResponse
 
 		if [ ! -d $HOME_FOLDER/.local/share/nvim/site/plugin ]; then
-			mkdir $HOME_FOLDER/.local/share/nvim/site/plugin/
+			mkdir -p $HOME_FOLDER/.local/share/nvim/site/plugin/
 		fi
+		read -p "Am facut plugin folder" .
 
 		cp ./vim-plugins/grep-operator.vim $HOME_FOLDER/.local/share/nvim/site/plugin/grep-operator.vim
 		cat ./configurations/configurari_vim.vim > $HOME_FOLDER/.config/nvim/init.vim
@@ -248,42 +248,21 @@ vim_configuration() {
 		#chown $USERNAME:$USERNAME $HOME_FOLDER/.config/nvim/init.vim
 
 		if [  -d /usr/share/nvim/runtime/syntax ]; then
-			sudo cp ./typescript.vim /usr/share/nvim/runtime/syntax/typescript.vim
+			cp ./typescript.vim /usr/share/nvim/runtime/syntax/typescript.vim
 		else
 			echo "Need to have this folder in place: /usr/share/nvim/runtime/syntax"
 			echo "Probably instalation changed"
 		fi
 
-		# DENITE plugin
-		# Documentation
-		# https://github.com/Shougo/denite.nvim/blob/master/doc/denite.txt
-		pip3 install -U msgpack
-		wget https://github.com/Shougo/denite.nvim/archive/master.zip -O denite.zip
-		unzip denite.zip
-		cp -R denite.nvim-master/* $HOME_FOLDER/.config/nvim/
-		rm denite.zip
-		rm -R denite.nvim-master
-		
 		## multiple color themes
-		git clone https://github.com/vifm/vifm-colors $HOME_FOLDER/.config/vifm/colors
-
-		# TabNine. This is for autocomplete plugin TabNine. Replace path with the clone location
-		git clone https://github.com/zxqfl/tabnine-vim $HOME_FOLDER/.local/share/nvim/site/plugin/tabnine
-		echo "\nset rtp+=$HOME_FOLDER/.local/share/nvim/site/plugin/tabnine/tabnine-vim" >> $HOME_FOLDER/.config/nvim/init.vim # Add 'set rtp+=[path_to]/tabnine-vim' to your .vimrc
-
-		# Kuroi color scheme
-		mkdir $HOME_FOLDER/.config/nvim/colors
-		wget https://github.com/aonemd/kuroi.vim/archive/master.zip
-		unzip master.zip
-		cp kuroi.vim-master/colors/kuroi.vim $HOME_FOLDER/.config/nvim/colors/
-		rm master.zip
-		rm -rf kuroi.vim-master/
+		#git clone https://github.com/vifm/vifm-colors $HOME_FOLDER/.config/vifm/colors
 
 		# Vimwiki
 		curl -fLo $HOME_FOLDER/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-		sudo mkdir $HOME_FOLDER/.config/nvim/plugged
-		chown $USERNAME:$USERNAME $HOME_FOLDER/.config/nvim/plugged
-		echo "Open nvim and run :PlugInstall and :UpdateRemotePlugins commands to complete"
+		chown -Rv $USERNAME:$USERNAME $HOME_FOLDER/.config/nvim/plugged
+		chown -Rv $USERNAME:$USERNAME $HOME_FOLDER/.config/nvim/
+		chown -Rv $USERNAME:$USERNAME $HOME_FOLDER/.local/share/nvim/
+		read -p "Open nvim and run :PlugInstall and :UpdateRemotePlugins commands to complete" .
 	fi
 }
 
@@ -370,20 +349,20 @@ validations() {
 }
 
 prepare_directories
-bashrc
-video_card
-exercitii
-countdown
-ASUS_monitor
-JDK
-general_package_install
-docker
-mongo 
-notes
+#bashrc
+#video_card
+#exercitii
+#countdown
+#ASUS_monitor
+#JDK
+#general_package_install
+#docker
+#mongo 
+#notes
 vim_configuration
 tmux_configuration
-ssh_key_registration
-ide
-protonvpn_install
+#ssh_key_registration
+#ide
+#protonvpn_install
 echo -e '\n\n====== All done! ======='
 validations
