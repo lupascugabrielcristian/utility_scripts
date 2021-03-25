@@ -118,40 +118,37 @@ general_package_install() {
 	if [ "$userResponse" = 'yes' ]; then
 		sudo apt-get update
 		sudo apt-get install python3.8 -y
-		#apt-get install xclip -y 					# comanda pentru a copia in clipboard: pwd | xclip -sel clip
 		sudo apt-get install git -y
 		##apt-get install nodejs -y
 		##apt-get install npm -y
 		##apt-get install node-typescript -y
 		##npm install -g @angular/cli -y
-		#apt-get install software-properties-common -y
-		#apt-get install htop -y
+		sudo apt-get install htop -y
 		#apt-get install synaptic -y
-		#apt-get install curl -y
+		sudo apt-get install curl -y
 		#apt-get install bmon -y
 		#apt-get install graphviz -y
-		#apt-get install dia -y
+		sudo apt-get install dia -y
 		#apt-get install tldr -y 					# Easy to understand man pages
 		#apt-get install python3 -y
 		#apt-get install gnome-tweak-tool -y
 		#apt-get install iftop -y
 		#apt-get install slurm -y					# network monitor
-		#apt-get install vifm -y 					# terminal file manager with vim keybindings
-		#apt-get install w3m -y 						# terminal browser
+		sudo apt-get install vifm -y 					# terminal file manager with vim keybindings
+		sudo apt-get install w3m -y 						# terminal browser
 		##apt-get install torsocks					# to browse to onion sites
-		#apt-get install trash-cli 					# sends files to trash
-		#apt-get install zathura zathura-djvu zathura-ps zathura-cb # pdf reader with vim-like key bindings
+		sudo apt-get install trash-cli -y					# sends files to trash
+		sudo apt-get install zathura zathura-djvu zathura-ps zathura-cb -y # pdf reader with vim-like key bindings
 		#echo "Comenzile pentru network monitors sunt in fisierul comenzi"
 		#apt-get install qutebrowser -y		# browser like vim
-		#apt-get install httpie -y		# testing http calls in terminal
-		#apt-get install buku -y			# bookmark manager
+		sudo apt-get install httpie -y		# testing http calls in terminal
+		sudo apt-get install buku -y			# bookmark manager
 		#apt-get install cherrytree -y 	# text notes in tree form
-		#apt-get install tmux -y			# better terminal emulator thats starts in a terminal
 		#apt-get install nmon -y 		# system monitor with network cpu, memory and processes
-		##apt-get install neovim -y		# L-am mutat in configurari vim
 		#apt-get install x2x -y 			# multiple displays with mouse and keyboard through ssh
 		#apt-get install jq				# to parse json in terminal
-		#apt-get install bw				# to login in bitwarden
+
+		sudo snap install bw -y   # to login in bitwarden 
 
 		## Chrome
 		#wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
@@ -159,25 +156,42 @@ general_package_install() {
 		#apt-get update
 		#apt-get install google-chrome-stable -y
 
-		# Regolith
-		#add-apt-repository ppa:regolith-linux/release
-		#apt install regolith-desktop
 
-		#snap install slack --classic
-		#snap install --classic heroku
-
-		## Alacrity GPU terminal emulator
-		#add-apt-repository ppa:mmstick76/alacritty
-		#apt install alacritty
 	fi
 }
 
-fzf() {
+awesome_configurations() {
+	echo ""
+	read -p "Continue with awesome?(yes/no)" userResponse
+	if [ "$userResponse" = 'yes' ]; then
+		sudo apt-get install awesome -y
+		
+		# Configuration files
+		# Trebuie sa am fonturile Jetbrains Mono NL instalate
+		sudo cp configurations/rc.lua /etc/xdg/awesome/rc.lua
+		sudo cp configurations/theme.lua /usr/share/awesome/themes/default/theme.lua
+	fi
+}
+
+alacrity_configuration() {
+	echo ""
+	read -p "Continue with alacrirry?(yes/no)" userResponse
+	if [ "$userResponse" = 'yes' ]; then
+		# Alacrity GPU terminal emulator
+		add-apt-repository ppa:mmstick76/alacritty
+		apt install alacritty -y
+
+		mkdir -p $HOME_FOLDER/.config/alacritty
+		cp configurations/alacritty.yml $HOME_FOLDER/.config/alacritty/alacritty.yml
+	fi
+}
+
+fzf_configuration() {
 	echo ""
 	read -p "Continue with fzf?(yes/no)" userResponse
 	if [ "$userResponse" = 'yes' ]; then
 		git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-		~/.fzf/install # For keybingings https://github.com/junegunn/fzf
+		~/.fzf/install # For keybingings https://github.com/junegunn/fzf 
 	fi
 }
 
@@ -222,23 +236,23 @@ mongo() {
 	fi
 }
 
-notes() {
-	read -p "Continue with notes setup(yes/no)" userResponse
-	if [ "$userResponse" = 'yes' ]; then
-		sudo apt-get install python3.8 -y
-		if [ ! -d $HOME_FOLDER/Documents/notes ]; then
-			mkdir -p $HOME_FOLDER/Documents/notes
-		fi
-
-		if [ ! -d $HOME_FOLDER/Documents/Books ]; then
-			mkdir -p $HOME_FOLDER/Documents/Books
-		fi
-
-		echo "" >> $HOME_FOLDER/.bashrc
-		echo "######### NOTES ########" >> $HOME_FOLDER/.bashrc
-		echo "source $PWD/functii_notes.sh" >> $HOME_FOLDER/.bashrc
-	fi
-}
+#notes() {
+#	read -p "Continue with notes setup(yes/no)" userResponse
+#	if [ "$userResponse" = 'yes' ]; then
+#		sudo apt-get install python3.8 -y
+#		if [ ! -d $HOME_FOLDER/Documents/notes ]; then
+#			mkdir -p $HOME_FOLDER/Documents/notes
+#		fi
+#
+#		if [ ! -d $HOME_FOLDER/Documents/Books ]; then
+#			mkdir -p $HOME_FOLDER/Documents/Books
+#		fi
+#
+#		echo "" >> $HOME_FOLDER/.bashrc
+#		echo "######### NOTES ########" >> $HOME_FOLDER/.bashrc
+#		echo "source $PWD/functii_notes.sh" >> $HOME_FOLDER/.bashrc
+#	fi
+#}
 
 vim_configuration() {
 	# VIM Configuration
@@ -283,6 +297,8 @@ vim_configuration() {
 
 # Tmux configuration file
 tmux_configuration() {
+	# better terminal emulator thats starts in a terminal
+	sudo apt-get install tmux -y			
 	cp configurations/tmux.conf $HOME_FOLDER/.tmux.conf
 }
 
@@ -372,13 +388,12 @@ bashrc
 #JDK
 #docker
 #mongo 
-#notes
 vim_configuration
-#tmux_configuration
+fzf_configuration
+tmux_configuration
+awesome_configurations
+alacrity_configuration
 #ssh_key_registration
-#ide
-#protonvpn_install
-fzf
 echo ""
 echo ""
 echo "====== All done! ======="
