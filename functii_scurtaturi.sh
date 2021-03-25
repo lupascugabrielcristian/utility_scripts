@@ -4,7 +4,7 @@
 alias ll='ls -alF'
 alias la='ls -A'
 alias ee='exit'
-alias tcowndown='nvim $LOCATION_OF_UTILITIES_FOLDER/tasks'
+alias tcowndown='nvim $LOCATION_OF_UTILITIES_FOLDER/countdown.tasks'
 alias eb='nvim ~/.bashrc'
 alias cdex='cd ~/projects/exercises/'
 alias cdut='cd ~/projects/utility_scripts/'
@@ -48,7 +48,8 @@ BBLE="\[\033[44m\]" # background blue
 BMAG="\[\033[45m\]" # background magenta
 BCYN="\[\033[46m\]" # background cyan
 BWHT="\[\033[47m\]" # background white
-export PS1="$BBLE \W $ $RS "
+# export PS1="$BBLE \W $ $RS " After tesing activate this
+export PS1="$BMAG \W $ $RS " # Only for docker testing
 
 function sendToTrash() {
 	read -p "Remove? "$*

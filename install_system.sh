@@ -1,8 +1,9 @@
-if [ $(id -u) != "0" ]
-then
-	echo "Need to run the script as root"
-	exit 1
-fi
+# # Verific sa fie rulat cu sudo
+# if [ $(id -u) != "0" ]
+# then
+# 	echo "Need to run the script as root"
+# 	exit 1
+# fi
 
 echo "[+] Current working directory: $PWD"
 #echo "[?] HOME_FOLDER: "
@@ -24,9 +25,13 @@ prepare_directories() {
 	mkdir $HOME_FOLDER/projects
 	mkdir -p $HOME_FOLDER/Documents/research
 	mkdir -p $HOME_FOLDER/Documents/tools
+
+	# Fac sa apartina userului ca sa poata modifica cowntdown.task
+	sudo chown -R $USERNAME:$USERNAME $PWD
 }
 
 bashrc() {
+	echo ""
 	read -p "Continue with updating bashrc file? (yes/no)" userResponse
 	if [ "$userResponse" = 'yes' ]; then
 		# Pun variabila LOCATION_OF_UTILITIES_FOLDER in .bashrc pentru a o folosi dupa aceea in fisierele functii_*.sh
@@ -37,14 +42,19 @@ bashrc() {
 		echo "export LOCATION_OF_KEEP=$HOME_FOLDER" >> $HOME_FOLDER/.bashrc
 		echo "" >> $HOME_FOLDER/.bashrc
 
-		echo "\n############ SCURTATURI ################" >> $HOME_FOLDER/.bashrc
+		echo ""
+		echo "############ SCURTATURI ################" >> $HOME_FOLDER/.bashrc
 		echo "source $PWD/functii_scurtaturi.sh" >> $HOME_FOLDER/.bashrc
 
-		echo "\n############ NOTES ################" >> $HOME_FOLDER/.bashrc
+		echo ""
+		echo "############ NOTES ################" >> $HOME_FOLDER/.bashrc
 		echo "source $PWD/functii_notes.sh" >> $HOME_FOLDER/.bashrc
-		echo "source $HOME_FOLDER/research/all_the_time_scrips/all_the_time_sources.sh" >> $HOME_FOLDER/.bashrc
 
-		echo "\nexport EDITOR='nvim'\n" >> $HOME_FOLDER/.bashrc
+		# vreau sa pun asta in functia speciala pentru all_time_scrips
+		# echo "source $HOME_FOLDER/research/all_the_time_scrips/all_the_time_sources.sh" >> $HOME_FOLDER/.bashrc
+
+		echo "export EDITOR='nvim'" >> $HOME_FOLDER/.bashrc
+		echo ""
 	fi
 }
 
@@ -77,18 +87,6 @@ exercitii() {
 	fi
 }
 
-countdown() {
-	read -p "Continue with cowntdown(yes/no)" userResponse
-	if [ "$userResponse" = 'yes' ]; then
-		if [ ! -d /home/cristi/Documents/countdown ]; then
-			mkdir /home/cristi/Documents/countdown
-		fi
-
-		cp ./countdown.py /home/cristi/Documents/countdown
-		cp ./tasks /home/cristi/Documents/countdown
-	fi
-}
-
 ASUS_monitor() {
 	read -p "Continue with ASUS monitor installation? (yes/no)" userResponse
 	if [ "$userResponse" = 'yes' ]; then
@@ -112,51 +110,48 @@ JDK() {
 general_package_install() {
 	read -p "Continue with all required dependencies installation? (yes/no)" userResponse
 	if [ "$userResponse" = 'yes' ]; then
-		apt-get update
-		apt-get install xclip -y 					# comanda pentru a copia in clipboard: pwd | xclip -sel clip
-		apt-get install git -y
-		#apt-get install nodejs -y
-		#apt-get install npm -y
-		#apt-get install node-typescript -y
-		#npm install -g @angular/cli -y
-		apt-get install software-properties-common -y
-		apt-get install htop -y
-		apt-get install synaptic -y
-		apt-get install curl -y
-		apt-get install bmon -y
-		apt-get install graphviz -y
-		apt-get install dia -y
-		apt-get install tldr -y 					# Easy to understand man pages
-		apt-get install python3 -y
-		apt-get install gnome-tweak-tool -y
-		apt-get install iftop -y
-		apt-get install slurm -y					# network monitor
-		apt-get install vifm -y 					# terminal file manager with vim keybindings
-		apt-get install w3m -y 						# terminal browser
-		#apt-get install torsocks					# to browse to onion sites
-		apt-get install trash-cli 					# sends files to trash
-		apt-get install zathura zathura-djvu zathura-ps zathura-cb # pdf reader with vim-like key bindings
-		echo "Comenzile pentru network monitors sunt in fisierul comenzi"
-		apt-get install qutebrowser -y		# browser like vim
-		apt-get install httpie -y		# testing http calls in terminal
-		apt-get install buku -y			# bookmark manager
-		apt-get install cherrytree -y 	# text notes in tree form
-		apt-get install tmux -y			# better terminal emulator thats starts in a terminal
-		apt-get install nmon -y 		# system monitor with network cpu, memory and processes
-		#apt-get install neovim -y		# L-am mutat in configurari vim
-		apt-get install x2x -y 			# multiple displays with mouse and keyboard through ssh
-		apt-get install jq				# to parse json in terminal
-		apt-get install bw				# to login in bitwarden
+		sudo apt-get update
+		sudo apt-get install python3.8 -y
+		#apt-get install xclip -y 					# comanda pentru a copia in clipboard: pwd | xclip -sel clip
+		sudo apt-get install git -y
+		##apt-get install nodejs -y
+		##apt-get install npm -y
+		##apt-get install node-typescript -y
+		##npm install -g @angular/cli -y
+		#apt-get install software-properties-common -y
+		#apt-get install htop -y
+		#apt-get install synaptic -y
+		#apt-get install curl -y
+		#apt-get install bmon -y
+		#apt-get install graphviz -y
+		#apt-get install dia -y
+		#apt-get install tldr -y 					# Easy to understand man pages
+		#apt-get install python3 -y
+		#apt-get install gnome-tweak-tool -y
+		#apt-get install iftop -y
+		#apt-get install slurm -y					# network monitor
+		#apt-get install vifm -y 					# terminal file manager with vim keybindings
+		#apt-get install w3m -y 						# terminal browser
+		##apt-get install torsocks					# to browse to onion sites
+		#apt-get install trash-cli 					# sends files to trash
+		#apt-get install zathura zathura-djvu zathura-ps zathura-cb # pdf reader with vim-like key bindings
+		#echo "Comenzile pentru network monitors sunt in fisierul comenzi"
+		#apt-get install qutebrowser -y		# browser like vim
+		#apt-get install httpie -y		# testing http calls in terminal
+		#apt-get install buku -y			# bookmark manager
+		#apt-get install cherrytree -y 	# text notes in tree form
+		#apt-get install tmux -y			# better terminal emulator thats starts in a terminal
+		#apt-get install nmon -y 		# system monitor with network cpu, memory and processes
+		##apt-get install neovim -y		# L-am mutat in configurari vim
+		#apt-get install x2x -y 			# multiple displays with mouse and keyboard through ssh
+		#apt-get install jq				# to parse json in terminal
+		#apt-get install bw				# to login in bitwarden
 
-		# fzf
-		git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-		~/.fzf/install # For keybingings https://github.com/junegunn/fzf
-
-		# Chrome
-		wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-		echo 'deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main' | sudo tee /etc/apt/sources.list.d/google-chrome.list
-		apt-get update
-		apt-get install google-chrome-stable -y
+		## Chrome
+		#wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+		#echo 'deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main' | sudo tee /etc/apt/sources.list.d/google-chrome.list
+		#apt-get update
+		#apt-get install google-chrome-stable -y
 
 		# Regolith
 		#add-apt-repository ppa:regolith-linux/release
@@ -166,8 +161,17 @@ general_package_install() {
 		#snap install --classic heroku
 
 		## Alacrity GPU terminal emulator
-		add-apt-repository ppa:mmstick76/alacritty
-		apt install alacritty
+		#add-apt-repository ppa:mmstick76/alacritty
+		#apt install alacritty
+	fi
+}
+
+fzf() {
+	echo ""
+	read -p "Continue with fzf?(yes/no)" userResponse
+	if [ "$userResponse" = 'yes' ]; then
+		git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+		~/.fzf/install # For keybingings https://github.com/junegunn/fzf
 	fi
 }
 
@@ -215,7 +219,7 @@ mongo() {
 notes() {
 	read -p "Continue with notes setup(yes/no)" userResponse
 	if [ "$userResponse" = 'yes' ]; then
-		apt-get install python3.8 -y
+		sudo apt-get install python3.8 -y
 		if [ ! -d $HOME_FOLDER/Documents/notes ]; then
 			mkdir -p $HOME_FOLDER/Documents/notes
 		fi
@@ -232,10 +236,11 @@ notes() {
 
 vim_configuration() {
 	# VIM Configuration
+	echo ""
 	read -p "Continue with VIM configuration? (yes/no)" userResponse
 	if [ "$userResponse" = 'yes' ]; then
-		apt-get install git -y
-		apt-get install neovim -y
+		sudo apt-get install git -y
+		sudo apt-get install neovim -y
 
 		mkdir -p $HOME_FOLDER/.config/nvim/
 		mkdir $HOME_FOLDER/.config/nvim/plugged
@@ -263,10 +268,10 @@ vim_configuration() {
 
 		# Vimwiki
 		curl -fLo $HOME_FOLDER/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-		chown -Rv $USERNAME:$USERNAME $HOME_FOLDER/.config/nvim/plugged
-		chown -Rv $USERNAME:$USERNAME $HOME_FOLDER/.config/nvim/
-		chown -Rv $USERNAME:$USERNAME $HOME_FOLDER/.local/share/nvim/
-		read -p "Open nvim and run :PlugInstall and :UpdateRemotePlugins commands to complete" .
+		sudo chown -Rv $USERNAME:$USERNAME $HOME_FOLDER/.config/nvim/plugged
+		sudo chown -Rv $USERNAME:$USERNAME $HOME_FOLDER/.config/nvim/
+		sudo chown -Rv $USERNAME:$USERNAME $HOME_FOLDER/.local/share/nvim/
+		read -p "Open nvim and run :PlugInstall and :UpdateRemotePlugins commands to complete" userResponse
 	fi
 }
 
@@ -349,26 +354,27 @@ check_bashrc_configuration() {
 
 validations() {
 	check_bashrc_configuration 
-	check_proton_vpn
+	#check_proton_vpn
 }
 
 prepare_directories
+general_package_install
 bashrc
 #video_card
 #exercitii
-#countdown
 #ASUS_monitor
 #JDK
-#general_package_install
 #docker
 #mongo 
-notes
-#vim_configuration
+#notes
+vim_configuration
 #tmux_configuration
 #ssh_key_registration
 #ide
 #protonvpn_install
+fzf
 echo ""
 echo ""
 echo "====== All done! ======="
 validations
+
