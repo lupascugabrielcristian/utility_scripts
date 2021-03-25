@@ -22,6 +22,8 @@ read -p "[?] HOME_FOLDER: "$HOME_FOLDER userResponse
 prepare_directories() {
 	mkdir $HOME_FOLDER/apps 
 	mkdir $HOME_FOLDER/projects
+	mkdir -p $HOME_FOLDER/Documents/research
+	mkdir -p $HOME_FOLDER/Documents/tools
 }
 
 bashrc() {
@@ -30,13 +32,13 @@ bashrc() {
 		# Pun variabila LOCATION_OF_UTILITIES_FOLDER in .bashrc pentru a o folosi dupa aceea in fisierele functii_*.sh
 		echo "" >> $HOME_FOLDER/.bashrc
 		echo "export LOCATION_OF_UTILITIES_FOLDER=$PWD" >> $HOME_FOLDER/.bashrc
+		echo "export LOCATION_OF_RESEARCH_FOLDER=$HOME_FOLDER/Documents/research" >> $HOME_FOLDER/.bashrc
+		echo "export LOCATION_OF_TOOLS_FOLDER=$HOME_FOLDER/Documents/tools" >> $HOME_FOLDER/.bashrc
+		echo "export LOCATION_OF_KEEP=$HOME_FOLDER" >> $HOME_FOLDER/.bashrc
 		echo "" >> $HOME_FOLDER/.bashrc
 
 		echo "\n############ SCURTATURI ################" >> $HOME_FOLDER/.bashrc
 		echo "source $PWD/functii_scurtaturi.sh" >> $HOME_FOLDER/.bashrc
-
-		echo "\n############ SWAP ################" >> $HOME_FOLDER/.bashrc
-		echo "source $PWD/functii_erent.sh" >> $HOME_FOLDER/.bashrc
 
 		echo "\n############ NOTES ################" >> $HOME_FOLDER/.bashrc
 		echo "source $PWD/functii_notes.sh" >> $HOME_FOLDER/.bashrc

@@ -1,12 +1,10 @@
 #!/bin/bash
 
-utilities_folder='/home/cristi/projects/utility_scripts'
-
 #========== Aliases ==========
 alias ll='ls -alF'
 alias la='ls -A'
 alias ee='exit'
-alias tcowndown='nvim $utilities_folder /tasks'
+alias tcowndown='nvim $LOCATION_OF_UTILITIES_FOLDER/tasks'
 alias eb='nvim ~/.bashrc'
 alias cdex='cd ~/projects/exercises/'
 alias cdut='cd ~/projects/utility_scripts/'
@@ -24,8 +22,8 @@ alias .='vifm .'
 alias all_time_script='sh /home/cristi/projects/utility_scripts/make_all_time_script.sh'
 alias buku_put_in_utilities='cp /home/cristi/.local/share/buku/bookmarks.db ~/projects/utility_scripts/buku_database/'
 alias rbal='read_bookmark_at_line'
-alias open_nautilus='python $utilities_folder/open_nautilus.py'
-alias locations='python $utilities_folder/locations.py'
+alias open_nautilus='python $LOCATION_OF_UTILITIES_FOLDER/open_nautilus.py'
+alias locations='python $LOCATION_OF_UTILITIES_FOLDER/locations.py'
 #========== End of aliases ==========   
 
 
@@ -74,12 +72,12 @@ function tab-name() {
 }
 
 function cowntdown() {
-	cd $utilities_folder
-	python3 $utilities_folder/countdown.py $utilities_folder/countdown.tasks
+	cd $LOCATION_OF_UTILITIES_FOLDER
+	python3 $LOCATION_OF_UTILITIES_FOLDER/countdown.py $LOCATION_OF_UTILITIES_FOLDER/countdown.tasks
 }
 
 function replace_spaces() {
-	python3 $utilities_folder/replace_spaces_in_filenames.py $1
+	python3 $LOCATION_OF_UTILITIES_FOLDER/replace_spaces_in_filenames.py $1
 }
 
 function numberlines() {
@@ -178,15 +176,16 @@ search() {
 	fi
 }
 
+# LOCATION_OF_RESEARCH_FOLDER este in .bashrc pusa de install_system.sh
 go_to_today_scripts() {
-	base_path=/home/cristi/Documents/research/all_the_time_scrips/$date
+	base_path=$LOCATION_OF_RESEARCH_FOLDER/all_the_time_scrips/$date
 	date=$(date '+%Y-%m-%d')
 	cd $base_path/$date
 	ls
 }
 
 gik() {
-	grep $1 /home/cristi/keep.com
+	grep $1 $LOCATION_OF_KEEP/keep.com
 }
 
 cheat() {
