@@ -28,6 +28,10 @@ prepare_directories() {
 
 	# Fac sa apartina userului ca sa poata modifica cowntdown.task
 	sudo chown -R $USERNAME:$USERNAME $PWD
+
+	# Pentru all_time_scripts
+	mkdir -p $HOME_FOLDER/Documents/research/all_the_time_scrips
+	touch $HOME_FOLDER/Documents/research/all_the_time_scrips/all_the_time_sources.sh
 }
 
 bashrc() {
@@ -42,19 +46,20 @@ bashrc() {
 		echo "export LOCATION_OF_KEEP=$HOME_FOLDER" >> $HOME_FOLDER/.bashrc
 		echo "" >> $HOME_FOLDER/.bashrc
 
-		echo ""
+		echo "" >> $HOME_FOLDER/.bashrc
 		echo "############ SCURTATURI ################" >> $HOME_FOLDER/.bashrc
 		echo "source $PWD/functii_scurtaturi.sh" >> $HOME_FOLDER/.bashrc
 
-		echo ""
+		echo "" >> $HOME_FOLDER/.bashrc
 		echo "############ NOTES ################" >> $HOME_FOLDER/.bashrc
 		echo "source $PWD/functii_notes.sh" >> $HOME_FOLDER/.bashrc
 
-		# vreau sa pun asta in functia speciala pentru all_time_scrips
-		# echo "source $HOME_FOLDER/research/all_the_time_scrips/all_the_time_sources.sh" >> $HOME_FOLDER/.bashrc
+		echo "" >> $HOME_FOLDER/.bashrc
+		echo "############ ALL TIME SCRIPTS ################" >> $HOME_FOLDER/.bashrc
+		echo "source $HOME_FOLDER/Documents/research/all_the_time_scrips/all_the_time_sources.sh" >> $HOME_FOLDER/.bashrc
 
 		echo "export EDITOR='nvim'" >> $HOME_FOLDER/.bashrc
-		echo ""
+		echo "" >> $HOME_FOLDER/.bashrc
 	fi
 }
 
@@ -108,6 +113,7 @@ JDK() {
 
 
 general_package_install() {
+	echo ""
 	read -p "Continue with all required dependencies installation? (yes/no)" userResponse
 	if [ "$userResponse" = 'yes' ]; then
 		sudo apt-get update
@@ -249,7 +255,7 @@ vim_configuration() {
 		if [ ! -d $HOME_FOLDER/.local/share/nvim/site/plugin ]; then
 			mkdir -p $HOME_FOLDER/.local/share/nvim/site/plugin/
 		fi
-		read -p "Am facut plugin folder" .
+		read -p "Am facut plugin folder" userResponse
 
 		cp ./vim-plugins/grep-operator.vim $HOME_FOLDER/.local/share/nvim/site/plugin/grep-operator.vim
 		cat ./configurations/configurari_vim.vim > $HOME_FOLDER/.config/nvim/init.vim
@@ -257,7 +263,7 @@ vim_configuration() {
 		#chown $USERNAME:$USERNAME $HOME_FOLDER/.config/nvim/init.vim
 
 		if [  -d /usr/share/nvim/runtime/syntax ]; then
-			cp ./typescript.vim /usr/share/nvim/runtime/syntax/typescript.vim
+			sudo cp ./typescript.vim /usr/share/nvim/runtime/syntax/typescript.vim
 		else
 			echo "Need to have this folder in place: /usr/share/nvim/runtime/syntax"
 			echo "Probably instalation changed"
