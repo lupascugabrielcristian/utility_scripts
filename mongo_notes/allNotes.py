@@ -10,7 +10,6 @@ import os, sys
 import subprocess
 import pdb
 from subprocess import call
-from  search_mongo_note import searchAllNotes
 from enum import Enum
 import glob
 
@@ -156,12 +155,6 @@ def createResultFromMongoContent(content):
     return result
 
 
-def searchMongoNotes(forWhat):
-    mongoNotes = searchAllNotes(forWhat)
-    mongoNotesContents = mergeNotesContents(mongoNotes);
-    return list( map( lambda c: createResultFromMongoContent(c), mongoNotesContents ) )
-
-
 def searchFiles():
     found_results = []
     files = list_files(notesDirectory)
@@ -257,6 +250,10 @@ def searchAllTimeScripts():
 
 def searchVimWiki():
     results_to_add = []
+
+    if not os.path.exists( vimwikiDirectory ):
+        return results_to_add
+
     wikis = os.listdir( vimwikiDirectory )
     for wiki in wikis:
         if os.path.isdir( vimwikiDirectory + wiki + "/" ) is True:

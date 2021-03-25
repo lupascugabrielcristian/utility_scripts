@@ -1,3 +1,9 @@
+# Variabila LOCATION_OF_UTILITIES_FOLDER este pusa in .bashrc la executia install_system.sh
+# si are valoarea $PWD deci este locatia de unde este executat ./install_system.sh
+function oa(){
+	python3.8 $LOCATION_OF_UTILITIES_FOLDER/mongo_notes/allNotes.py $*
+}
+
 function n() { 
 	 nvim /home/cristi/Documents/notes/"$*".md 
 }
@@ -48,12 +54,6 @@ function ndia() {
 	else 
 		dia /home/cristi/Documents/notes/"$1".dia
 	fi
-}
-
-function oa(){
-	#source /home/cristi/Documents/utility_scripts/mongo_notes/env/bin/activate
-	python3.8 /home/cristi/projects/utility_scripts/mongo_notes/allNotes.py $*
-	#deactivate
 }
 
 alias mn='mongo_notes'

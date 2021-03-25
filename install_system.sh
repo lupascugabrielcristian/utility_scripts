@@ -5,11 +5,13 @@ then
 fi
 
 echo "[+] Current working directory: $PWD"
-echo "[?] HOME_FOLDER: "
-read HOME_FOLDER
+#echo "[?] HOME_FOLDER: "
+#read HOME_FOLDER
 
-echo "[?] User name: "
-read USERNAME
+read -p "[?] User name: " USERNAME
+
+HOME_FOLDER=/home/$USERNAME
+read -p "[?] HOME_FOLDER: "$HOME_FOLDER userResponse
 
 
 #read -p "Runing in docker? (yes/no)" userResponse
@@ -25,6 +27,11 @@ prepare_directories() {
 bashrc() {
 	read -p "Continue with updating bashrc file? (yes/no)" userResponse
 	if [ "$userResponse" = 'yes' ]; then
+		# Pun variabila LOCATION_OF_UTILITIES_FOLDER in .bashrc pentru a o folosi dupa aceea in fisierele functii_*.sh
+		echo "" >> $HOME_FOLDER/.bashrc
+		echo "export LOCATION_OF_UTILITIES_FOLDER=$PWD" >> $HOME_FOLDER/.bashrc
+		echo "" >> $HOME_FOLDER/.bashrc
+
 		echo "\n############ SCURTATURI ################" >> $HOME_FOLDER/.bashrc
 		echo "source $PWD/functii_scurtaturi.sh" >> $HOME_FOLDER/.bashrc
 
@@ -206,23 +213,18 @@ mongo() {
 notes() {
 	read -p "Continue with notes setup(yes/no)" userResponse
 	if [ "$userResponse" = 'yes' ]; then
+		apt-get install python3.8 -y
 		if [ ! -d $HOME_FOLDER/Documents/notes ]; then
-			mkdir $HOME_FOLDER/Documents/notes
+			mkdir -p $HOME_FOLDER/Documents/notes
 		fi
 
 		if [ ! -d $HOME_FOLDER/Documents/Books ]; then
-			mkdir $HOME_FOLDER/Documents/Books
+			mkdir -p $HOME_FOLDER/Documents/Books
 		fi
 
-		pip3 install virtualenv
-		cd mongo_notes/
-		python3.6 -m venv env
-		source env/bin/activate
-		pip install pymongo
-		deactivate
-
-		echo -e "\n######### NOTES ########" >> ~/.bashrc
-		echo "\nsource $PWD/functii_notes.sh" >> ~/.bashrc
+		echo "" >> $HOME_FOLDER/.bashrc
+		echo "######### NOTES ########" >> $HOME_FOLDER/.bashrc
+		echo "source $PWD/functii_notes.sh" >> $HOME_FOLDER/.bashrc
 	fi
 }
 
@@ -349,7 +351,7 @@ validations() {
 }
 
 prepare_directories
-#bashrc
+bashrc
 #video_card
 #exercitii
 #countdown
@@ -358,11 +360,13 @@ prepare_directories
 #general_package_install
 #docker
 #mongo 
-#notes
-vim_configuration
-tmux_configuration
+notes
+#vim_configuration
+#tmux_configuration
 #ssh_key_registration
 #ide
 #protonvpn_install
-echo -e '\n\n====== All done! ======='
+echo ""
+echo ""
+echo "====== All done! ======="
 validations
