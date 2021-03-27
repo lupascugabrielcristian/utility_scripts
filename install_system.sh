@@ -38,8 +38,8 @@ prepare_directories() {
 
 bashrc() {
 	echo ""
-	read -p "Continue with updating bashrc file? (yes/no)" userResponse
-	if [ "$userResponse" = 'yes' ]; then
+	read -p "Continue with updating bashrc file? (y/n)" userResponse
+	if [ "$userResponse" = 'y' ]; then
 		# Pun variabila LOCATION_OF_UTILITIES_FOLDER in .bashrc pentru a o folosi dupa aceea in fisierele functii_*.sh
 		echo "" >> $HOME_FOLDER/.bashrc
 		echo "export LOCATION_OF_UTILITIES_FOLDER=$PWD" >> $HOME_FOLDER/.bashrc
@@ -122,8 +122,8 @@ JDK() {
 
 general_package_install() {
 	echo ""
-	read -p "Continue with all required dependencies installation? (yes/no)" userResponse
-	if [ "$userResponse" = 'yes' ]; then
+	read -p "Continue with all required dependencies installation? (y/n)" userResponse
+	if [ "$userResponse" = 'y' ]; then
 		sudo apt-get update
 		sudo apt-get install python3.8 -y
 
@@ -194,8 +194,8 @@ general_package_install() {
 
 awesome_configurations() {
 	echo ""
-	read -p "Continue with awesome?(yes/no)" userResponse
-	if [ "$userResponse" = 'yes' ]; then
+	read -p "Continue with awesome?(y/n)" userResponse
+	if [ "$userResponse" = 'y' ]; then
 		sudo apt-get install awesome -y
 		
 		# Configuration files
@@ -207,8 +207,8 @@ awesome_configurations() {
 
 alacrity_configuration() {
 	echo ""
-	read -p "Continue with alacrirry?(yes/no)" userResponse
-	if [ "$userResponse" = 'yes' ]; then
+	read -p "Continue with alacrirry?(y/n)" userResponse
+	if [ "$userResponse" = 'y' ]; then
 		# Alacrity GPU terminal emulator
 		sudo add-apt-repository ppa:mmstick76/alacritty
 		sudo apt install alacritty -y
@@ -220,51 +220,52 @@ alacrity_configuration() {
 
 fzf_configuration() {
 	echo ""
-	read -p "Continue with fzf?(yes/no)" userResponse
-	if [ "$userResponse" = 'yes' ]; then
+	read -p "Continue with fzf?(y/n)" userResponse
+	if [ "$userResponse" = 'y' ]; then
 		git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 		~/.fzf/install # For keybingings https://github.com/junegunn/fzf 
 	fi
 }
 
 docker() {
-	read -p "Continue with docker?(yes/no)" userResponse
-	if [ "$userResponse" = 'yes' ]; then
-		sudo apt install apt-transport-https ca-certificates curl software-properties-common
-		curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-		sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
-		sudo apt update
-		apt-cache policy docker-ce
-		sudo apt install docker-ce
-		sudo systemctl status docker
-		read -p "Is docker deamon started?"
+	echo ""
+	read -p "Continue with docker?(y/n)" userResponse
+	if [ "$userResponse" = 'y' ]; then
+		sudo apt-get install apt-transport-https ca-certificates curl gnupg lsb-release -y
+		curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+		echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
+		  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+		sudo apt-get update
+		sudo apt-get install docker-ce docker-ce-cli containerd.io -y
+
+
+		read -p "[!] Docker-compose"
+		sudo curl -L "https://github.com/docker/compose/releases/download/1.28.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+		sudo chmod +x /usr/local/bin/docker-compose
+		sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
+
+		sudo curl -L https://raw.githubusercontent.com/docker/compose/1.28.2/contrib/completion/bash/docker-compose -o /etc/bash_completion.d/docker-compose
+
+		sudo groupadd docker
+		sudo usermod -aG docker $USERNAME
 	fi
 }
 
 mongo() {
 	# Mongo installation
-	read -p "Continue with MongoDB installation? (yes/no)" userResponse
-	if [ "$userResponse" = 'yes' ]; then
-		sudoParameter="yes"
-		read -p "Runing in docker? (yes/no)" userResponse
-		if [ "$userResponse" = 'yes' ]; then
-			sudoParameter=""
-		fi
-		echo '\n\n====== Mongo instaltion =====\n\n'
-		$sudoParameter apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 9DA31620334BD75D9DCB49F368818C72E52529D4
-		echo "deb [ arch=amd64 ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.0 multiverse" | $sudoParameter tee /etc/apt/sources.list.d/mongodb-org-4.0.list
-		$sudoParameter apt-get update
-		$sudoParameter apt-get install -y mongodb-org
-		$sudoParameter mkdir /data/
-		$sudoParameter mkdir /data/db
-		$sudoParameter systemctl enable mongod
-		if [ "$userResponse" = 'yes' ]; then
-			mongod &
-		else
-			$sudoParameter service mongod start
-		fi
+	read -p "Continue with MongoDB installation? (y/n)" userResponse
+	if [ "$userResponse" = 'y' ]; then
+		sudo apt-get install wget gnupg -y
+		wget -qO - https://www.mongodb.org/static/pgp/server-4.4.asc | sudo apt-key add -
 
-		mongoimport --db notes_database --collection notes_collection --file notes_database.mongoexport
+		# Asta e diferit functie de varianta de Ubuntu
+		# https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/
+		echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/4.4 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.4.list
+		sudo apt-get update
+		sudo apt-get install -y mongodb-org
+
+		sudo mkdir -p /data/db
+		sudo chown -R $USERNAME:$USERNAME /data/db
 	fi
 }
 
@@ -289,8 +290,8 @@ mongo() {
 vim_configuration() {
 	# VIM Configuration
 	echo ""
-	read -p "Continue with VIM configuration? (yes/no)" userResponse
-	if [ "$userResponse" = 'yes' ]; then
+	read -p "Continue with VIM configuration? (y/n)" userResponse
+	if [ "$userResponse" = 'y' ]; then
 		sudo apt-get install git -y
 		sudo apt-get install neovim -y
 
@@ -378,15 +379,6 @@ ide() {
 	fi
 }
 
-protonvpn_install() {
-	read -p "Continue with protonvpn installation? (yes/no)" userResponse
-	if [ "$userResponse" = 'yes' ]; then
-		apt install -y openvpn dialog python3-pip python3-setuptools
-		pip3 install protonvpn-cli
-		sudo protonvpn init
-	fi
-}
-
 system_configurations() {
 	xdg-settings set default-web-browser firefox.desktop
 }
@@ -412,7 +404,7 @@ validations() {
 }
 
 prepare_directories
-general_package_install
+#general_package_install
 vim_configuration
 bashrc
 #video_card
@@ -420,12 +412,12 @@ bashrc
 #ASUS_monitor
 #JDK
 #docker
-#mongo 
-fzf_configuration
-tmux_configuration
-awesome_configurations
-alacrity_configuration
-#ssh_key_registration
+mongo 
+#fzf_configuration
+#tmux_configuration
+#awesome_configurations
+#alacrity_configuration
+##ssh_key_registration
 echo ""
 echo ""
 echo "====== All done! ======="
