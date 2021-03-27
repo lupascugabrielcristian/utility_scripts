@@ -47,8 +47,10 @@ BBLE="\[\033[44m\]" # background blue
 BMAG="\[\033[45m\]" # background magenta
 BCYN="\[\033[46m\]" # background cyan
 BWHT="\[\033[47m\]" # background white
+
+# Exemple cursoare
 # export PS1="$BBLE \W $ $RS " After tesing activate this
-export PS1="$BMAG \W $ $RS " # Only for docker testing
+# export PS1="$BMAG \W $ $RS " # Only for docker testing
 
 function sendToTrash() {
 	read -p "Remove? "$*
@@ -222,12 +224,12 @@ connect_monitor() {
 # In this case the bookmarks file is ~/vimwiki/Models.wiki
 # should absolutely pass the line number of the bookmark want to open
 read_bookmark_at_line() {
-	nvim $(sed -n "$1 p;$1 q" /home/cristi/vimwiki/ModelsBookmarks.wiki)
+	nvim $(sed -n "$1 p;$1 q" $LOCATION_OF_VIMWIKI/ModelsBookmarks.wiki)
 }
 alias rbal='read_bookmark_at_line' 
 
 search_bookmark_at_line() {
-	grep -nr --ignore-case -A 1 $1 /home/cristi/vimwiki/ModelsBookmarks.wiki
+	grep -nr --ignore-case -A 1 $1 $LOCATION_OF_VIMWIKI/ModelsBookmarks.wiki
 }
 alias sbal='search_bookmark_at_line'
 

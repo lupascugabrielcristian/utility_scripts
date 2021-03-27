@@ -32,6 +32,8 @@ prepare_directories() {
 	# Pentru all_time_scripts
 	mkdir -p $HOME_FOLDER/Documents/research/all_the_time_scrips
 	touch $HOME_FOLDER/Documents/research/all_the_time_scrips/all_the_time_sources.sh
+
+	echo "Directories ready"
 }
 
 bashrc() {
@@ -41,6 +43,7 @@ bashrc() {
 		# Pun variabila LOCATION_OF_UTILITIES_FOLDER in .bashrc pentru a o folosi dupa aceea in fisierele functii_*.sh
 		echo "" >> $HOME_FOLDER/.bashrc
 		echo "export LOCATION_OF_UTILITIES_FOLDER=$PWD" >> $HOME_FOLDER/.bashrc
+		echo "export LOCATION_OF_VIMWIKI=$HOME_FOLDER/vimwiki" >> $HOME_FOLDER/.bashrc
 		echo "export LOCATION_OF_RESEARCH_FOLDER=$HOME_FOLDER/Documents/research" >> $HOME_FOLDER/.bashrc
 		echo "export LOCATION_OF_TOOLS_FOLDER=$HOME_FOLDER/Documents/tools" >> $HOME_FOLDER/.bashrc
 		echo "export LOCATION_OF_KEEP=$HOME_FOLDER" >> $HOME_FOLDER/.bashrc
@@ -60,6 +63,11 @@ bashrc() {
 
 		echo "export EDITOR='nvim'" >> $HOME_FOLDER/.bashrc
 		echo "" >> $HOME_FOLDER/.bashrc
+
+		echo ""  >> $HOME_FOLDER/.bashrc
+		echo "############ CURSOR ################" >> $HOME_FOLDER/.bashrc
+		echo "#export PS1=\"\$BBLE \W $ \$RS \" # Activate this after testing" >> $HOME_FOLDER/.bashrc
+		echo "export PS1=\"\$BMAG \W $ \$RS \"  # For docker testing" >> $HOME_FOLDER/.bashrc
 	fi
 }
 
@@ -118,6 +126,8 @@ general_package_install() {
 	if [ "$userResponse" = 'yes' ]; then
 		sudo apt-get update
 		sudo apt-get install python3.8 -y
+
+		read -p "[!] git " userResponse
 		sudo apt-get install git -y
 		##apt-get install nodejs -y
 		##apt-get install npm -y
@@ -126,29 +136,44 @@ general_package_install() {
 		sudo apt-get install htop -y
 		#apt-get install synaptic -y
 		sudo apt-get install curl -y
+		sudo apt-get install wget -y
 		#apt-get install bmon -y
 		#apt-get install graphviz -y
-		sudo apt-get install dia -y
+
+		read -p "[!] dia " userResponse
+		sudo apt-get install dia -y # aici imi arata tarile
 		#apt-get install tldr -y 					# Easy to understand man pages
 		#apt-get install python3 -y
 		#apt-get install gnome-tweak-tool -y
 		#apt-get install iftop -y
 		#apt-get install slurm -y					# network monitor
+
+		read -p "[!] vifm " userResponse
 		sudo apt-get install vifm -y 					# terminal file manager with vim keybindings
 		sudo apt-get install w3m -y 						# terminal browser
+		sudo apt-get install chromium-browser -y
 		##apt-get install torsocks					# to browse to onion sites
 		sudo apt-get install trash-cli -y					# sends files to trash
+
+		read -p "[!] zathura " userResponse
 		sudo apt-get install zathura zathura-djvu zathura-ps zathura-cb -y # pdf reader with vim-like key bindings
 		#echo "Comenzile pentru network monitors sunt in fisierul comenzi"
 		#apt-get install qutebrowser -y		# browser like vim
 		sudo apt-get install httpie -y		# testing http calls in terminal
+
+		read -p "[!] buku " userResponse
 		sudo apt-get install buku -y			# bookmark manager
 		#apt-get install cherrytree -y 	# text notes in tree form
 		#apt-get install nmon -y 		# system monitor with network cpu, memory and processes
 		#apt-get install x2x -y 			# multiple displays with mouse and keyboard through ssh
 		#apt-get install jq				# to parse json in terminal
 
-		sudo snap install bw -y   # to login in bitwarden 
+		#read -p "[!] bw " userResponse
+		# L-am dezactivat pentru ca momentan nu merge
+		#sudo snap install bw # to login in bitwarden - password manager
+
+		read -p "[!] kpcli " userResponse
+		sudo apt-get install kpcli -y # local password manager
 
 		## Chrome
 		#wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
@@ -156,7 +181,14 @@ general_package_install() {
 		#apt-get update
 		#apt-get install google-chrome-stable -y
 
+		
 
+		read -p "[!] gimp & inkscape " userResponse
+		sudo apt-get install gimp inkscape -y
+
+		read -p "[!] ssh and disable" userResponse
+		sudo apt-get install openssh-server -y
+		sudo systemctl disable sshd.service
 	fi
 }
 
@@ -178,8 +210,8 @@ alacrity_configuration() {
 	read -p "Continue with alacrirry?(yes/no)" userResponse
 	if [ "$userResponse" = 'yes' ]; then
 		# Alacrity GPU terminal emulator
-		add-apt-repository ppa:mmstick76/alacritty
-		apt install alacritty -y
+		sudo add-apt-repository ppa:mmstick76/alacritty
+		sudo apt install alacritty -y
 
 		mkdir -p $HOME_FOLDER/.config/alacritty
 		cp configurations/alacritty.yml $HOME_FOLDER/.config/alacritty/alacritty.yml
@@ -381,6 +413,7 @@ validations() {
 
 prepare_directories
 general_package_install
+vim_configuration
 bashrc
 #video_card
 #exercitii
@@ -388,7 +421,6 @@ bashrc
 #JDK
 #docker
 #mongo 
-vim_configuration
 fzf_configuration
 tmux_configuration
 awesome_configurations
