@@ -1,4 +1,22 @@
-# Vreau sa simulez un sistem gol pe care rulez prima data install_system.sh
+#
+#
+# Containerul creat cu asta, l-am creat pentru a putea crea un proiect de angular de la 0, fara sa
+# instalez local nimic. 
+# L-am folosit sa updatez package.json proiectului meu
+
+# FOLOSIRE:
+# Pentru a face build: 
+# docker build  --build-arg PW=[password in container] -t utilities:test_install .
+# Daca vreau cu parola default, docker:
+# docker build -t utilities:test_install .
+
+# Pentru a rula interactiv:
+# docker run -it utilities:test_install
+
+
+# LINKURI FOLOSITOARE
+# https://faun.pub/set-current-host-user-for-docker-container-4e521cef9ffc
+
 FROM ubuntu
 
 LABEL maintainer="cristian.lupascu@jlg.ro"
@@ -32,15 +50,3 @@ COPY . /home/${USER}/utilities
 # Pornesc un terminal pentru a tine containerul pornit
 CMD /bin/bash
 
-# FOLOSIRE:
-# Pentru a face build: 
-# docker build  --build-arg PW=[password in container] -t utilities:test_install .
-# Daca vreau cu parola default, docker:
-# docker build -t utilities:test_install .
-
-# Pentru a rula interactiv:
-# docker run -it utilities:test_install
-
-
-# LINKURI FOLOSITOARE
-# https://faun.pub/set-current-host-user-for-docker-container-4e521cef9ffc

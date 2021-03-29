@@ -168,9 +168,9 @@ general_package_install() {
 		#apt-get install x2x -y 			# multiple displays with mouse and keyboard through ssh
 		#apt-get install jq				# to parse json in terminal
 
-		#read -p "[!] bw " userResponse
-		# L-am dezactivat pentru ca momentan nu merge
-		#sudo snap install bw # to login in bitwarden - password manager
+		read -p "[!] bw " userResponse
+		# Merge doar la instalarea normala, nu si la testele pe docker
+		sudo snap install bw # to login in bitwarden - password manager
 
 		read -p "[!] kpcli " userResponse
 		sudo apt-get install kpcli -y # local password manager
@@ -404,19 +404,19 @@ validations() {
 }
 
 prepare_directories
-#general_package_install
+general_package_install
 vim_configuration
 bashrc
 #video_card
 #exercitii
 #ASUS_monitor
 #JDK
-#docker
+docker
 mongo 
-#fzf_configuration
-#tmux_configuration
-#awesome_configurations
-#alacrity_configuration
+fzf_configuration
+tmux_configuration
+awesome_configurations
+alacrity_configuration
 ##ssh_key_registration
 echo ""
 echo ""
