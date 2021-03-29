@@ -28,10 +28,14 @@ prepare_directories() {
 
 	# Fac sa apartina userului ca sa poata modifica cowntdown.task
 	sudo chown -R $USERNAME:$USERNAME $PWD
+	sudo chown -R $USERNAME:$USERNAME $HOME_FOLDER/Documents/tools
+	sudo chown -R $USERNAME:$USERNAME $HOME_FOLDER/apps
 
 	# Pentru all_time_scripts
 	mkdir -p $HOME_FOLDER/Documents/research/all_the_time_scrips
 	touch $HOME_FOLDER/Documents/research/all_the_time_scrips/all_the_time_sources.sh
+
+	sudo apt update
 
 	echo "Directories ready"
 }
@@ -215,6 +219,18 @@ alacrity_configuration() {
 
 		mkdir -p $HOME_FOLDER/.config/alacritty
 		cp configurations/alacritty.yml $HOME_FOLDER/.config/alacritty/alacritty.yml
+	fi
+}
+
+drawio() {
+	echo ""
+	read -p "Continue with drawio?(y/n)" userResponse
+	if [ "$userResponse" = 'y' ]; then
+		read -p "Trebuie verificat pentru o noua versiune" userResponse
+		sudo apt-get install wget -y
+		wget https://github.com/jgraph/drawio-desktop/releases/download/v14.5.1/drawio-x86_64-14.5.1.AppImage -P $HOME_FOLDER/apps
+		sudo chmod +x $HOME_FOLDER/apps/*.AppImage
+		sudo ln -s $HOME_FOLDER/apps/drawio-x86_64-14.5.1.AppImage /bin/drawio
 	fi
 }
 
@@ -404,19 +420,20 @@ validations() {
 }
 
 prepare_directories
-general_package_install
-vim_configuration
-bashrc
-#video_card
-#exercitii
-#ASUS_monitor
-#JDK
-docker
-mongo 
-fzf_configuration
-tmux_configuration
-awesome_configurations
-alacrity_configuration
+#general_package_install
+#vim_configuration
+#bashrc
+##video_card
+##exercitii
+##ASUS_monitor
+##JDK
+#docker
+#mongo 
+#fzf_configuration
+#tmux_configuration
+#awesome_configurations
+#alacrity_configuration
+drawio
 ##ssh_key_registration
 echo ""
 echo ""
