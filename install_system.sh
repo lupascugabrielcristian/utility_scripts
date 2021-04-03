@@ -420,19 +420,19 @@ validations() {
 }
 
 prepare_directories
-#general_package_install
-#vim_configuration
-#bashrc
-##video_card
-##exercitii
-##ASUS_monitor
-##JDK
-#docker
+general_package_install
+vim_configuration
+bashrc
+#video_card
+#exercitii
+#ASUS_monitor
+#JDK
+docker
 #mongo 
-#fzf_configuration
-#tmux_configuration
-#awesome_configurations
-#alacrity_configuration
+fzf_configuration
+tmux_configuration
+awesome_configurations
+alacrity_configuration
 drawio
 ##ssh_key_registration
 echo ""
