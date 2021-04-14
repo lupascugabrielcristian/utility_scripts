@@ -16,6 +16,7 @@
 
 read -p "[?] Push(h)/Pull(l)/Who(w)? " operation
 
+# PUSH
 if [ "$operation" = 'h' -o "$operation" = 'push' -o "$operation" = 'Push' ]; then
 
 		read -p "[?] Home folder? " home_folder
@@ -90,6 +91,7 @@ if [ "$operation" = 'h' -o "$operation" = 'push' -o "$operation" = 'Push' ]; the
                 root@104.248.252.160:./sync_folder  "$@" > /dev/null
 fi
 
+## PULL
 if [ "$operation" = 'l' -o "$operation" = 'pull' -o "$operation" = 'Pull' ]; then
 
 		read -p "[?] Home folder? " home_folder

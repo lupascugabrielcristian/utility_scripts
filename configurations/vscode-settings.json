@@ -1,0 +1,19 @@
+{
+    "workbench.editorAssociations": [
+        {
+            "viewType": "jupyter.notebook.ipynb",
+            "filenamePattern": "*.ipynb"
+        }
+    ],
+    "editor.minimap.enabled": false,
+    "editor.lineNumbers": "relative",
+    "notebook.kernelProviderAssociations": [
+    
+    ],
+    "workbench.colorCustomizations": {
+        "editor.wordHighlightBackground": "#292929",
+        "editor.wordHighlightBorder": "#2df826",
+        "editor.wordHighlightStrongBackground": "#494949",
+        "editor.wordHighlightStrongBorder": "#f0c400"
+    }
+}

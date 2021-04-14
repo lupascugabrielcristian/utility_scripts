@@ -61,9 +61,13 @@ let g:netrw_list_hide.=',\(^\|\s\s\)\zs\.\S\+'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""
 
+" For fzf easyer search command
+nnoremap <leader>f :FZF<cr>
+
 " For vim wiki "  
 call plug#begin()
 Plug 'vimwiki/vimwiki'
+Plug '~/.fzf'
 call plug#end()
 
 """"""""""""""""""""""""""""""

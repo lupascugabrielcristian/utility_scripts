@@ -278,7 +278,7 @@ mongo() {
 		# https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/
 		echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/4.4 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.4.list
 		sudo apt-get update
-		sudo apt-get install -y mongodb-org
+		sudo apt-get install -y mongodb-org mongodb-clients
 
 		sudo mkdir -p /data/db
 		sudo chown -R $USERNAME:$USERNAME /data/db

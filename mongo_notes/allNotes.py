@@ -14,12 +14,12 @@ from enum import Enum
 import glob
 
 # LOCATIONS
-notesDirectory =            "/home/cristi/Documents/notes/"
-researchNotesDirectory =    "/home/cristi/Documents/research/notes/"
-booksDirectory =            "/home/cristi/Documents/Books/"
-keepLocation =              "/home/cristi/keep.com"
-allTheTimeScriptsDirectory = "/home/cristi/Documents/research/all_the_time_scrips/"
-vimwikiDirectory =          "/home/cristi/vimwiki/"
+notesDirectory =            "/home/alex/Documents/notes/"
+researchNotesDirectory =    "/home/alex/Documents/research/notes/"
+booksDirectory =            "/home/alex/Documents/Books/"
+keepLocation =              "/home/alex/keep.com"
+allTheTimeScriptsDirectory = "/home/alex/Documents/research/all_the_time_scrips/"
+vimwikiDirectory =          "/home/alex/vimwiki/"
 
 class colors:
     HEADER = '\033[95m'
