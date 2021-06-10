@@ -1,0 +1,2 @@
+bw list items --search ebloc --pretty # passwords
+cat /etc/resolv.conf # networking

@@ -233,4 +233,10 @@ search_bookmark_at_line() {
 }
 alias sbal='search_bookmark_at_line'
 
-
+# Ruleaza scriptul comenzi.py din folderul utility_sripts pentru a gasi o comanda salvata
+# Afiseaza comenzile gasite si la executa daca are confirmare
+#
+# Trebuie dat termenul dupa care sa caute
+search_comenzi() {
+	python3.8 $LOCATION_OF_UTILITIES_FOLDER/comenzi.py $1
+}
