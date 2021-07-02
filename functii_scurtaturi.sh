@@ -240,3 +240,12 @@ alias sbal='search_bookmark_at_line'
 search_comenzi() {
 	python3.8 $LOCATION_OF_UTILITIES_FOLDER/comenzi.py $1
 }
+
+# Functie cu care sa controlez releul care porneste ceasul
+# Fac apel la web-serverul pornit local la IP-ul 192.168.1.5. Se poate modifica si trebuie modifica aici
+clock() {
+	# Daca conditia dintr [[ <conditie> ]] atunci fac si comanda curl
+	[[ "$1" = "on" ]] && curl http://192.168.1.5/turn-off && echo "Turn on"
+
+	[[ "$1" = "off" ]] && curl http://192.168.1.5/turn-on && echo "Turn off"
+}

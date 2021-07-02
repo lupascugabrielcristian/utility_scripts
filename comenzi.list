@@ -1,2 +1,21 @@
-bw list items --search ebloc --pretty # passwords
-cat /etc/resolv.conf # networking
+bw list items --search ebloc --pretty 	# passwords
+cat /etc/resolv.conf 				  	# networking
+cat /etc/fstab						  	# mounts partitions at boot
+cat /etc/group							# list groups
+sudo netstat -tlnp					  	# see open ports networking
+sudo netstat -tulnp					  	# see open ports networking and udp
+http POST :5000/api/send_mail numar_dosar="123/213/123141" receivers:='["lupascugabrielcristian@gmail.com", "mengeles@yahoo.com" ]' # httpie, request, list
+df -ah 								  	# disk space free
+du -sh <folder name> 				  	# size of folder disk used
+sudo !!								  	# repeat command above with sudo
+bw get item "Digital Ocean" | jq '.notes' | awk '{split($0, result, " "); print result[8],result[9]}' # json pipe get value # get notes from Digital ocean
+bw get item "Digital Ocean" | jq '.fields[1].value' # get the password for Digital ocean account
+ip addr show | grep inet | awk '{print $2}' # extract just the ip from output of ip addr
+pushd 								  	# put a directory location on stack to return to it
+dirs									# shows directory stack
+sudo ufw status							# firewall 
+crontab -l								# list pending jobs
+nmap -sn 192.168.0.x					# ping sweep
+nmap -sn 192.168.0.1-254				# ping sweep
+nmap -sn 192.168.0.0/24 				# ping sweep
+find -perm -u=s -type f 2>/dev/null		# finds all binary files in root directory with suid bit set
