@@ -121,7 +121,7 @@ if [ "$operation" = 'l' -o "$operation" = 'pull' -o "$operation" = 'Pull' ]; the
         printf "[+] Getting buku file\n"
         rsync -rzv -e 'ssh -p 8522' --progress \
                 root@104.248.252.160:./sync_folder/buku_backup.db $home_folder/. "$@" > /dev/null 
-        buku -i $home_folder/buku_backup.db
+        buku -i $home_folder/buku_backup.db 2> /dev/null
         rm $home_folder/buku_backup.db "$@" > /dev/null 
 
 		# Fac tipul local 0. Asa voi sti ca am facut pull
