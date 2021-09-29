@@ -3,3 +3,4 @@ mongo_notes/__pycache__/*.pyc
 ./tasks
 tasks
 last_push.log
+fileuploadserver/uploads/*

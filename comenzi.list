@@ -10,6 +10,7 @@ du -sh <folder name> 				  	# size of folder disk used
 sudo !!								  	# repeat command above with sudo
 bw get item "Digital Ocean" | jq '.notes' | awk '{split($0, result, " "); print result[8],result[9]}' # json pipe get value # get notes from Digital ocean
 bw get item "Digital Ocean" | jq '.fields[1].value' # get the password for Digital ocean account
+bw get item "Digital Ocean" | jq '.notes' | awk '{ print("ssh " $8 " " $9 " " $10 "\n" $15) }' # pentru ssh avocat in digital ocean
 ip addr show | grep inet | awk '{print $2}' # extract just the ip from output of ip addr
 pushd 								  	# put a directory location on stack to return to it
 dirs									# shows directory stack
@@ -20,3 +21,4 @@ nmap -sn 192.168.0.1-254				# ping sweep
 nmap -sn 192.168.0.0/24 				# ping sweep
 find -perm -u=s -type f 2>/dev/null		# finds all binary files in root directory with suid bit set
 "%04d:%02d:%03d" % ( 3, 5, 21)			# format python string number of digits
+grep -rlw @Input\(\) .					# search in files in folder for text
