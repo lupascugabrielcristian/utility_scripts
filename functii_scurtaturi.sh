@@ -247,7 +247,7 @@ clock() {
 	# Daca conditia dintr [[ <conditie> ]] atunci fac si comanda curl
 	[[ "$1" = "on" ]] && curl http://192.168.1.5/turn-off && echo "Turn on"
 
-	[[ "$1" = "off" ]] && curl http://192.168.1.9/turn-on && echo "Turn off"
+	[[ "$1" = "off" ]] && curl http://192.168.1.5/turn-on && echo "Turn off"
 }
 
 title() {
