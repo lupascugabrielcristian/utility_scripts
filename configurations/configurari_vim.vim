@@ -10,6 +10,7 @@ set scrolloff=3
 "colorscheme kuroi
 set nocompatible
 set clipboard=unnamedplus
+set cursorline
 filetype plugin on
 syntax on
 
