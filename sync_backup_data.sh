@@ -34,7 +34,7 @@ if [ "$operation" = 'h' -o "$operation" = 'push' -o "$operation" = 'Push' ]; the
 		lpush_time=${array[1]} # memorez cand s-a facut push ultima data de pe calculatorul asta
 
 		if [ $server_time -eq $lpush_time ]; then
-			read "[+] Timpul gasit pe server este acelasi cu cel la care s-a facut push de aici. Pot face push"
+			read -p "[+] Timpul gasit pe server este acelasi cu cel la care s-a facut push de aici. Pot face push"
 		elif [ $lpush_time -eq 0 ]; then
 			read -p "[?] Doar ce am facut pull. Continui"
 		else
