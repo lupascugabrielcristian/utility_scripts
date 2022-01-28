@@ -23,6 +23,7 @@ alias all_time_script='sh $LOCATION_OF_UTILITIES_FOLDER/make_all_time_script.sh'
 alias rbal='read_bookmark_at_line'
 alias open_nautilus='python $LOCATION_OF_UTILITIES_FOLDER/open_nautilus.py'
 alias locations='python $LOCATION_OF_UTILITIES_FOLDER/locations.py'
+alias codesearch='python3.8 $LOCATION_OF_UTILITIES_FOLDER/code-search.py $PWD $1'
 #========== End of aliases ==========   
 
 
