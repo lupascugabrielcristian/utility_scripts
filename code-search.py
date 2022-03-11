@@ -17,6 +17,9 @@ start_dir = sys.argv[1]
 # Al doilea argument sa fie stringul cautat
 s_text = sys.argv[2]
 
+# Pasez al 2 lea argument extensia fisierelor care vreau sa le iau in considerare
+extension = "." + sys.argv[3]
+
 # Lista de obiect LinesFound care le voi face pdf
 locations_collected = []
 
@@ -64,7 +67,7 @@ def is_file_good(path):
     """
     is_good = False
 
-    if ".java" in path:
+    if extension in path:
         is_good = True
 
     return is_good
@@ -243,6 +246,7 @@ def generate_md_file( locations_dict ):
 
     md_file.close()
 
+print("Seaching for %s" % s_text )
 traverse(start_dir, locations_collected)
 print("%d fisiere gasite" % len(locations_collected) )
 

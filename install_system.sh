@@ -133,66 +133,55 @@ general_package_install() {
 
 		read -p "[!] git " userResponse
 		sudo apt-get install git -y
+		sudo apt-get install htop -y
+		sudo apt-get install curl -y
+		sudo apt-get install wget -y
+
 		##apt-get install nodejs -y
 		##apt-get install npm -y
 		##apt-get install node-typescript -y
 		##npm install -g @angular/cli -y
-		sudo apt-get install htop -y
 		#apt-get install synaptic -y
-		sudo apt-get install curl -y
-		sudo apt-get install wget -y
 		#apt-get install bmon -y
-		#apt-get install graphviz -y
 
-		read -p "[!] dia " userResponse
-		sudo apt-get install dia -y # aici imi arata tarile
 		#apt-get install tldr -y 					# Easy to understand man pages
 		#apt-get install python3 -y
 		#apt-get install gnome-tweak-tool -y
 		#apt-get install iftop -y
 		#apt-get install slurm -y					# network monitor
+		#apt-get install nmon -y 					# system monitor with network cpu, memory and processes
 
 		read -p "[!] vifm " userResponse
-		sudo apt-get install vifm -y 					# terminal file manager with vim keybindings
-		sudo apt-get install w3m -y 						# terminal browser
-		sudo apt-get install chromium-browser -y
-		##apt-get install torsocks					# to browse to onion sites
-		sudo apt-get install trash-cli -y					# sends files to trash
-
-		read -p "[!] zathura " userResponse
-		sudo apt-get install zathura zathura-djvu zathura-ps zathura-cb -y # pdf reader with vim-like key bindings
-		#echo "Comenzile pentru network monitors sunt in fisierul comenzi"
-		#apt-get install qutebrowser -y		# browser like vim
-		sudo apt-get install httpie -y		# testing http calls in terminal
+		sudo apt-get install vifm -y 				# terminal file manager with vim keybindings
+		sudo apt-get install w3m -y 				# terminal browser
+		sudo apt-get install trash-cli -y			# sends files to trash
+		sudo apt-get install httpie -y				# testing http calls in terminal
 
 		read -p "[!] buku " userResponse
 		sudo apt-get install buku -y			# bookmark manager
-		#apt-get install cherrytree -y 	# text notes in tree form
-		#apt-get install nmon -y 		# system monitor with network cpu, memory and processes
-		#apt-get install x2x -y 			# multiple displays with mouse and keyboard through ssh
-		#apt-get install jq				# to parse json in terminal
-
-		read -p "[!] bw " userResponse
-		# Merge doar la instalarea normala, nu si la testele pe docker
-		sudo snap install bw # to login in bitwarden - password manager
-
-		read -p "[!] kpcli " userResponse
+		apt-get install jq				# to parse json in terminal
 		sudo apt-get install kpcli -y # local password manager
-
-		## Chrome
-		#wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-		#echo 'deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main' | sudo tee /etc/apt/sources.list.d/google-chrome.list
-		#apt-get update
-		#apt-get install google-chrome-stable -y
-
-		
-
-		read -p "[!] gimp & inkscape " userResponse
-		sudo apt-get install gimp inkscape -y
 
 		read -p "[!] ssh and disable" userResponse
 		sudo apt-get install openssh-server -y
 		sudo systemctl disable sshd.service
+	fi
+}
+
+auxiliary() {
+	echo ""
+	read -p "Continue with auxiliary installation?(y/n)" userResponse
+	if [ "$userResponse" = 'y' ]; then
+		apt-get install graphviz -y
+		sudo apt-get install dia -y 										# aici imi arata tarile
+		sudo apt-get install zathura zathura-djvu zathura-ps zathura-cb -y 	# pdf reader with vim-like key bindings
+		echo "Comenzile pentru network monitors sunt in fisierul comenzi"
+		apt-get install qutebrowser -y										# browser like vim
+		apt-get install cherrytree -y 										# text notes in tree form
+		sudo apt-get install gimp inkscape -y
+		sudo apt-get install chromium-browser -y
+
+		#apt-get install torsocks											# to browse to onion sites
 	fi
 }
 
@@ -421,6 +410,7 @@ validations() {
 
 prepare_directories
 general_package_install
+auxiliary
 vim_configuration
 bashrc
 #video_card
@@ -435,8 +425,8 @@ awesome_configurations
 alacrity_configuration
 drawio
 ##ssh_key_registration
+validations
 echo ""
 echo ""
 echo "====== All done! ======="
-validations
 
