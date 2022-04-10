@@ -62,6 +62,10 @@ bashrc() {
 		echo "source $PWD/functii_notes.sh" >> $HOME_FOLDER/.bashrc
 
 		echo "" >> $HOME_FOLDER/.bashrc
+		echo "############ PROMPT ################" >> $HOME_FOLDER/.bashrc
+		echo "source $PWD/prompt.sh" >> $HOME_FOLDER/.bashrc
+
+		echo "" >> $HOME_FOLDER/.bashrc
 		echo "############ ALL TIME SCRIPTS ################" >> $HOME_FOLDER/.bashrc
 		echo "source $HOME_FOLDER/Documents/research/all_the_time_scrips/all_the_time_sources.sh" >> $HOME_FOLDER/.bashrc
 
@@ -69,7 +73,7 @@ bashrc() {
 		echo "" >> $HOME_FOLDER/.bashrc
 
 		echo ""  >> $HOME_FOLDER/.bashrc
-		echo "############ CURSOR ################" >> $HOME_FOLDER/.bashrc
+		echo "############ PROMPT ################" >> $HOME_FOLDER/.bashrc
 		echo "#export PS1=\"\$BBLE \W $ \$RS \" # Activate this after testing" >> $HOME_FOLDER/.bashrc
 		echo "export PS1=\"\$BMAG \W $ \$RS \"  # For docker testing" >> $HOME_FOLDER/.bashrc
 	fi
