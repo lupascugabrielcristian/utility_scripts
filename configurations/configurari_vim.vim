@@ -22,6 +22,9 @@ tnoremap <Esc> <C-\><C-n>
 " Surround word with quotes
 nnoremap <leader>" viw<esc>a"<esc>bi"<esc>lel
 
+" Surround word with *
+nnoremap <leader>* viw<esc>a*<esc>bi*<esc>lel
+
 " Surround selection with < >
 vnoremap <leader>< <esc>`<i<<esc>`>ea><esc>
 vnoremap <leader>> <esc>`<i<<esc>`>ea><esc>

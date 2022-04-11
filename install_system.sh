@@ -71,11 +71,6 @@ bashrc() {
 
 		echo "export EDITOR='nvim'" >> $HOME_FOLDER/.bashrc
 		echo "" >> $HOME_FOLDER/.bashrc
-
-		echo ""  >> $HOME_FOLDER/.bashrc
-		echo "############ PROMPT ################" >> $HOME_FOLDER/.bashrc
-		echo "#export PS1=\"\$BBLE \W $ \$RS \" # Activate this after testing" >> $HOME_FOLDER/.bashrc
-		echo "export PS1=\"\$BMAG \W $ \$RS \"  # For docker testing" >> $HOME_FOLDER/.bashrc
 	fi
 }
 
@@ -162,13 +157,15 @@ general_package_install() {
 		sudo apt-get install httpie -y				# testing http calls in terminal
 
 		read -p "[!] buku " userResponse
-		sudo apt-get install buku -y			# bookmark manager
-		apt-get install jq				# to parse json in terminal
-		sudo apt-get install kpcli -y # local password manager
+		sudo apt-get install buku -y				# bookmark manager
+		apt-get install jq							# to parse json in terminal
+		sudo apt-get install kpcli -y 				# local password manager
 
 		read -p "[!] ssh and disable" userResponse
 		sudo apt-get install openssh-server -y
+		sudo apt-get install bsdmainutils 			# contine comanda colrm folosite in prompt.sh
 		sudo systemctl disable sshd.service
+		sudo apt-get install build-essential		# pentru a putea face build in golang
 	fi
 }
 
