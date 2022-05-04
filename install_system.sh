@@ -132,6 +132,7 @@ general_package_install() {
 
 		read -p "[!] git " userResponse
 		sudo apt-get install git -y
+		sudo apt-get install gitk -y				# Interfata vizuala simplista peste git
 		sudo apt-get install htop -y
 		sudo apt-get install curl -y
 		sudo apt-get install wget -y
@@ -143,7 +144,7 @@ general_package_install() {
 		#apt-get install synaptic -y
 		#apt-get install bmon -y
 
-		#apt-get install tldr -y 					# Easy to understand man pages
+		apt-get install tldr -y 					# Easy to understand man pages
 		#apt-get install python3 -y
 		#apt-get install gnome-tweak-tool -y
 		#apt-get install iftop -y
@@ -382,6 +383,12 @@ ide() {
 		read -p 'Updated bada folder path in bada-api application.properties?' varContinue
 		
 		cp jetbrains-idea.desktop ~/.local/share/applications/jetbrains-idea.desktop # This is to add favorites icon
+	fi
+}
+
+nodenpm() {
+	read -p "Continue with node and npm? (yes/no)" userResponse
+	if [ "$userResponse" = 'yes' ]; then
 	fi
 }
 

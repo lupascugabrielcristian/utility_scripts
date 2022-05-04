@@ -41,7 +41,7 @@ if [ "$operation" = 'h' -o "$operation" = 'push' -o "$operation" = 'Push' ]; the
 			echo $server_time ..server time
 			echo $server_user ..server user
 			echo $lpush_time ..local push time
-			read "[X] Timpul gasit pe server difera de cel la care s-a facut push de pe calculatorul asta. Trebuie facut pull mai intai"
+			read -p "[X] Timpul gasit pe server difera de cel la care s-a facut push de pe calculatorul asta. Trebuie facut pull mai intai"
 		fi
 
 
