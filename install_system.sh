@@ -25,6 +25,7 @@ prepare_directories() {
 	mkdir $HOME_FOLDER/projects
 	mkdir -p $HOME_FOLDER/Documents/research
 	mkdir -p $HOME_FOLDER/Documents/tools
+	mkdir -p $HOME_FOLDER/Documents/notes
 
 	# Fac sa apartina userului ca sa poata modifica cowntdown.task
 	sudo chown -R $USERNAME:$USERNAME $PWD
@@ -34,8 +35,6 @@ prepare_directories() {
 	# Pentru all_time_scripts
 	mkdir -p $HOME_FOLDER/Documents/research/all_the_time_scrips
 	touch $HOME_FOLDER/Documents/research/all_the_time_scrips/all_the_time_sources.sh
-
-	sudo apt update
 
 	echo "Directories ready"
 }

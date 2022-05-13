@@ -65,6 +65,12 @@ if [ "$operation" = 'h' -o "$operation" = 'push' -o "$operation" = 'Push' ]; the
                 --filter='merge ./sync-filter.txt' \
                 root@104.248.252.160:./sync_folder/tools  "$@" > /dev/null 
 
+        printf "[+] Sending notes folder\n"
+        rsync -rzv -e 'ssh -p 8522' --progress \
+                $home_folder/Documents/notes/ \
+                --filter='merge ./sync-filter.txt' \
+                root@104.248.252.160:./sync_folder/notes  "$@" > /dev/null 
+
 
         printf "[+] Sending research folder\n"
         rsync -rzv -e 'ssh -p 8522' --progress \
@@ -111,6 +117,11 @@ if [ "$operation" = 'l' -o "$operation" = 'pull' -o "$operation" = 'Pull' ]; the
         printf "[+] Pulling tools folder\n"
         rsync -rzv -e 'ssh -p 8522' --progress \
                 root@104.248.252.160:./sync_folder/tools/ $home_folder/Documents/tools "$@" > /dev/null 
+
+
+        printf "[+] Pulling notes folder\n"
+        rsync -rzv -e 'ssh -p 8522' --progress \
+                root@104.248.252.160:./sync_folder/notes/ $home_folder/Documents/notes "$@" > /dev/null 
 
 
         printf "[+] Pulling research folder\n"
