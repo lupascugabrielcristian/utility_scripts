@@ -141,10 +141,14 @@ if [ "$operation" = 'l' -o "$operation" = 'pull' -o "$operation" = 'Pull' ]; the
 fi
 
 if [ "$operation" = 'w' -o "$operation" = 'who' -o "$operation" = 'Who' ]; then
-		echo "Acesta este continutul fisierului last_push.log. Arata cand s-a facut ultimul push de aici. Daca timpul este 0 inseamna ca am facut pull\n"
-		cat last_push.log
+		#read -p "[?] Home folder? " home_folder
+		home_folder=$HOME
 
-		read -p "[?] Home folder? " home_folder
+		printf "\nColoana local arata ultima operatatie de pe masina asta:
+* Time 0: am facut pull
+* Time > 0: timpul la care am facut push de aici
+* Local time == Remote time: ultimul push la server a fost facut de aici. Nu este nevoie de pull
+* Local time < Remote time: ultimul push la server a fost facut din alta parte. Trebuie facut pull\n\n"
 
 		# Iau fisierul de pe server pentru a vedea cand si de catre cine s-a facut ultimul push
 		rsync -rzv -e 'ssh -p 8522' --progress \
@@ -154,7 +158,10 @@ if [ "$operation" = 'w' -o "$operation" = 'who' -o "$operation" = 'Who' ]; then
 		server_time=${array[1]} # memorez cand s-a inregistrat pe server ultimul push
 		server_user=${array[0]} # memorez userul care a facut push ultima data pe server
 
-		echo "From server:"
-		echo "User: $server_user" 
-		echo "Time: $server_time" 
+		local_user=$(sed -n 1p last_push.log)
+		local_time=$(sed -n 2p last_push.log)
+
+		printf "Local\t\t\tRemote\n"
+		printf "User: %s\tUser: $server_user\n" $local_user
+		printf "Time: %10s\tTime: $server_time\n" $local_time
 fi
