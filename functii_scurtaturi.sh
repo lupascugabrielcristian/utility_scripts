@@ -187,6 +187,7 @@ go_to_today_scripts() {
 	ls
 }
 
+# grep in keep
 gik() {
 	grep $1 $LOCATION_OF_KEEP/keep.com
 }

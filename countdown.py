@@ -50,7 +50,6 @@ def printTask(task):
         print(f'{colors.FAIL} [{task.name}] END {colors.ENDC}' )
     elif remaining == 0:
         print(f'{colors.WARNING} [{task.name}] END {colors.ENDC}' )
-        subprocess.run(task.command[:-1], stderr=subprocess.DEVNULL)
     else:
         print(f'{colors.OKGREEN} [{task.name}] {remaining} {colors.ENDC}')
 
@@ -66,14 +65,15 @@ def readFile(tasksFile):
         print(f"{colors.LIGHT_BLUE} {len(tasks)} tasks {colors.ENDC}")
         for t in tasks:
             printTask(t)
+        print(f"{colors.LIGHT_BLUE} ____ {colors.ENDC}", end="", flush=True)
         time.sleep(15)
-        print(f"{colors.LIGHT_BLUE}.{colors.ENDC}")
+        print(f"\r{colors.LIGHT_BLUE} #___ {colors.ENDC}", end="", flush=True)
         time.sleep(15)
-        print(f"{colors.LIGHT_BLUE}.{colors.ENDC}")
+        print(f"\r{colors.LIGHT_BLUE} ##__ {colors.ENDC}", end="", flush=True)
         time.sleep(15)
-        print(f"{colors.LIGHT_BLUE}.{colors.ENDC}")
+        print(f"\r{colors.LIGHT_BLUE} ###_ {colors.ENDC}", end="", flush=True)
         time.sleep(15)
-        print(f"{colors.LIGHT_BLUE}.{colors.ENDC}")
+        print(f"\r{colors.LIGHT_BLUE} #### {colors.ENDC}", end="", flush=True)
 
 if len(sys.argv) < 2:
     print("Need the path to tasks file")
