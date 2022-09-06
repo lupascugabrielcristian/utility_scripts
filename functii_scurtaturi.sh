@@ -17,13 +17,14 @@ alias cdd='cd ~/Documents/'
 alias rm=sendToTrash $*
 alias cat='cat -n'
 alias pp='ping -a -c 4 www.ubuntu.security.com'
-alias identity='python3.8 ~/projects/utility_scripts/generate_account.py'
+alias identity='python3.10 ~/projects/utility_scripts/generate_account.py'
 alias .='vifm .'
 alias all_time_script='sh $LOCATION_OF_UTILITIES_FOLDER/make_all_time_script.sh'
 alias rbal='read_bookmark_at_line'
 alias open_nautilus='python $LOCATION_OF_UTILITIES_FOLDER/open_nautilus.py'
-alias locations='python $LOCATION_OF_UTILITIES_FOLDER/locations.py'
-alias codesearch='python3.8 $LOCATION_OF_UTILITIES_FOLDER/code-search.py $PWD $1 $2'
+alias locations='python3.10 $LOCATION_OF_UTILITIES_FOLDER/locations.py'
+alias lc='python3.10 $LOCATION_OF_UTILITIES_FOLDER/locations.py'
+alias codesearch='python3.10 $LOCATION_OF_UTILITIES_FOLDER/code-search.py $PWD $1 $2'
 #========== End of aliases ==========   
 
 

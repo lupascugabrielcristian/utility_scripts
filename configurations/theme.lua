@@ -1,5 +1,5 @@
 ---------------------------
--- Default awesome theme --
+-- Customised awesome theme --
 ---------------------------
 
 local theme_assets = require("beautiful.theme_assets")
@@ -11,7 +11,7 @@ local themes_path = gfs.get_themes_dir()
 
 local theme = {}
 
-theme.font          = "JetBrains Mono 12"
+theme.font          = "JetBrains Mono 10"
 
 theme.bg_normal     = "#222222"
 theme.bg_focus      = "#FE7010"
@@ -59,6 +59,7 @@ theme.taglist_squares_unsel = theme_assets.taglist_squares_unsel(
 -- notification_[bg|fg]
 -- notification_[width|height|margin]
 -- notification_[border_color|border_width|shape|opacity]
+notification_font  = "JetBrains Mono 10"
 
 -- Variables set for theming the menu:
 -- menu_[bg|fg]_[normal|focus]
