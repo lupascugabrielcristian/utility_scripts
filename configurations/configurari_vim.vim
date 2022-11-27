@@ -97,3 +97,14 @@ autocmd FileType denite call s:denite_my_settings()
 nnoremap <leader>D :Denite file/rec <CR> /
 
 """"""""""""""""""""""""""""""
+
+" Wiki 1
+let wiki_1 = {}
+let wiki_1.path = '~/vimwiki/'
+" Wiki 2
+let wiki_2 = {}
+let wiki_2.path = '~/prolog-vimwiki/'
+let g:vimwiki_list = [wiki_1, wiki_2]
+
+" Setez syntaxa de prolog
+nnoremap <leader>pl :set syntax=prolog<esc>

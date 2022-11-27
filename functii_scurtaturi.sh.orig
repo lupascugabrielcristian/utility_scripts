@@ -23,10 +23,17 @@ alias .='vifm .'
 alias all_time_script='sh $LOCATION_OF_UTILITIES_FOLDER/make_all_time_script.sh'
 alias rbal='read_bookmark_at_line'
 alias open_nautilus='python $LOCATION_OF_UTILITIES_FOLDER/open_nautilus.py'
+<<<<<<< HEAD
 alias locations='python3.10 $LOCATION_OF_UTILITIES_FOLDER/locations.py'
 alias lc='python3.10 $LOCATION_OF_UTILITIES_FOLDER/locations.py'
 alias codesearch='python3.10 $LOCATION_OF_UTILITIES_FOLDER/code-search.py $PWD $1 $2'
 alias aa='open_alacrity_here'
+=======
+alias locations='python $LOCATION_OF_UTILITIES_FOLDER/locations.py'
+alias codesearch='python3.8 $LOCATION_OF_UTILITIES_FOLDER/code-search.py $PWD $1 $2'
+alias pp='go_to_proiecte'
+alias dayend='python3.10 $LOCATION_OF_UTILITIES_FOLDER/day-end/command.py'
+>>>>>>> 33587a6 (De acum)
 #========== End of aliases ==========   
 
 
@@ -283,8 +290,4 @@ go_to_proiecte() {
 	elif [ "$project" = 5 ]; then 
 		cd ~/projects/utility_scripts
 	fi
-}
-
-day-end() {
-	python3.10 $LOCATION_OF_UTILITIES_FOLDER/day-end/dayend.py
 }
