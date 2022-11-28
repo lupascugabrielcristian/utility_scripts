@@ -98,7 +98,7 @@ if len(not_commited) != 0:
 
 # Step 2
 # Ma asigur ca am inchis kpcli. Verific daca am safe.kpcli.lock
-kpcli_lock = ["/safe.kli.lock", "/safe.kp"]
+kpcli_lock = ["/safe.kli.lock", "/safe.kp.lock"]
 for k in kpcli_lock:
     if os.path.exists( home_dir + k ):
         result.is_success = False
