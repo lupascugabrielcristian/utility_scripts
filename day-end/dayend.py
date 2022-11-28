@@ -92,16 +92,18 @@ for n in not_commited:
     print(n)
 
 print()
-if len(failed) != 0 or len(not_commited) != 0:
+if len(not_commited) != 0:
     result.is_success = False
     result.reasons.append("GIT STATUS FAILED")
 
 # Step 2
 # Ma asigur ca am inchis kpcli. Verific daca am safe.kpcli.lock
-kpcli_lock = "/safe.kli.lock"
-if os.path.exists( home_dir + kpcli_lock ):
-    result.is_success = False
-    result.reasons.append("kpcli still open")
+kpcli_lock = ["/safe.kli.lock", "/safe.kp"]
+for k in kpcli_lock:
+    if os.path.exists( home_dir + k ):
+        result.is_success = False
+        result.reasons.append("kpcli still open")
+        break
 
 
 # Final
