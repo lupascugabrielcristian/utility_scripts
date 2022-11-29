@@ -1,5 +1,7 @@
 import subprocess
 import os
+import requests
+from base64 import b64encode
 
 # TODO
 # Sa verific daca am facut sync
@@ -21,13 +23,15 @@ class colors:
     OKBLUE = '\033[94m'
     OKGREEN = '\033[92m'
     WARNING = '\033[93m'
+    LIGHT_ORANGE = '\033[38;2;255;204;153m'
+    MEDIUM_ORANGE = '\033[38;2;255;153;51m'
     FAIL = '\033[91m'
     LIGHT_BLUE = '\033[96m'
     PINK = '\033[95m'
     ENDC = '\033[0m'
     BOLD = '\033[1m'
     UNDERLINE = '\033[4m'
-    TEST = '\038[2;0;128;0m'
+    TEST = '\033[38;2;0;128;0m'
 
 
 result = Result()
@@ -105,6 +109,18 @@ for k in kpcli_lock:
         result.reasons.append("kpcli still open")
         break
 
+# Step 3 
+# Ma asigur ca cronometrul din Toggle nu este pornit
+# TODO sa iau userul si parola din configurari
+data = requests.get('https://api.track.toggl.com/api/v9/me/time_entries', headers={'content-type': 'application/json', 'Authorization' : 'Basic %s' %  b64encode(b"lupascugabrielcristian@yahoo.com:95X^Ef2UiM0E").decode("ascii")})
+try:
+    last_entry = data.json()[0]
+    if last_entry['stop'] == None:
+        result.is_success = False
+        result.reasons.append("Toggle still running")
+except:
+    print(f"{colors.MEDIUM_ORANGE}Failed to make Toggle call{colors.ENDC}")
+
 
 # Final
 if result.is_success == False:
@@ -112,4 +128,4 @@ if result.is_success == False:
     for r in result.reasons:
         print("  -> " + r)
 else:
-    print(f"{colors.OKGREEN}PROCESS SUCCESSFUL{colors.ENDC}")
+    print(f"{colors.OKGREEN}ALL CHECKS SUCCESSFUL{colors.ENDC}")
