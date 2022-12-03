@@ -2,13 +2,19 @@ import subprocess
 import os
 import requests
 from base64 import b64encode
-
-# TODO
-# Sa verific daca am facut sync
+from configparser import ConfigParser
 
 directories = []
 
+# De ex /home/cristi
 home_dir = os.path.expanduser('~')
+
+# Obtain the user configurations if exists
+user_config = None
+if os.path.exists(home_dir + '/.config/day-end/config.ini'):
+    user_config = ConfigParser()
+    user_config.read(home_dir + '/.config/day-end/config.ini')
+    print("User config file found")
 
 
 class Result:
@@ -111,8 +117,8 @@ for k in kpcli_lock:
 
 # Step 3 
 # Ma asigur ca cronometrul din Toggle nu este pornit
-# TODO sa iau userul si parola din configurari
-data = requests.get('https://api.track.toggl.com/api/v9/me/time_entries', headers={'content-type': 'application/json', 'Authorization' : 'Basic %s' %  b64encode(b"lupascugabrielcristian@yahoo.com:95X^Ef2UiM0E").decode("ascii")})
+credentials_string = user_config['toggle']['user'] + ":" + user_config['toggle']['pass']
+data = requests.get('https://api.track.toggl.com/api/v9/me/time_entries', headers={'content-type': 'application/json', 'Authorization' : 'Basic %s' %  b64encode( bytes(credentials_string, 'utf-8')).decode("ascii")})
 try:
     last_entry = data.json()[0]
     if last_entry['stop'] == None:
@@ -121,6 +127,16 @@ try:
 except:
     print(f"{colors.MEDIUM_ORANGE}Failed to make Toggle call{colors.ENDC}")
 
+# Step 4
+# Verific daca am facut sync din projects/utility_scripts
+if os.path.exists(home_dir + "/last_server_sync.log"):
+    with open(home_dir + "/last_server_sync.log", 'r') as f:
+        user_line = f.readline().strip()
+        if user_line != home_dir:
+            result.is_success = False
+            result.reasons.append("Server sync not completed")
+else:
+    print(f"{colors.MEDIUM_ORANGE}Failed to find last_server_sync.log file{colors.ENDC}")
 
 # Final
 if result.is_success == False:
