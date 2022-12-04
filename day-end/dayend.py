@@ -118,15 +118,17 @@ for k in kpcli_lock:
 
 # Step 3 
 # Ma asigur ca cronometrul din Toggle nu este pornit
-credentials_string = user_config['toggle']['user'] + ":" + user_config['toggle']['pass']
-data = requests.get('https://api.track.toggl.com/api/v9/me/time_entries', headers={'content-type': 'application/json', 'Authorization' : 'Basic %s' %  b64encode( bytes(credentials_string, 'utf-8')).decode("ascii")})
-try:
-    last_entry = data.json()[0]
-    if last_entry['stop'] == None:
-        result.is_success = False
-        result.reasons.append("Toggle still running")
-except:
-    print(f"{colors.MEDIUM_ORANGE}Failed to make Toggle call{colors.ENDC}")
+if user_config is not None:
+    credentials_string = user_config['toggle']['user'] + ":" + user_config['toggle']['pass']
+    data = requests.get('https://api.track.toggl.com/api/v9/me/time_entries', headers={'content-type': 'application/json', 'Authorization' : 'Basic %s' %  b64encode( bytes(credentials_string, 'utf-8')).decode("ascii")})
+    try:
+        last_entry = data.json()[0]
+        if last_entry['stop'] == None:
+            result.is_success = False
+            result.reasons.append("Toggle still running")
+    except:
+        print(f"{colors.MEDIUM_ORANGE}Failed to make Toggle call{colors.ENDC}")
+
 
 # Step 4
 # Verific daca am facut sync din projects/utility_scripts
@@ -146,6 +148,21 @@ if os.path.exists(home_dir + "/projects/utility_scripts/last_push.log"):
             result.reasons.append("Failed to get last sync time")
 else:
     print(f"{colors.MEDIUM_ORANGE}Failed to find last_push.log file{colors.ENDC}")
+
+# Step 5
+# Verific daca procesele din lista de mai jos sunt disabled
+to_check = ['redis-server.service']
+for p in to_check:
+    output = subprocess.check_output("systemctl status " + p + " 2>/dev/null", shell=True)
+    output = bytes.decode(output)
+    output_parts = output.split("\n")
+    for o in output_parts:
+        if "Active" in o:
+            value_parts = o.split(":")[1:]
+            value = " ".join(value_parts)
+            if "running" in value:
+                result.is_success = False
+                result.reasons.append("Process " + p + " is not disabled")
 
 # Final
 if result.is_success == False:
