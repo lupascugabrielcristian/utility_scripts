@@ -3,6 +3,7 @@ import os
 import requests
 from base64 import b64encode
 from configparser import ConfigParser
+import time
 
 directories = []
 
@@ -129,14 +130,22 @@ except:
 
 # Step 4
 # Verific daca am facut sync din projects/utility_scripts
-if os.path.exists(home_dir + "/last_server_sync.log"):
-    with open(home_dir + "/last_server_sync.log", 'r') as f:
-        user_line = f.readline().strip()
-        if user_line != home_dir:
+if os.path.exists(home_dir + "/projects/utility_scripts/last_push.log"):
+    with open(home_dir + "/projects/utility_scripts/last_push.log", 'r') as f:
+        lines = f.readlines()
+        try:
+            last_push_time = int(lines[1].strip())
+            current_time = round(time.time())
+            # O zi are 86400 secunde. Vreau ca ultimul push sa fie facut la mai putin de o zi
+            if current_time - last_push_time > 86400:
+                result.is_success = False
+                days_passed = (current_time - last_push_time) / 86400
+                result.reasons.append("Last sync done %.1f days ago" % days_passed)
+        except Exception as e:
             result.is_success = False
-            result.reasons.append("Server sync not completed")
+            result.reasons.append("Failed to get last sync time")
 else:
-    print(f"{colors.MEDIUM_ORANGE}Failed to find last_server_sync.log file{colors.ENDC}")
+    print(f"{colors.MEDIUM_ORANGE}Failed to find last_push.log file{colors.ENDC}")
 
 # Final
 if result.is_success == False:
