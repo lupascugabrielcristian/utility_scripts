@@ -1,4 +1,5 @@
 import subprocess
+from subprocess import CalledProcessError
 import os
 import requests
 from base64 import b64encode
@@ -15,7 +16,7 @@ user_config = None
 if os.path.exists(home_dir + '/.config/day-end/config.ini'):
     user_config = ConfigParser()
     user_config.read(home_dir + '/.config/day-end/config.ini')
-    print("User config file found")
+    print("config.ini file found")
 
 
 class Result:
@@ -150,10 +151,17 @@ else:
     print(f"{colors.MEDIUM_ORANGE}Failed to find last_push.log file{colors.ENDC}")
 
 # Step 5
-# Verific daca procesele din lista de mai jos sunt disabled
-to_check = ['redis-server.service']
+# Verific daca procesele din lista de mai jos sunt pornite
+to_check = ['redis-server.service',
+        'teamviewerd.service',
+        'apache2.service',
+        'ssh.service']
 for p in to_check:
-    output = subprocess.check_output("systemctl status " + p + " 2>/dev/null", shell=True)
+    try:
+        output = subprocess.check_output("systemctl status " + p + " 2>/dev/null", shell=True)
+    except CalledProcessError as e:
+        # Daca imi da eroare inseamna ca nu exista procesul
+        continue
     output = bytes.decode(output)
     output_parts = output.split("\n")
     for o in output_parts:
@@ -162,7 +170,7 @@ for p in to_check:
             value = " ".join(value_parts)
             if "running" in value:
                 result.is_success = False
-                result.reasons.append("Process " + p + " is not disabled")
+                result.reasons.append("Process " + p + " is still running")
 
 # Final
 if result.is_success == False:
