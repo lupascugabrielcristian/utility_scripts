@@ -1,3 +1,8 @@
+# Il pornesc din functii_scurtaturi.sh cu alias-ul codesearch
+# Genereaza un fisier cu toate locatiile gasite
+# Ex: codesearch retrofit java
+# Trebuie rulat in locatia de unde va incepe cautarea. Cautarea se face recursiv
+
 import os
 import sys
 import pdb
