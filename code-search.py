@@ -28,6 +28,9 @@ extension = "." + sys.argv[3]
 # Lista de obiect LinesFound care le voi face pdf
 locations_collected = []
 
+# Lista fisierelor in care s-a gasit stringul cautat
+files_collected = []
+
 # Culoarea cu care scrie numele fisierului 
 file_name_color = "#2400FF"
 
@@ -98,6 +101,18 @@ def traverse(root, locations_collected):
     """
     Cauta recursiv toate fisierele
     """
+    if "node_modules" in root:
+        return
+
+    if "__pycache__" in root:
+        return
+
+    if "build" in root:
+        return
+
+    if ".git" in root:
+        return
+
     items = os.listdir(root)
     for item in items:
         path = os.path.join(root, item)
@@ -108,7 +123,10 @@ def traverse(root, locations_collected):
                 continue
         
             locations_file = search_text( s_text, path, item )
+
             if len(locations_file) > 0:
+                if path not in files_collected:
+                    files_collected.append(path)
                 locations_collected += locations_file
 
 
@@ -123,6 +141,7 @@ def search_text( text, path, file_name ):
     f = open(path, 'r')
     line_number = 0
     content = f.readlines()
+
     for line in content:
         line_number += 1
         if text in line and is_line_good(line):
@@ -151,6 +170,9 @@ def generate_pdf_file( locations_dict ):
     """
     Primeste un dictionar cu cheile numele fisierelor
     """
+    if len(locations_dict.keys()) == 0:
+        return
+
     # creating a pdf object
     pdf = canvas.Canvas("/tmp/code-search.pdf", pagesize=A4)
     
@@ -215,7 +237,8 @@ def generate_pdf_file( locations_dict ):
             current_line_y = 800
         else:
             current_line_y -= 35
-    
+
+    print("Generated PDF file /tmp/code-search.pdf")
     pdf.save()
 
 def generate_md_file( locations_dict ):
@@ -223,12 +246,16 @@ def generate_md_file( locations_dict ):
     Primeste un dictionar cu cheile numele fisierelor
     """
 
+    if len(locations_dict.keys()) == 0:
+        return
+
     # Create the file
     md_file = open("/tmp/code-search.md", "w")
 
     for key in locations_dict:
         # Numele fisierului
-        md_file.write( "# " + key + " #\n\n")
+        md_file.write( "# " + key + " #\n")
+        md_file.write("### " + locations_dict[key][0].path + " ###\n\n")
 
         for location in list(locations_dict[key]):
 
@@ -250,10 +277,15 @@ def generate_md_file( locations_dict ):
         md_file.write("\n")
 
     md_file.close()
+    print("Generated MD file /tmp/code-search.md")
 
-print("Seaching for %s" % s_text )
+print("Seaching for \033[38;2;255;153;255m%s\033[0m in\033[38;2;153;204;255m %s \033[0m" % (s_text, start_dir ) )
 traverse(start_dir, locations_collected)
-print("%d fisiere gasite" % len(locations_collected) )
+if len(locations_collected) > 0:
+    print(f'\033[38;2;153;255;51m%d locatii gasite \033[0m' % len(locations_collected) )
+else:
+    print("%d locatii gasite" % len(locations_collected) )
+list(map(lambda f: print(" \u27A5 " + f), files_collected))
 
 # Grupez dupa numele fisierului
 dict_by_file_name = {} 
@@ -266,4 +298,3 @@ for loc in locations_collected:
 
 generate_pdf_file( dict_by_file_name )
 generate_md_file( dict_by_file_name)
-

@@ -289,3 +289,26 @@ go_to_proiecte() {
 day-end() {
 	python3.10 $LOCATION_OF_UTILITIES_FOLDER/day-end/dayend.py
 }
+
+testpop() {
+	pushd /tmp > /dev/null
+	echo "inauntru"
+	popd > /dev/null
+}
+
+notes-search() {
+	printf "\n"
+	pushd $LOCATION_OF_VIMWIKI > /dev/null
+	codesearch $1 $2
+	popd > /dev/null
+
+	printf "\n"
+	read -p "[?] Search in ~/projects (y/n)" ans
+	if [ "$ans" = "y" ]; then
+		printf "\n"
+		pushd ~/projects > /dev/null
+		codesearch $1 $2
+		popd > /dev/null
+	fi
+
+}
