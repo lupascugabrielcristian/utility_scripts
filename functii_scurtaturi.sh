@@ -287,7 +287,7 @@ go_to_proiecte() {
 }
 
 day-end() {
-	python3.10 $LOCATION_OF_UTILITIES_FOLDER/day-end/dayend.py
+	python $LOCATION_OF_UTILITIES_FOLDER/day-end/dayend.py
 }
 
 testpop() {
@@ -310,5 +310,32 @@ notes-search() {
 		codesearch $1 $2
 		popd > /dev/null
 	fi
+}
+
+# Printeaza o lista de variante python
+# Aleg ce varianta vreau sa ii fac symlink denumit "python" in /usr/bin
+set-python() {
+	if [ -f /usr/bin/python ]; then
+		echo "/usr/bin/python binary already exists. Ce facem acum?"
+		/usr/bin/python --version
+		return 1
+	fi
+
+	options=$(ls -1 /usr/bin/python*)
+
+	# Split options by character '\n'
+	readarray -t options_lines <<< $options
+
+	# ${#array[@]} is the number of elements in the array
+	for i in ${!options_lines[@]}; do
+		echo [$(($i+1))] ${options_lines[$i]}
+	done
+
+	read -p "[?] Choose which binary to link to /usr/bin/python executable " ans
+
+	index=$(($ans-1))
+	echo ${options_lines[$index]}
+
+	sudo ln -s ${options_lines[$index]} /usr/bin/python
 
 }
