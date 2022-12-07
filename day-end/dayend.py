@@ -101,7 +101,7 @@ for c in clean:
     print(c)
 
 if len(not_commited) == 0:
-    print(f"\n[{colors.FAIL}\u2713{colors.ENDC}] CHANGES NOT COMMITED")
+    print(f"\n[{colors.OKGREEN}\u2713{colors.ENDC}] CHANGES NOT COMMITED")
 else:
     print(f"\n[{colors.FAIL}!{colors.ENDC}] CHANGES NOT COMMITED")
 
@@ -126,8 +126,8 @@ for k in kpcli_lock:
 # Ma asigur ca cronometrul din Toggle nu este pornit
 if user_config is not None:
     credentials_string = user_config['toggle']['user'] + ":" + user_config['toggle']['pass']
-    data = requests.get('https://api.track.toggl.com/api/v9/me/time_entries', headers={'content-type': 'application/json', 'Authorization' : 'Basic %s' %  b64encode( bytes(credentials_string, 'utf-8')).decode("ascii")})
     try:
+        data = requests.get('https://api.track.toggl.com/api/v9/me/time_entries', headers={'content-type': 'application/json', 'Authorization' : 'Basic %s' %  b64encode( bytes(credentials_string, 'utf-8')).decode("ascii")})
         last_entry = data.json()[0]
         if last_entry['stop'] == None:
             result.is_success = False
