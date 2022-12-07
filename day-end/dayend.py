@@ -6,19 +6,6 @@ from base64 import b64encode
 from configparser import ConfigParser
 import time
 
-directories = []
-
-# De ex /home/cristi
-home_dir = os.path.expanduser('~')
-
-# Obtain the user configurations if exists
-user_config = None
-if os.path.exists(home_dir + '/.config/day-end/config.ini'):
-    user_config = ConfigParser()
-    user_config.read(home_dir + '/.config/day-end/config.ini')
-    print("config.ini file found")
-
-
 class Result:
 
     def __init__(self):
@@ -40,6 +27,20 @@ class colors:
     BOLD = '\033[1m'
     UNDERLINE = '\033[4m'
     TEST = '\033[38;2;0;128;0m'
+
+
+directories = []
+
+# De ex /home/cristi
+home_dir = os.path.expanduser('~')
+
+# Obtain the user configurations if exists
+user_config = None
+if os.path.exists(home_dir + '/.config/day-end/config.ini'):
+    user_config = ConfigParser()
+    user_config.read(home_dir + '/.config/day-end/config.ini')
+    print(f"[{colors.OKGREEN}\u2713{colors.ENDC}] config.ini file found")
+
 
 
 result = Result()
@@ -99,7 +100,11 @@ print("\nCLEAN")
 for c in clean:
     print(c)
 
-print("\nCHANGES NOT COMMITED")
+if len(not_commited) == 0:
+    print(f"\n[{colors.FAIL}\u2713{colors.ENDC}] CHANGES NOT COMMITED")
+else:
+    print(f"\n[{colors.FAIL}!{colors.ENDC}] CHANGES NOT COMMITED")
+
 for n in not_commited:
     print(n)
 
