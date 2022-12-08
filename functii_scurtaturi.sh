@@ -26,7 +26,6 @@ alias open_nautilus='python $LOCATION_OF_UTILITIES_FOLDER/open_nautilus.py'
 alias locations='python3.10 $LOCATION_OF_UTILITIES_FOLDER/locations.py'
 alias lc='python3.10 $LOCATION_OF_UTILITIES_FOLDER/locations.py'
 alias codesearch='python3.10 $LOCATION_OF_UTILITIES_FOLDER/code-search.py $PWD $1 $2'
-alias notessearch='echo "To do"'
 alias aa='open_alacrity_here'
 #========== End of aliases ==========   
 
@@ -296,6 +295,9 @@ testpop() {
 	popd > /dev/null
 }
 
+# Cauta textul din parametrul 1 in ~/vimwiki folder si in ~/projects
+# Trebuie adauga si terminatia
+# Ex notes-search text java
 notes-search() {
 	printf "\n"
 	pushd $LOCATION_OF_VIMWIKI > /dev/null
