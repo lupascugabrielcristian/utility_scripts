@@ -5,6 +5,7 @@ import requests
 from base64 import b64encode
 from configparser import ConfigParser
 import time
+import platform
 
 class Result:
 
@@ -40,7 +41,6 @@ if os.path.exists(home_dir + '/.config/day-end/config.ini'):
     user_config = ConfigParser()
     user_config.read(home_dir + '/.config/day-end/config.ini')
     print(f"[{colors.OKGREEN}\u2713{colors.ENDC}] config.ini file found")
-
 
 
 result = Result()

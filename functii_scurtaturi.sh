@@ -285,14 +285,21 @@ go_to_proiecte() {
 	fi
 }
 
+# Ruleaza scriptul python din utilities folder/day-end/dayend.py
+# Verifica daca am Python3 instalat. Daca nu am renunta
 day-end() {
-	python $LOCATION_OF_UTILITIES_FOLDER/day-end/dayend.py
-}
+	ver=$(python --version 2>&1 | tee)
+	IFS='.' read -a fields <<<"$ver"
+	part1=${fields[0]}
 
-testpop() {
-	pushd /tmp > /dev/null
-	echo "inauntru"
-	popd > /dev/null
+	if [ "$part1" != "Python 3" ]; then
+		echo "Need to use Python 3 to run this."
+		echo "Current version: " $ver
+
+		return 1
+	fi
+
+	python $LOCATION_OF_UTILITIES_FOLDER/day-end/dayend.py
 }
 
 # Cauta textul din parametrul 1 in ~/vimwiki folder si in ~/projects
