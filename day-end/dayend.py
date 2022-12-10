@@ -115,12 +115,13 @@ if len(not_commited) != 0:
 
 # Step 2
 # Ma asigur ca am inchis kpcli. Verific daca am safe.kpcli.lock
-kpcli_lock = ["/safe.kli.lock", "/safe.kp.lock"]
-for k in kpcli_lock:
-    if os.path.exists( home_dir + k ):
-        result.is_success = False
-        result.reasons.append("kpcli still open")
-        break
+for path in os.listdir(home_dir):
+    # check if current path is a file
+    if os.path.isfile(home_dir + "/" + path):
+        if ".lock" in path:
+            result.is_success = False
+            result.reasons.append("kpcli still open")
+            break
 
 # Step 3 
 # Ma asigur ca cronometrul din Toggle nu este pornit
