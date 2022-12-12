@@ -287,7 +287,7 @@ go_to_proiecte() {
 
 # Ruleaza scriptul python din utilities folder/day-end/dayend.py
 # Verifica daca am Python3 instalat. Daca nu am renunta
-day-end() {
+finale() {
 	ver=$(python --version 2>&1 | tee)
 	IFS='.' read -a fields <<<"$ver"
 	part1=${fields[0]}
@@ -326,7 +326,11 @@ notes-search() {
 set-python() {
 	if [ -f /usr/bin/python ]; then
 		echo "/usr/bin/python binary already exists. Ce facem acum?"
-		/usr/bin/python --version
+		v=$(/usr/bin/python --version)
+		printf "\nVersion:\n$v\n"
+		printf "\nBinary:\n"
+		# de la comanda ll /usr/bin/ selectez doar ce contine python si printez ultimele 3 coloane. Selectez doar cel cu numele python
+		ll /usr/bin/ | grep python | awk '{print $9 $10 $11}' | grep "python->"
 		return 1
 	fi
 
