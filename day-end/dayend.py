@@ -178,6 +178,22 @@ for p in to_check:
                 result.is_success = False
                 result.reasons.append("Process " + p + " is still running")
 
+# Step 6
+# Verific daca am updatat exportul de folder-structure
+exported_file_path = home_dir + "/projects/utility_scripts/folder-mirror.xml"
+if os.path.exists(exported_file_path):
+    modif_time = os.path.getctime(exported_file_path) # seconds since Epoch
+    now = time.time()
+    m_passed = (now - modif_time) / 60  # minutes since created
+    h_passed = m_passed / 60.0          # hours since created
+    if h_passed > 2:
+        result.is_success = False
+        result.reasons.append("Folder mirror old. Re-generate folder-mirror.xml")
+else:
+    print(f"{colors.WARNING}folder-mirror.xml file not found.{colors.ENDC}\n")
+    result.is_success = False
+    result.reasons.append("Folder mirror not done. Generate folder-mirror.xml in ~/projects/utility_scripts")
+
 # Final
 if result.is_success == False:
     print("PROCESS FAILED with reasons")
