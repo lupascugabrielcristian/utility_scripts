@@ -186,7 +186,7 @@ if os.path.exists(exported_file_path):
     now = time.time()
     m_passed = (now - modif_time) / 60  # minutes since created
     h_passed = m_passed / 60.0          # hours since created
-    if h_passed > 2:
+    if h_passed > 24:
         result.is_success = False
         result.reasons.append("Folder mirror old. Re-generate folder-mirror.xml")
 else:
