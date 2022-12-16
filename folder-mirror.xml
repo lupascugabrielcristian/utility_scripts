@@ -3724,8 +3724,11 @@
                 <midocean.go/>
                 <readme.md/>
                 <go.sum/>
-                <pricelist.go/>
+                <stockprovider.go/>
+                <medusamodels.go/>
+                <priceprovider.go/>
                 <local.go/>
+                <midoceanmodels.go/>
                 <extract.go/>
                 <storage.go/>
             </extract-and-save>
@@ -3757,6 +3760,7 @@
         </simple-react-front>
         <ftp-downloads type="directory" orig-name="ftp-downloads">
             <prodinfo_RO.xml/>
+            <stock.xml/>
         </ftp-downloads>
         <medusa type="directory" orig-name="medusa">
             <medusa-admin-broporomotionals type="directory" orig-name="medusa-admin-broporomotionals">
@@ -11434,6 +11438,11 @@
             <greetings.go/>
             <greetings_test.go/>
         </greetings>
+        <references type="directory" orig-name="references">
+            <go.mod/>
+            <main/>
+            <main.go/>
+        </references>
     </go>
     <vimwiki-to-obsidian type="directory" orig-name="vimwiki-to-obsidian">
         <vimwiki-to-obsidian.py/>
