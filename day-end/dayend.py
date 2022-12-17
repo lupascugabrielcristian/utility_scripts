@@ -180,7 +180,7 @@ for p in to_check:
 
 # Step 6
 # Verific daca am updatat exportul de folder-structure
-exported_file_path = home_dir + "/projects/utility_scripts/folder-mirror.xml"
+exported_file_path = home_dir + "/projects/utility_scripts/folder-mirror/folder-mirror.xml"
 if os.path.exists(exported_file_path):
     modif_time = os.path.getctime(exported_file_path) # seconds since Epoch
     now = time.time()

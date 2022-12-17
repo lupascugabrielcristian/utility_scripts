@@ -17,7 +17,7 @@ def transmissionrate(dev, direction, timestep):
     kbytes = (bytes_after-bytes_before) / 1024.0
     return kbytes/timestep
 
-devname = "wlo1"
+devname = "enp0s31f6"
 timestep = 2 # Seconds
 
 while 1:
