@@ -4,3 +4,4 @@ mongo_notes/__pycache__/*.pyc
 tasks
 last_push.log
 fileuploadserver/uploads/*
+folder-mirror/folder-mirror.xml
