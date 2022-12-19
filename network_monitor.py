@@ -21,4 +21,12 @@ devname = "enp0s31f6"
 timestep = 2 # Seconds
 
 while 1:
-    print(str(transmissionrate(devname, "rx", timestep)) + " Kb")
+    rate = transmissionrate(devname, "rx", timestep)
+    size_units = int(rate / 50)
+    part_symbols = "||" * size_units
+    if size_units == 0:
+        part_symbols = "|"
+
+    part_number = "%.2f Kb" % rate
+    part_number = part_number.ljust(15)
+    print("%s %s" % (part_number, part_symbols))
