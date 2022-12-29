@@ -1,3 +1,6 @@
+#!/bin/bash
+
+
 # # Verific sa fie rulat cu sudo
 # if [ $(id -u) != "0" ]
 # then
@@ -127,24 +130,20 @@ general_package_install() {
 	read -p "Continue with all required dependencies installation? (y/n)" userResponse
 	if [ "$userResponse" = 'y' ]; then
 		sudo apt-get update
-		sudo apt-get install python3.8 -y
+		read -p "[!] basic packages" userResponse
+		sudo apt-get install curl -y
+		sudo apt-get install wget -y
+		sudo apt-get install xz-utils -y
+		sudo apt-get install unzip -y
 
-		read -p "[!] git " userResponse
+		sudo apt-get install python3.10 -y
+
+		read -p "[!] general package install " userResponse
 		sudo apt-get install git -y
 		sudo apt-get install gitk -y				# Interfata vizuala simplista peste git
 		sudo apt-get install htop -y
-		sudo apt-get install curl -y
-		sudo apt-get install wget -y
-
-		##apt-get install nodejs -y
-		##apt-get install npm -y
-		##apt-get install node-typescript -y
-		##npm install -g @angular/cli -y
-		#apt-get install synaptic -y
-		#apt-get install bmon -y
 
 		apt-get install tldr -y 					# Easy to understand man pages
-		#apt-get install python3 -y
 		#apt-get install gnome-tweak-tool -y
 		#apt-get install iftop -y
 		#apt-get install slurm -y					# network monitor
@@ -166,6 +165,9 @@ general_package_install() {
 		sudo apt-get install bsdmainutils 			# contine comanda colrm folosite in prompt.sh
 		sudo systemctl disable sshd.service
 		sudo apt-get install build-essential		# pentru a putea face build in golang
+
+		read -p "[!] exa broot" userResponse
+		sudo apt-get install exa
 	fi
 }
 
@@ -388,7 +390,69 @@ ide() {
 nodenpm() {
 	read -p "Continue with node and npm? (yes/no)" userResponse
 	if [ "$userResponse" = 'yes' ]; then
+		# Verific daca exista folderele necesare
+		if [[ ! -d ~/Downloads ]]; then
+				mkdir ~/Downloads
+		fi
+
+		# Obtin link de descarcare
+		printf "Copy link to Node Linux binary from: https://nodejs.org/en/download/ \n"
+		read -p "[?] " download_url
+
+		# Descarc arhiva
+		wget $download_url -O ~/Downloads/node-active-version.tar.gz
+		# Dezarhivare
+		tar -xf ~/Downloads/node-active-version.tar.gz -C ~/Downloads/
+		mv ~/Downloads/node-v* ~/Downloads/node-active-version/
+		# Make all of them executable
+		chmod +x ~/Downloads/node-active-version/bin/npm
+		chmod +x ~/Downloads/node-active-version/bin/npx
+		chmod +x ~/Downloads/node-active-version/bin/node
+		# Make so~/Downloads/ft links
+		pushd /usr/local/bin/
+		sudo ln -nsf ~/Downloads/node-active-version/bin/node node
+		sudo ln -nsf ~/Downloads/node-active-version/bin/npm npm
+		sudo ln -nsf ~/Downloads/node-active-version/bin/npx npx
+		popd
 	fi
+}
+
+install_broot() {
+	# Verific daca exista folderele necesare
+	if [[ ! -d ~/apps ]]; then
+			mkdir ~/apps
+	fi
+
+	if [[ ! -d ~/apps/broot ]]; then
+			mkdir ~/apps/broot
+	fi
+
+	if [[ ! -d ~/Downloads ]]; then
+			mkdir ~/Downloads
+	fi
+
+	# Verific daca am pachetele necesare instalate
+	is_installed="$(package_installed unzip)"
+	if [[ "$is_installed" == 0 ]]; then
+			# is not installed
+			echo "unzip not installed"
+			return
+	fi
+
+	is_installed="$(package_installed wget)"
+	if [[ "$is_installed" == 0 ]]; then
+			# is not installed
+			echo "wget not installed"
+			return
+	fi
+
+	# Descarc arhiva si dezarhivez
+	wget https://github.com/Canop/broot/releases/download/v1.18.0/broot_1.18.0.zip -O ~/Downloads/broot.zip
+	unzip ~/Downloads/broot.zip -d ~/apps/broot
+	rm ~/Downloads/broot.zip
+
+	# Instalare
+	~/apps/broot/x86_64-linux/broot
 }
 
 system_configurations() {
@@ -415,6 +479,25 @@ validations() {
 	#check_proton_vpn
 }
 
+# Pentru a folosi:
+#
+# is_installed="$(package_installed neovim)"
+# if [[ "$is_installed" == 0 ]]; then
+#         echo is not installed
+# fi
+package_installed() {
+	local output="$(dpkg -l "${1}" 2>&1)"
+	local search_part='no packages found matching'
+
+	if [[ "$output" == *"$search_part"* ]]; then
+			# not installed
+			echo 0
+	else
+			# installed
+			echo 1
+	fi
+}
+
 prepare_directories
 general_package_install
 auxiliary
@@ -433,6 +516,8 @@ alacrity_configuration
 drawio
 ##ssh_key_registration
 validations
+nodenpm
+install_broot
 echo ""
 echo ""
 echo "====== All done! ======="
