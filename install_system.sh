@@ -112,6 +112,7 @@ ASUS_monitor() {
 		read -p "Download latest driver in ~/Downloads folder then press to continue" varContinue
 		mv ~/Downloads/DisplayLink* ~/Downloads/assus_driver.zip
 		unzip $( find ~/Downloads -name assus_driver.zip ) -d ~/Downloads/ASSUS_DRIVER
+		rm ~/Downloads/assus_driver.zip
 		chmod a+x ~/Downloads/ASSUS_DRIVER/displaylink*.run
 		sudo ~/Downloads/ASSUS_DRIVER/displaylink-driver*.run
 	fi
@@ -361,12 +362,16 @@ tmux_configuration() {
 
 ssh_key_registration(){
 	read -p "Continue with ssh key registration? (yes/no)" userResponse
+
+	read -p "Email for ssh and git?" email
+	read -p "User name for git" git_name
+
 	if [ "$userResponse" = 'yes' ]; then
-		git config --global user.name "Lupascu Gabriel Cristian"
-		git config --global user.email "lupascugabrielcristian@gmail.com"
+		git config --global user.name $git_name
+		git config --global user.email $email
 
 		# This creates a new ssh key, using the provided email as a label
-		ssh-keygen -t rsa -b 4096 -C "lupascugabrielcristian@gmail.com"
+		ssh-keygen -t rsa -b 4096 -C $email
 
 		# Add your SSH private key to the ssh-agent. If you created your key 
 		# with a different name, or if you are adding an existing key that has a 
@@ -378,6 +383,7 @@ ssh_key_registration(){
 		xclip -sel clip < ~/.ssh/id_rsa.pub
 		# Copies the contents of the id_rsa.pub file to your clipboard
 		read -p "Add ssh key to github account(CTRL-V). Continue?" varContinue
+		sensible-browser 'https://github.com/settings/keys'
 	fi
 }
 
@@ -546,6 +552,33 @@ fonts() {
 	fi
 }
 
+install_pyenv() {
+	# To update 
+	# pyenv update
+
+	read -p "Install pyenv? (yes/no)" userResponse
+	if [ "$userResponse" = 'yes' ]; then
+
+		# Verific daca am packetele instalate
+		is_installed="$(package_installed curl)"
+		if [[ "$is_installed" == 0 ]]; then
+				# is not installed
+				echo "curl not installed"
+				return
+		fi
+
+		curl https://pyenv.run | bash
+
+		# Adaug la .bashrc exporturile
+		cat $LOCATION_OF_UTILITIES_FOLDER/configurations/pyenv_insert >> $HOME_FOLDER/.bashrc
+
+	fi
+}
+
+curatare() {
+	rm -rf ~/Downloads/ASSUS_DRIVER/
+}
+
 # Pentru a folosi:
 #
 # is_installed="$(package_installed neovim)"
@@ -582,11 +615,13 @@ tmux_configuration
 awesome_configurations
 alacrity_configuration
 drawio
-##ssh_key_registration
+#ssh_key_registration
 validations
 nodenpm
 install_broot
 rust
+install_pyenv
+#curatare
 echo ""
 echo ""
 echo "====== All done! ======="
