@@ -1,6 +1,26 @@
 #!/bin/bash
 
 
+# Pentru a folosi:
+#
+# is_installed="$(package_installed neovim)"
+# if [[ "$is_installed" == 0 ]]; then
+#         echo is not installed
+# fi
+package_installed() {
+	local output="$(dpkg -l "${1}" 2>&1)"
+	local search_part='no packages found matching'
+
+	if [[ "$output" == *"$search_part"* ]]; then
+			# not installed
+			echo 0
+	else
+			# installed
+			echo 1
+	fi
+}
+
+
 # # Verific sa fie rulat cu sudo
 # if [ $(id -u) != "0" ]
 # then
@@ -482,8 +502,11 @@ install_broot() {
 		rm ~/Downloads/broot.zip
 
 		# Instalare
+		echo "" >> $HOME_FOLDER/.bashrc
+		echo "############ BROOT ################" >> $HOME_FOLDER/.bashrc
 		~/apps/broot/x86_64-linux/broot
 		sudo cp ~/apps/broot/x86_64-linux/broot /usr/local/bin/
+		echo "" >> $HOME_FOLDER/.bashrc
 	fi
 }
 
@@ -575,27 +598,30 @@ install_pyenv() {
 	fi
 }
 
-curatare() {
-	rm -rf ~/Downloads/ASSUS_DRIVER/
+install_vscode() {
+	read -p "Install Visual Studio Code?(y/n)" userResponse
+	if [ "$userResponse" = 'y' ]; then
+
+		# Verific daca am pachetele necesare instalate
+		is_installed="$(package_installed wget)"
+		if [[ "$is_installed" == 0 ]]; then
+				# is not installed
+				echo "wget not installed"
+				return
+		fi
+
+		# Verific existenta directoarelor
+		if [[ ! -d ~/Downloads ]]; then
+				mkdir ~/Downloads
+		fi
+
+		read -p "Get download link from https://code.visualstudio.com/docs/?dv=linux64_deb " download_link
+		sudo apt install ~/Downloads/code*_amd64.deb
+	fi
 }
 
-# Pentru a folosi:
-#
-# is_installed="$(package_installed neovim)"
-# if [[ "$is_installed" == 0 ]]; then
-#         echo is not installed
-# fi
-package_installed() {
-	local output="$(dpkg -l "${1}" 2>&1)"
-	local search_part='no packages found matching'
-
-	if [[ "$output" == *"$search_part"* ]]; then
-			# not installed
-			echo 0
-	else
-			# installed
-			echo 1
-	fi
+curatare() {
+	rm -rf ~/Downloads/ASSUS_DRIVER/
 }
 
 prepare_directories
@@ -621,6 +647,7 @@ nodenpm
 install_broot
 rust
 install_pyenv
+install_vscode
 #curatare
 echo ""
 echo ""
