@@ -617,6 +617,36 @@ install_vscode() {
 
 		read -p "Get download link from https://code.visualstudio.com/docs/?dv=linux64_deb " download_link
 		sudo apt install ~/Downloads/code*_amd64.deb
+		rm ~/Downloads/code*.deb
+	fi
+}
+
+install_bat() {
+	read -p "Install bat?(y/n)" userResponse
+	if [ "$userResponse" = 'y' ]; then
+		# Verific daca am pachetele necesare instalate
+		is_installed="$(package_installed wget)"
+		if [[ "$is_installed" == 0 ]]; then
+				# is not installed
+				echo "wget not installed"
+				return
+		fi
+
+		# Verific existenta directoarelor
+		if [[ ! -d ~/Downloads ]]; then
+				mkdir ~/Downloads
+		fi
+
+		if [[ ! -d ~/apps ]]; then
+				mkdir ~/apps
+		fi
+
+		read -p "Get download link from https://github.com/sharkdp/bat/releases " download_link
+		wget $download_link -O ~/Downloads/bat.deb
+		sudo apt-get install -f ~/Downloads/bat.deb
+
+		# Curatare
+		rm ~/Downloads/bat.deb
 	fi
 }
 
