@@ -113,7 +113,7 @@ ASUS_monitor() {
 		mv ~/Downloads/DisplayLink* ~/Downloads/assus_driver.zip
 		unzip $( find ~/Downloads -name assus_driver.zip ) -d ~/Downloads/ASSUS_DRIVER
 		chmod a+x ~/Downloads/ASSUS_DRIVER/displaylink*.run
-		~/Downloads/ASSUS_DRIVER/displaylink-driver*.run
+		sudo ~/Downloads/ASSUS_DRIVER/displaylink-driver*.run
 	fi
 }
 
@@ -201,16 +201,32 @@ awesome_configurations() {
 	fi
 }
 
+# Alacrity GPU terminal emulator
 alacrity_configuration() {
 	echo ""
-	read -p "Continue with alacrirry?(y/n)" userResponse
+	read -p "Continue with alacritty?(y/n)" userResponse
 	if [ "$userResponse" = 'y' ]; then
-		# Alacrity GPU terminal emulator
-		sudo add-apt-repository ppa:mmstick76/alacritty
-		sudo apt install alacritty -y
+
+		# Fac folderele necesare
+		if [[ ! -d ~/apps/alacritty ]]; then
+			mkdir ~/apps/alacritty
+		fi
+
+		# Clonez repository
+		git clone https://github.com/alacritty/alacritty.git ~/apps/alacritty
+
+		# Instalare
+		pushd ~/apps/alacritty
+		cargo install alacritty
+		cargo build --release
+		popd
+
+		# Fac link binarului
+		sudo ln -nsf ~/apps/alacritty/target/release/alacritty /usr/local/bin/alacritty
+
 
 		mkdir -p $HOME_FOLDER/.config/alacritty
-		cp configurations/alacritty.yml $HOME_FOLDER/.config/alacritty/alacritty.yml
+-       cp configurations/alacritty.yml $HOME_FOLDER/.config/alacritty/alacritty.yml
 	fi
 }
 
@@ -408,51 +424,61 @@ nodenpm() {
 		chmod +x ~/Downloads/node-active-version/bin/npm
 		chmod +x ~/Downloads/node-active-version/bin/npx
 		chmod +x ~/Downloads/node-active-version/bin/node
-		# Make so~/Downloads/ft links
+		# Make soft links
 		pushd /usr/local/bin/
 		sudo ln -nsf ~/Downloads/node-active-version/bin/node node
 		sudo ln -nsf ~/Downloads/node-active-version/bin/npm npm
 		sudo ln -nsf ~/Downloads/node-active-version/bin/npx npx
 		popd
+
+		# Curatare
+		rm ~/Downloads/node-active-version.tar.gz
 	fi
 }
 
+# Instalare aplicatie broot
 install_broot() {
-	# Verific daca exista folderele necesare
-	if [[ ! -d ~/apps ]]; then
-			mkdir ~/apps
+
+	read -p "Install fonts? (yes/no)" userResponse
+	if [ "$userResponse" = 'yes' ]; then
+
+		# Verific daca exista folderele necesare
+		if [[ ! -d ~/apps ]]; then
+				mkdir ~/apps
+		fi
+
+		if [[ ! -d ~/apps/broot ]]; then
+				mkdir ~/apps/broot
+		fi
+
+		if [[ ! -d ~/Downloads ]]; then
+				mkdir ~/Downloads
+		fi
+
+		# Verific daca am pachetele necesare instalate
+		is_installed="$(package_installed unzip)"
+		if [[ "$is_installed" == 0 ]]; then
+				# is not installed
+				echo "unzip not installed"
+				return
+		fi
+
+		is_installed="$(package_installed wget)"
+		if [[ "$is_installed" == 0 ]]; then
+				# is not installed
+				echo "wget not installed"
+				return
+		fi
+
+		# Descarc arhiva si dezarhivez
+		wget https://github.com/Canop/broot/releases/download/v1.18.0/broot_1.18.0.zip -O ~/Downloads/broot.zip
+		unzip ~/Downloads/broot.zip -d ~/apps/broot
+		rm ~/Downloads/broot.zip
+
+		# Instalare
+		~/apps/broot/x86_64-linux/broot
+		sudo cp ~/apps/broot/x86_64-linux/broot /usr/local/bin/
 	fi
-
-	if [[ ! -d ~/apps/broot ]]; then
-			mkdir ~/apps/broot
-	fi
-
-	if [[ ! -d ~/Downloads ]]; then
-			mkdir ~/Downloads
-	fi
-
-	# Verific daca am pachetele necesare instalate
-	is_installed="$(package_installed unzip)"
-	if [[ "$is_installed" == 0 ]]; then
-			# is not installed
-			echo "unzip not installed"
-			return
-	fi
-
-	is_installed="$(package_installed wget)"
-	if [[ "$is_installed" == 0 ]]; then
-			# is not installed
-			echo "wget not installed"
-			return
-	fi
-
-	# Descarc arhiva si dezarhivez
-	wget https://github.com/Canop/broot/releases/download/v1.18.0/broot_1.18.0.zip -O ~/Downloads/broot.zip
-	unzip ~/Downloads/broot.zip -d ~/apps/broot
-	rm ~/Downloads/broot.zip
-
-	# Instalare
-	~/apps/broot/x86_64-linux/broot
 }
 
 system_configurations() {
@@ -479,6 +505,47 @@ validations() {
 	#check_proton_vpn
 }
 
+rust() {
+	curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+	source $HOME/.cargo/env
+}
+
+# Instalez fonturile JetBrains Mono pe care le voi folosi la terminalul alacritty
+fonts() {
+
+	read -p "Install fonts? (yes/no)" userResponse
+	if [ "$userResponse" = 'yes' ]; then
+
+		# Verific daca am pachetele necesare instalate
+		is_installed="$(package_installed unzip)"
+		if [[ "$is_installed" == 0 ]]; then
+				# is not installed
+				echo "unzip not installed"
+				return
+		fi
+
+		is_installed="$(package_installed wget)"
+		if [[ "$is_installed" == 0 ]]; then
+				# is not installed
+				echo "wget not installed"
+				return
+		fi
+
+		# Descarc fonturile si le dezarhivez
+		wget https://fonts.google.com/download?family=JetBrains%20Mono -O ~/Downloads/fonts.zip
+		unzip ~/Downloads/fonts.zip -d ~/Downloads/fonts/
+
+		#cp ~/Downloads/fonts/JetBrainsMono-* /usr/local/share/fonts
+		sudo cp ~/Downloads/fonts/static/JetBrainsMono-* /usr/local/share/fonts
+
+		fc-cache -fv
+
+		# Curatare
+		rm ~/Downloads/fonts.zip
+		rm -rf ~/Downloads/fonts
+	fi
+}
+
 # Pentru a folosi:
 #
 # is_installed="$(package_installed neovim)"
@@ -503,6 +570,7 @@ general_package_install
 auxiliary
 vim_configuration
 bashrc
+fonts
 #video_card
 #exercitii
 #ASUS_monitor
@@ -518,6 +586,7 @@ drawio
 validations
 nodenpm
 install_broot
+rust
 echo ""
 echo ""
 echo "====== All done! ======="
