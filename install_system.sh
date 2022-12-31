@@ -151,7 +151,7 @@ general_package_install() {
 	read -p "Continue with all required dependencies installation? (y/n)" userResponse
 	if [ "$userResponse" = 'y' ]; then
 		sudo apt-get update
-		read -p "[!] basic packages" userResponse
+		read -p "[!] basic packages " userResponse
 		sudo apt-get install curl -y
 		sudo apt-get install wget -y
 		sudo apt-get install xz-utils -y
@@ -181,14 +181,15 @@ general_package_install() {
 		apt-get install jq							# to parse json in terminal
 		sudo apt-get install kpcli -y 				# local password manager
 
-		read -p "[!] ssh and disable" userResponse
+		read -p "[!] ssh and disable " userResponse
 		sudo apt-get install openssh-server -y
 		sudo apt-get install bsdmainutils 			# contine comanda colrm folosite in prompt.sh
 		sudo systemctl disable sshd.service
 		sudo apt-get install build-essential		# pentru a putea face build in golang
 
-		read -p "[!] exa broot" userResponse
+		read -p "[!] exa broot " userResponse
 		sudo apt-get install exa
+		sudo apt-get install sqlitebrowser
 	fi
 }
 
@@ -650,6 +651,43 @@ install_bat() {
 	fi
 }
 
+install_go() {
+	read -p "Install go?(y/n) " userResponse
+	if [ "$userResponse" = 'y' ]; then
+
+		# Verific daca am pachetele necesare instalate
+		is_installed="$(package_installed wget)"
+		if [[ "$is_installed" == 0 ]]; then
+				# is not installed
+				echo "wget not installed"
+				return
+		fi
+
+		is_installed="$(package_installed tar)"
+		if [[ "$is_installed" == 0 ]]; then
+				# is not installed
+				echo "tar not installed"
+				return
+		fi
+
+		# Verific existenta directoarelor
+		if [[ ! -d ~/Downloads ]]; then
+				mkdir ~/Downloads
+		fi
+
+		read -p "Get download link from https://go.dev/dl/ " download_link
+		wget $download_link -O ~/Downloads/go.tar.gz
+
+		sudo tar -C /usr/local/ -xzf ~/Downloads/go.tar.gz
+
+		# Adaug la .bashrc exportul
+		cat $LOCATION_OF_UTILITIES_FOLDER/configurations/go_insert >> $HOME_FOLDER/.bashrc
+
+		# Curatare
+		rm ~/Downloads/go.tar.gz
+	fi
+}
+
 curatare() {
 	rm -rf ~/Downloads/ASSUS_DRIVER/
 }
@@ -676,6 +714,7 @@ validations
 nodenpm
 install_broot
 rust
+install_go
 install_pyenv
 install_vscode
 #curatare
