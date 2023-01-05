@@ -190,6 +190,7 @@ general_package_install() {
 		read -p "[!] exa broot " userResponse
 		sudo apt-get install exa
 		sudo apt-get install sqlitebrowser
+		sudo apt-get install jq						# json formatter in terminal
 	fi
 }
 
