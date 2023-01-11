@@ -689,6 +689,47 @@ install_go() {
 	fi
 }
 
+install_android_studio() {
+	read -p "Install AndroidStudio?(y/n) " userResponse
+	if [ "$userResponse" = 'y' ]; then
+
+		# Verific daca am pachetele necesare instalate
+		is_installed="$(package_installed wget)"
+		if [[ "$is_installed" == 0 ]]; then
+				# is not installed
+				echo "wget not installed"
+				return
+		fi
+
+		is_installed="$(package_installed tar)"
+		if [[ "$is_installed" == 0 ]]; then
+				# is not installed
+				echo "tar not installed"
+				return
+		fi
+
+		# Verific existenta directoarelor
+		if [[ ! -d ~/Downloads ]]; then
+				mkdir ~/Downloads
+		fi
+
+		if [[ ! -d ~/apps ]]; then
+				mkdir ~/apps
+		fi
+
+		read -p "Get download link from https://developer.android.com/studio/ " download_link
+		wget $download_link -O ~/Downloads/android-studio.tar.gz
+
+		tar -C ~/apps -xzf ~/Downloads/android-studio.tar.gz
+
+		# Put in path to run with studio.sh
+		sudo ln -nsf ~/apps/android-studio/bin/studio.sh /usr/local/bin/
+
+		# Curatare
+		rm ~/Downloads/android-studio.tar.gz
+	fi
+}
+
 curatare() {
 	rm -rf ~/Downloads/ASSUS_DRIVER/
 }
@@ -718,6 +759,7 @@ rust
 install_go
 install_pyenv
 install_vscode
+#install_android_studio
 #curatare
 echo ""
 echo ""
