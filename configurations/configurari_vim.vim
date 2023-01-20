@@ -53,6 +53,32 @@ endfunction
 command -nargs=1 Cld call CopyLineDown(<args>)
 " :Cld 4 has the effect to copy the 4th line down, to current positon
 
+" Go to the next python function. Finds the next 'def'
+function! FindNextDef()
+	" Mut cursorul la cautarea /def si merg o linie dedesubt
+	call search("def")
+	call cursor( line('.') + 1, col('.') + 4 )
+
+	" Iau caracterul de sub cursor in pozitia curenta
+	let cursor_pos = getpos('.')
+	let c = getline(line('.'))[cursor_pos[2] - 1]
+
+	" Daca este caracterul ", consider ca este un grup de tipul:
+	" """
+	" ...
+	" """
+	" Merg sub linia unde se termina comentariile
+	if c == '"' 
+		call search('"""')
+		call cursor( line('.') + 1, col('.') )
+	endif
+
+	" Centrez ecranul pe verticala
+	execute "normal! zz"
+	return
+endfunction
+nnoremap <leader>nd :call FindNextDef()<cr>
+
 " netwr File browser
 let g:netrw_banner=0 		" disables banner
 let g:netrw_liststyle=3		" tree view

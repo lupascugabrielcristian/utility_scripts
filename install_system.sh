@@ -218,7 +218,7 @@ awesome_configurations() {
 		sudo apt-get install awesome -y
 		
 		# Configuration files
-		# Trebuie sa am fonturile Jetbrains Mono NL instalate
+		# Trebuie sa am fonturile Jetbrains Mono instalate
 		sudo cp configurations/rc.lua /etc/xdg/awesome/rc.lua
 		sudo cp configurations/theme.lua /usr/share/awesome/themes/default/theme.lua
 	fi
@@ -730,6 +730,38 @@ install_android_studio() {
 	fi
 }
 
+background_awesome() {
+	read -p "Put background image for awesome?(y/n)" userResponse
+	if [ "$userResponse" = 'y' ]; then
+
+		# Verific daca am pachetele necesare instalate
+		is_installed="$(package_installed wget)"
+		if [[ "$is_installed" == 0 ]]; then
+				# is not installed
+				echo "wget not installed"
+				return
+		fi
+
+		# Verific existenta directoarelor
+		if [[ ! -d ~/Downloads ]]; then
+				mkdir ~/Downloads
+		fi
+
+
+		printf "Download image from https://www.pexels.com/search/abstract/ \n"
+		read -p "Press [Enter] when done " download_link
+
+		# Mut poza in locatia /awesomr/themes/default
+		sudo cp ~/Downloads/pexels-*.jpg /usr/share/awesome/themes/default/background.jpg
+
+		# TODO Trebuie modificat si in /usr/share/awesome/themes/default/theme.lua
+		# trebuie sa stie ca sa numeste background.jpg si nu background.png
+
+		# Curatenie
+		rm ~/Downloads/pexels-*.jpg
+	fi
+}
+
 curatare() {
 	rm -rf ~/Downloads/ASSUS_DRIVER/
 }
@@ -759,6 +791,7 @@ rust
 install_go
 install_pyenv
 install_vscode
+background_awesome
 #install_android_studio
 #curatare
 echo ""
