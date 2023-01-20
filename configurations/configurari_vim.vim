@@ -55,23 +55,44 @@ command -nargs=1 Cld call CopyLineDown(<args>)
 
 " Go to the next python function. Finds the next 'def'
 function! FindNextDef()
-	" Mut cursorul la cautarea /def si merg o linie dedesubt
-	call search("def")
-	call cursor( line('.') + 1, col('.') + 4 )
+	" Decid cum caut inceputul functiilor functie de extensia fisierului
+	let function_begin = ""
+	let extension = expand('%:e')
 
-	" Iau caracterul de sub cursor in pozitia curenta
-	let cursor_pos = getpos('.')
-	let c = getline(line('.'))[cursor_pos[2] - 1]
-
-	" Daca este caracterul ", consider ca este un grup de tipul:
-	" """
-	" ...
-	" """
-	" Merg sub linia unde se termina comentariile
-	if c == '"' 
-		call search('"""')
-		call cursor( line('.') + 1, col('.') )
+	if extension == "py"
+		let function_begin = "def"
+	elseif extension == "java"
+		let function_begin = "public\\|private\\|protected"
 	endif
+
+	" Merg la urmatoarea pozitie a inceputului unei functii
+	call search(function_begin)
+	"execute("/".function_begin)
+
+	" Intru la prima linie a functiei
+	" PYTHON
+	if extension == "py"
+		call cursor( line('.') + 1, col('.') + 4 )
+
+		" Pentru fisierele python, vreau sa trec peste comentarii
+		" Iau caracterul de sub cursor in pozitia curenta
+		let cursor_pos = getpos('.')
+		let c = getline(line('.'))[cursor_pos[2] - 1]
+
+		" Daca este caracterul ", consider ca este un grup de tipul:
+		" """
+		" ...
+		" """
+		" Merg sub linia unde se termina comentariile
+		if c == '"' 
+			call search('"""')
+			call cursor( line('.') + 1, col('.') )
+		endif
+	" JAVA
+	elseif extension == "java"
+		echo "Aici e urmatoarea functie"
+	endif
+
 
 	" Centrez ecranul pe verticala
 	execute "normal! zz"
