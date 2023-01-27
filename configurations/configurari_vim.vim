@@ -33,6 +33,9 @@ vnoremap <leader>> <esc>`<i<<esc>`>ea><esc>
 vnoremap <leader>( <esc>`<i(<esc>`>ea)<esc>
 vnoremap <leader>) <esc>`<i(<esc>`>ea)<esc>
 
+" Yank text inside $. Commands in vimwiki
+nnoremap yi$ maF$lyt$`ah 
+
 " Surround selection with "
 vnoremap <leader>" <esc>`<i(<esc>`>ea)<esc>
 
