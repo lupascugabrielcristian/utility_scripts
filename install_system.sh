@@ -73,6 +73,7 @@ bashrc() {
 		echo "export LOCATION_OF_RESEARCH_FOLDER=$HOME_FOLDER/Documents/research" >> $HOME_FOLDER/.bashrc
 		echo "export LOCATION_OF_TOOLS_FOLDER=$HOME_FOLDER/Documents/tools" >> $HOME_FOLDER/.bashrc
 		echo "export LOCATION_OF_KEEP=$HOME_FOLDER" >> $HOME_FOLDER/.bashrc
+		echo 'export PATH=$PATH:/$LOCATION_OF_UTILITIES_FOLDER/bin' >> $HOME_FOLDER/.bashrc
 		echo "" >> $HOME_FOLDER/.bashrc
 
 		echo "" >> $HOME_FOLDER/.bashrc
