@@ -373,6 +373,9 @@ vim_configuration() {
 		sudo chown -Rv $USERNAME:$USERNAME $HOME_FOLDER/.config/nvim/
 		sudo chown -Rv $USERNAME:$USERNAME $HOME_FOLDER/.local/share/nvim/
 		read -p "Open nvim and run :PlugInstall and :UpdateRemotePlugins commands to complete" userResponse
+
+		# Schimb culoarea unor elemente de la vimwiki adaugand liniile 153 si 154 la $HOME_FOLDER/.config/nvim/plugged/vimwiki/syntax/vimwiki.vim
+		awk 'NR==153 {$0="execute '\''hi VimwikiHeader2 guifg=#638160'\''\nexecute '\''hi VimwikiPre guifg=#FFDBA3'\''"}1' $HOME_FOLDER/.config/nvim/plugged/vimwiki/syntax/vimwiki.vim > $HOME_FOLDER/.config/nvim/plugged/vimwiki/syntax/vimwiki.vim
 	fi
 }
 
