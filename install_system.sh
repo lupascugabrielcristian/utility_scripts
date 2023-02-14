@@ -192,6 +192,7 @@ general_package_install() {
 		sudo apt-get install exa
 		sudo apt-get install sqlitebrowser
 		sudo apt-get install jq						# json formatter in terminal
+		sudo apt-get install pwgen					# passwords generator
 	fi
 }
 
@@ -375,7 +376,7 @@ vim_configuration() {
 		read -p "Open nvim and run :PlugInstall and :UpdateRemotePlugins commands to complete" userResponse
 
 		# Schimb culoarea unor elemente de la vimwiki adaugand liniile 153 si 154 la $HOME_FOLDER/.config/nvim/plugged/vimwiki/syntax/vimwiki.vim
-		awk 'NR==153 {$0="execute '\''hi VimwikiHeader2 guifg=#638160'\''\nexecute '\''hi VimwikiPre guifg=#FFDBA3'\''"}1' $HOME_FOLDER/.config/nvim/plugged/vimwiki/syntax/vimwiki.vim > $HOME_FOLDER/.config/nvim/plugged/vimwiki/syntax/vimwiki.vim
+		awk 'NR==153 {$0="execute '\''hi VimwikiHeader2 guifg=#638160'\''\nexecute '\''hi VimwikiPre guifg=#FFDBA3'\''\n"}1' $HOME_FOLDER/.config/nvim/plugged/vimwiki/syntax/vimwiki.vim > $HOME_FOLDER/.config/nvim/plugged/vimwiki/syntax/vimwiki.vim
 	fi
 }
 

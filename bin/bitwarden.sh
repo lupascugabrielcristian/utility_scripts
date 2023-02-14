@@ -9,7 +9,7 @@
 # 	input format: -
 # 
 
-2>/dev/null 1>/dev/null /home/alex/apps/Bitwarden-2023.1.1-x86_64.AppImage &
+2>/dev/null 1>/dev/null ~/apps/Bitwarden-2023.1.1-x86_64.AppImage &
 
 sleep 1
 
