@@ -1,0 +1,18 @@
+#!/bin/bash
+#
+# Description:
+# Porneste aplicatia Rambox in alt process pentru a nu bloca terminalul si trimte la /dev/null output-ul
+# Dupa executie inchide terminalul de unde am pornit comanda.
+# 
+# Dependencies:
+# Trebuie sa existe executabilul Rambox-2.0.10-linux-x64.AppImage in ~/apps
+#
+# Usage: ./rambox
+#   input format: -
+#
+
+2>/dev/null 1>/dev/null ~/apps/Rambox-2.0.10-linux-x64.AppImage &
+
+sleep 1
+
+kill -25 $PPID
