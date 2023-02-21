@@ -1,1 +1,1 @@
-bash ../sync_backup_data_2.sh
+bash $LOCATION_OF_UTILITIES_FOLDER/sync_backup_data_2.sh
