@@ -1,7 +1,8 @@
 #!/bin/bash
 #
 # Description
-# Trimit buku bookmarks la serverul de storage.
+# 1. Trimit buku bookmarks la serverul de storage.
+# 2. Trimit baza de date de la aplicatia study
 # Scriptul asta va fi executat de comanda ../bin/sync_backup
 # Scriptul asta vine dupa sync_backup_data.sh ca sa nu mai trimit date nefolositoare
 # 
