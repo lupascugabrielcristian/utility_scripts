@@ -7,6 +7,9 @@
 # ./pull_backup_data.sh
 # Portul si denumirile fisierelor declarate mai jos, trebuie updatate
 # 
+# Atentie:
+# Daca e prima data cand folosesc local aplicatia study-app, trebuie mai intai sa rulez binarul dupa care pot face importul de mysql dump
+#
 PORT=7131
 BUKU_BACKUP_NAME=buku_backup.db
 STUDY_BACKUP_NAME=study_backup.sql
@@ -30,6 +33,13 @@ rm /tmp/$BUKU_BACKUP_NAME
 
 ## 2. STUDY-APP DATABASE 
 
+# Description:
+# Functie care imi arata daca un packet este instalat local
+# 
+# Return 
+# 0 daca nu este instalat
+# 1 daca este intalat
+# 
 # Usage:
 # is_installed="$(package_installed neovim)"
 # if [[ "$is_installed" == 0 ]]; then
@@ -48,8 +58,15 @@ package_installed() {
 	fi
 }
 
+# Description:
+# Functie care o apelez dupa ce stiu ca este instalat docker
+# Pornesc containerul daca exista
+# Downladez sql dump de pe sever
+# Import sql dump in containerul de docker
+#
+# Atentie:
+# Daca e prima data cand folosesc local aplicatia study-app, trebuie mai intai sa rulez binarul dupa care pot face importul de mysql dump
 sync_study_app() {
-	echo "[+] docker installed..."
 	found=0
 
 	# Verific daca exista containerul denumit "study-mysql"
@@ -77,7 +94,8 @@ sync_study_app() {
 		# Iau de pe sever exportul de backup
 		scp -P $PORT ramonbassecharcan@165.232.117.151:./storage/$STUDY_BACKUP_NAME /tmp/
 
-		# Import in baza de date
+		# Import sql dump in containerul cu baza de date
+		docker exec -i study-mysql sh -c 'exec mysql -uroot -pstudymqsql mysql' < /tmp/$STUDY_BACKUP_NAME
 	else
 		echo "study-mysql docker container not found. Skipping study-app sync"
 	fi
@@ -87,6 +105,7 @@ is_installed="$(package_installed docker)"
 if [[ "$is_installed" == 0 ]];then
 	echo "Docker not installed. Skipping study-app database"
 else
+	echo "[+] docker installed..."
 	sync_study_app
 fi
 
