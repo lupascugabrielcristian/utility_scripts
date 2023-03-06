@@ -4,6 +4,7 @@ import sys
 from datetime import datetime
 from subprocess import call
 import subprocess
+from zoneinfo import ZoneInfo
 
 separator = '#'
 
@@ -44,7 +45,7 @@ def extractTaskFromLine(line):
 
 def printTask(task):
     taskEndInMinutes = task.endHour * 60 + task.endMinute
-    nowInMinutes = datetime.now().hour * 60 + datetime.now().minute
+    nowInMinutes = datetime.now(ZoneInfo('Europe/Bucharest')).hour * 60 + datetime.now().minute
     remaining = taskEndInMinutes - nowInMinutes
     if remaining < 0:
         print(f'{colors.FAIL} [{task.name}] END {colors.ENDC}' )
