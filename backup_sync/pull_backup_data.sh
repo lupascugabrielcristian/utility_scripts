@@ -43,9 +43,20 @@ package_installed() {
 	fi
 }
 
+
+if [[ -f /tmp/.update.log ]];then
+	rm /tmp/.update.log
+fi
+
 echo "Checking server time..."
 # Iau logul de pe server pentru a compara daca timpul de pe server este mai vechi decat
 scp -P $PORT ramonbassecharcan@165.232.117.151:./storage/.update.log /tmp/
+
+# Daca nu exista /tmp/.update.log inseamna ca nu m-am putut conecta la sever si retunt la tot procesul
+if [[ ! -f /tmp/.update.log ]];then
+	echo "[!] Unable to connect to server. Abort process"
+	exit 1
+fi
 
 mapfile -t arr < /tmp/.update.log
 server_time=${arr[1]} # time cand s-a facut ultimul push la server
@@ -81,12 +92,17 @@ else
 	scp -P $PORT ramonbassecharcan@165.232.117.151:./storage/$BUKU_BACKUP_NAME /tmp/
 
 	# Import fisierul de la server
-	buku -i /tmp/$BUKU_BACKUP_NAME
+	buku -i /tmp/$BUKU_BACKUP_NAME 2>/tmp/.buku.update.log
+
+	# Cate am deja adaugate?
+	added=$(egrep 'already exists' /tmp/.buku.update.log | wc -l)
+	printf "%d bookmarks already found\n" $added
 
 	# Sterg fisierul de la server
 	rm /tmp/$BUKU_BACKUP_NAME
 fi
 
+exit 0
 
 
 ## 2. STUDY-APP DATABASE 

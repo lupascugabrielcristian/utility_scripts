@@ -1,0 +1,40 @@
+digraph {
+	rankdir=LR;
+	nginx -> "KeepInMind
+Notes"
+	nginx -> "certbot"
+	nginx -> "nginx-cong
+ig-for-curl-without-strict-checking"
+	nginx -> "acmesh"
+	nginx -> "statistici
+_imobiliare"
+	nginx -> "Vulnerable
+_service"
+	nginx -> "ngix-confi
+g-for-http"
+	nginx -> "medusa"
+	nginx -> "server_ssl"
+	nginx -> "http_calls
+_to_flask"
+	nginx -> "nginx"
+	nginx -> "React-cu-n
+ginx"
+	nginx -> "Slowloris"
+	nginx -> "renew_cert
+bot"
+	nginx -> "stockfish-
+python"
+	"statistici_imobiliare" -> "Research_licitatii"
+	"statistici_imobiliare" -> "acmesh"
+	"statistici_imobiliare" -> "Licitatii_raportate"
+	"medusa" -> "docs"
+	"medusa" -> "server_ssl"
+	"medusa" -> "randomkeygen"
+	"Slowloris" -> "Install"
+	"Slowloris" -> "nmap_script"
+	"Slowloris" -> "Incercari"
+	"Slowloris" -> "check_server"
+	"renew_certbot" -> "webroot_map"
+	"stockfish-python" -> "nginx"
+	"stockfish-python" -> "pyenv"
+}

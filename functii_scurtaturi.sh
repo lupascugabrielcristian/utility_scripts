@@ -304,7 +304,8 @@ finale() {
 
 # Cauta textul din parametrul 1 in ~/vimwiki folder si in ~/projects
 # Trebuie adauga si terminatia
-# Ex notes-search text java
+# Usage:
+# notes-search text java
 notes-search() {
 	printf "\n"
 	pushd $LOCATION_OF_VIMWIKI > /dev/null
