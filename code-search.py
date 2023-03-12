@@ -138,7 +138,7 @@ def search_text( text, path, file_name ):
     """
     locations = []
 
-    f = open(path, 'r')
+    f = open(path, 'r', errors='ignore')
     line_number = 0
     content = f.readlines()
 
@@ -279,7 +279,7 @@ def generate_md_file( locations_dict ):
     md_file.close()
     print("Generated MD file /tmp/code-search.md")
 
-print("Seaching for \033[38;2;255;153;255m%s\033[0m in\033[38;2;153;204;255m %s \033[0m" % (s_text, start_dir ) )
+print("Searching for \033[38;2;255;153;255m%s\033[0m in\033[38;2;153;204;255m %s \033[0m" % (s_text, start_dir ) )
 traverse(start_dir, locations_collected)
 if len(locations_collected) > 0:
     print(f'\033[38;2;153;255;51m%d locatii gasite \033[0m' % len(locations_collected) )

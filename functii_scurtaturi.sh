@@ -25,7 +25,7 @@ alias rbal='read_bookmark_at_line'
 alias open_nautilus='python $LOCATION_OF_UTILITIES_FOLDER/open_nautilus.py'
 alias locations='python3.10 $LOCATION_OF_UTILITIES_FOLDER/locations.py'
 alias lc='python3.10 $LOCATION_OF_UTILITIES_FOLDER/locations.py'
-alias codesearch='python3.10 $LOCATION_OF_UTILITIES_FOLDER/code-search.py $PWD $1 $2'
+alias codesearch='python $LOCATION_OF_UTILITIES_FOLDER/code-search.py $PWD $1 $2'
 alias aa='open_alacrity_here'
 #========== End of aliases ==========   
 
@@ -79,11 +79,11 @@ function tab-name() {
 
 function cowntdown() {
 	cd $LOCATION_OF_UTILITIES_FOLDER
-	python3 $LOCATION_OF_UTILITIES_FOLDER/countdown.py $LOCATION_OF_UTILITIES_FOLDER/countdown.tasks
+	python $LOCATION_OF_UTILITIES_FOLDER/countdown.py $LOCATION_OF_UTILITIES_FOLDER/countdown.tasks
 }
 
 function replace_spaces() {
-	python3 $LOCATION_OF_UTILITIES_FOLDER/replace_spaces_in_filenames.py $1
+	python $LOCATION_OF_UTILITIES_FOLDER/replace_spaces_in_filenames.py $1
 }
 
 function numberlines() {
@@ -100,13 +100,6 @@ function numberlines() {
 	done 
 }
 
-letstor() {
-	torsocks w3m 'https://check.torproject.org/'
-}
-
-firefoxdev() {
-	~/Downloads/firefox-69.0b12/firefox/firefox $1
-}
 
 function findsuid() {
 	# findsuid--Checks all SUID files or programs to see if they're writeable,
@@ -223,29 +216,6 @@ connect_monitor() {
 
 }
 
-# Reads from the vimwiki folder, from a bookmarks file and opens in the nvim
-# In the bookmark file, each line should be something like:
-# +145 absolutefilepath
-# In this case the bookmarks file is ~/vimwiki/Models.wiki
-# should absolutely pass the line number of the bookmark want to open
-read_bookmark_at_line() {
-	nvim $(sed -n "$1 p;$1 q" $LOCATION_OF_VIMWIKI/ModelsBookmarks.wiki)
-}
-alias rbal='read_bookmark_at_line' 
-
-search_bookmark_at_line() {
-	grep -nr --ignore-case -A 1 $1 $LOCATION_OF_VIMWIKI/ModelsBookmarks.wiki
-}
-alias sbal='search_bookmark_at_line'
-
-# Ruleaza scriptul comenzi.py din folderul utility_sripts pentru a gasi o comanda salvata
-# Afiseaza comenzile gasite si la executa daca are confirmare
-#
-# Trebuie dat termenul dupa care sa caute
-search_comenzi() {
-	python3.8 $LOCATION_OF_UTILITIES_FOLDER/comenzi.py $1
-}
-
 # Functie cu care sa controlez releul care porneste ceasul
 # Fac apel la web-serverul pornit local la IP-ul 192.168.1.5. Se poate modifica si trebuie modifica aici
 clock() {
@@ -302,25 +272,78 @@ finale() {
 	python $LOCATION_OF_UTILITIES_FOLDER/day-end/dayend.py
 }
 
-# Cauta textul din parametrul 1 in ~/vimwiki folder si in ~/projects
-# Trebuie adauga si terminatia
+# Reads from the vimwiki folder, from a bookmarks file and opens in the nvim
+# In the bookmark file, each line should be something like:
+# +145 absolutefilepath
+# In this case the bookmarks file is ~/vimwiki/Models.wiki
+# should absolutely pass the line number of the bookmark want to open
+read_bookmark_at_line() {
+	nvim $(sed -n "$1 p;$1 q" $LOCATION_OF_VIMWIKI/ModelsBookmarks.wiki)
+}
+alias rbal='read_bookmark_at_line' 
+
+search_bookmark_at_line() {
+	grep -nr --ignore-case -A 1 $1 $LOCATION_OF_VIMWIKI/ModelsBookmarks.wiki
+}
+alias sbal='search_bookmark_at_line'
+
+# Ruleaza scriptul comenzi.py din folderul utility_sripts pentru a gasi o comanda salvata
+# Afiseaza comenzile gasite si la executa daca are confirmare
+# Trebuie dat termenul dupa care sa caute
+#
 # Usage:
-# notes-search text java
+# seach_comenzi textToSearch
+search_comenzi() {
+	python $LOCATION_OF_UTILITIES_FOLDER/comenzi.py $1
+}
+
+
+# Cauta textul din parametrul 1 in ~/vimwiki folder si in ~/projects
+# Trebuie adaugata si terminatia
+#
+# Usage:
+# notes-search textToSearch fileExtension
 notes-search() {
+	if [[ "$#" -lt 2 ]];then
+		echo "Usage:"
+		echo "notes-search textToSearch fileExtension"
+		echo "             ^^^^^^^^^^^^ ^^^^^^^^^^^^^"
+		return
+	fi
+
 	printf "\n"
 	pushd $LOCATION_OF_VIMWIKI > /dev/null
-	codesearch $1 $2
+	python $LOCATION_OF_UTILITIES_FOLDER/code-search.py $PWD $1 wiki
 	popd > /dev/null
 
+	# Generez graficul bazat pe rezultatele gasite din scriptul notes-graph.py
+	# TODO sa testez daca am dot si eog instalat
 	printf "\n"
 	read -p "[?] Search in ~/projects (y/n)" ans
 	if [ "$ans" = "y" ]; then
 		printf "\n"
 		pushd ~/projects > /dev/null
-		codesearch $1 $2
+		#codesearch $1 $2
+		python $LOCATION_OF_UTILITIES_FOLDER/code-search.py $PWD $1 $2
 		popd > /dev/null
 	fi
+
+	printf "\n"
+	read -p "[?] Make graph (y/n)" ans
+	if [[ "$ans" = "y" ]];then
+		printf "\n"
+		pushd $LOCATION_OF_UTILITIES_FOLDER/notes-graph > /dev/null
+		python notes-graph.py $1
+
+		# TODO sa testez daca am input.dot
+		dot -Tsvg input.dot > output.svg
+		popd > /dev/null
+
+		# TODO sa testez daca am fisierul svg
+		eog $LOCATION_OF_UTILITIES_FOLDER/notes-graph/output.svg
+	fi
 }
+
 
 # Printeaza o lista de variante python
 # Aleg ce varianta vreau sa ii fac symlink denumit "python" in /usr/bin
@@ -351,5 +374,4 @@ set-python() {
 	echo ${options_lines[$index]}
 
 	sudo ln -s ${options_lines[$index]} /usr/bin/python
-
 }

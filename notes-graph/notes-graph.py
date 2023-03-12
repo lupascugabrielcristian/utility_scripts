@@ -6,11 +6,11 @@ import configparser
 VIMWIKI_FOLDER = "/home/alex/vimwiki/"
 DEFAULT_OUTPUT_FILE="input.dot"
 
-search_text = "nginx"
-# if len(sys.argv) == 1:
-#     print("No search input")
-#     exit(0)
-# search_text = sys.argv[1]
+search_text = ""
+if len(sys.argv) == 1:
+    print("No search input")
+    exit(0)
+search_text = sys.argv[1]
 
 # Read configurations
 config = configparser.ConfigParser()
@@ -124,9 +124,7 @@ for f in os.listdir(path=VIMWIKI_FOLDER):
         search_results_files.append( VIMWIKI_FOLDER + f)
 
 
-print("Files found that contain the search text: ")
-for ff in search_results_files:
-    print(ff)
+print("%d Files found that contain the search text" % len(search_results_files))
     
 def surround_with_quotes(text):
     """
@@ -193,6 +191,7 @@ for srf in search_results_files:
 
             of.write( "\t%s -> %s\n" %(node, surround_with_quotes(link)) )
 
+# La Nivelul 3 sunt link-urile vimwiki gasite in fisierele de la Nivelul 2
 
 # Adaug stilurile pentru noduri URL
 of.write("\n")
