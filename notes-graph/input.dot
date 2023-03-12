@@ -1,35 +1,26 @@
 digraph {
 	rankdir=LR;
-	nginx -> "KeepInMind
-Notes"
+	nginx -> "KeepInMindNotes"
 	nginx -> "certbot"
-	nginx -> "nginx-cong
-ig-for-curl-without-strict-checking"
+	nginx -> "nginx-congig-for-curl-\nwithout-strict-checking"
 	nginx -> "acmesh"
-	nginx -> "statistici
-_imobiliare"
-	nginx -> "Vulnerable
-_service"
-	nginx -> "ngix-confi
-g-for-http"
+	nginx -> "statistici\n_imobiliare"
+	nginx -> "Vulnerable_service"
+	nginx -> "ngix-config-for-http"
 	nginx -> "medusa"
 	nginx -> "server_ssl"
-	nginx -> "http_calls
-_to_flask"
+	nginx -> "http_calls_to_flask"
 	nginx -> "nginx"
-	nginx -> "React-cu-n
-ginx"
+	nginx -> "React-cu-nginx"
 	nginx -> "Slowloris"
-	nginx -> "renew_cert
-bot"
-	nginx -> "stockfish-
-python"
-	"statistici_imobiliare" -> "Research_licitatii"
-	"statistici_imobiliare" -> "acmesh"
-	"statistici_imobiliare" -> "Licitatii_raportate"
-	"medusa" -> "docs"
+	nginx -> "renew_certbot"
+	nginx -> "stockfish-python"
+	"statistici\n_imobiliare" -> "Research_licitatii"
+	"statistici\n_imobiliare" -> "acmesh"
+	"statistici\n_imobiliare" -> "Licitatii_raportate"
+	"medusa" -> "docs\nURL"
 	"medusa" -> "server_ssl"
-	"medusa" -> "randomkeygen"
+	"medusa" -> "randomkeygen\nURL"
 	"Slowloris" -> "Install"
 	"Slowloris" -> "nmap_script"
 	"Slowloris" -> "Incercari"
@@ -37,4 +28,7 @@ python"
 	"renew_certbot" -> "webroot_map"
 	"stockfish-python" -> "nginx"
 	"stockfish-python" -> "pyenv"
+
+	"docs\nURL" [color="#D1D1D1", style=filled]
+	"randomkeygen\nURL" [color="#D1D1D1", style=filled]
 }

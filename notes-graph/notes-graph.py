@@ -6,10 +6,11 @@ import configparser
 VIMWIKI_FOLDER = "/home/alex/vimwiki/"
 DEFAULT_OUTPUT_FILE="input.dot"
 
+search_text = "nginx"
 # if len(sys.argv) == 1:
 #     print("No search input")
 #     exit(0)
-search_text = "nginx"
+# search_text = sys.argv[1]
 
 # Read configurations
 config = configparser.ConfigParser()
@@ -45,6 +46,9 @@ f.write("digraph {\n")
 f.write("\trankdir=LR;\n")
 f.close() 
 
+
+# Pun pe 2 randuri cuvintele prea lungi
+max_file_name = int(get_config_property("Graph", 'max_file_name', 20))
 
 
 def get_links(line):
@@ -101,6 +105,9 @@ search_results_files = []
 # Hashmap care tine o legatura intre vimwiki file si linkurile din el
 links_dict = {}
 
+# Tin o lista cu noduri de tip URL pe care o voi folosi pentru adaugare de stiluri
+url_links = []
+
 for f in os.listdir(path=VIMWIKI_FOLDER):
     if os.path.isdir(VIMWIKI_FOLDER + f):
         continue
@@ -127,10 +134,20 @@ def surround_with_quotes(text):
     """
     return '"' + text + '"'
 
+def split_big_words(text):
+    """
+    Pun pe 2 randuri daca e prea lunga denumirea fisierului
+    """
+    if len(text) > max_file_name:
+        split_at = int(len(text) / 2)
+        return text[:split_at] + '\\n' + text[split_at:]
+    else:
+        return text
+
 def node_to_url_node(node):
     if "|" in node:
         parts = node.split("|")
-        return parts[1].strip()
+        return parts[1].strip() + "\\nURL"
     else:
         "URL"
 
@@ -141,12 +158,7 @@ def file_to_node(text):
     Ex /home/cristi/vimwiki/node.wiki -> node
     """
     text = text.replace(".wiki", "").replace(VIMWIKI_FOLDER, "")
-    # Pun pe 2 randuri daca e prea lunga denumirea fisierului
-    max_file_name = int(get_config_property("Graph", 'max_file_name', 10))
-    if len(text) > max_file_name:
-        text = text[:max_file_name] + '\n' + text[max_file_name:]
-
-    return surround_with_quotes(text)
+    return surround_with_quotes( split_big_words(text))
 
 # La Nivelul 1 sunt fisierele care contin textul cautat
 search_results_nodes = list(map(lambda ft: file_to_node(ft), search_results_files))
@@ -169,6 +181,7 @@ for srf in search_results_files:
     srf = srf.replace(VIMWIKI_FOLDER, "")
     if srf in links_dict:
         node = srf.replace(".wiki", "")
+        node = split_big_words(node)
         node = surround_with_quotes(node)
 
 
@@ -176,9 +189,15 @@ for srf in search_results_files:
 
             if "http://" in link or "https://" in link:
                 link = node_to_url_node(link)
+                url_links.append(link)
 
             of.write( "\t%s -> %s\n" %(node, surround_with_quotes(link)) )
 
+
+# Adaug stilurile pentru noduri URL
+of.write("\n")
+for url_link in url_links:
+    of.write("\t%s [color=\"#D1D1D1\", style=filled]\n" % surround_with_quotes(url_link))
 
 # Close the dot file
 of.write("}")
