@@ -317,30 +317,46 @@ notes-search() {
 	popd > /dev/null
 
 	# Generez graficul bazat pe rezultatele gasite din scriptul notes-graph.py
-	# TODO sa testez daca am dot si eog instalat
 	printf "\n"
 	read -p "[?] Search in ~/projects (y/n)" ans
 	if [ "$ans" = "y" ]; then
 		printf "\n"
 		pushd ~/projects > /dev/null
-		#codesearch $1 $2
 		python $LOCATION_OF_UTILITIES_FOLDER/code-search.py $PWD $1 $2
 		popd > /dev/null
 	fi
 
-	printf "\n"
-	read -p "[?] Make graph (y/n)" ans
-	if [[ "$ans" = "y" ]];then
+
+	local dot_installed="$(package_installed graphviz)"
+	local eog_installed="$(package_installed eog)"
+
+	# Daca nu este instalat dot si eog nu pot face graficul
+	if [[ "$dot_installed" == 1 && "$eog_installed" == 1 ]];then
 		printf "\n"
-		pushd $LOCATION_OF_UTILITIES_FOLDER/notes-graph > /dev/null
-		python notes-graph.py $1
+		read -p "[?] Make graph (y/n)" ans
+		if [[ "$ans" = "y" ]];then
+			printf "\n"
+			pushd $LOCATION_OF_UTILITIES_FOLDER/notes-graph > /dev/null
+			python notes-graph.py $1
 
-		# TODO sa testez daca am input.dot
-		dot -Tsvg input.dot > output.svg
-		popd > /dev/null
+			# Testez daca s-a generat input.dot
+			if [[ -e input.dot ]];then
+				dot -Tsvg input.dot > output.svg
+				popd > /dev/null
 
-		# TODO sa testez daca am fisierul svg
-		eog $LOCATION_OF_UTILITIES_FOLDER/notes-graph/output.svg
+				# Testez daca am dot a generat fisierul svg
+				if [[ -e $LOCATION_OF_UTILITIES_FOLDER/notes-graph/output.svg ]];then 
+					eog $LOCATION_OF_UTILITIES_FOLDER/notes-graph/output.svg
+				else
+					echo "comanda dot nu a generat output.svg"
+				fi
+			else
+				echo "Nu s-a generat input.dot de catre notes-graph.py"
+			fi
+
+		fi
+	else
+		echo "Am nevoie de dot si eog pentru a genera si vizualiza graficul"
 	fi
 }
 
