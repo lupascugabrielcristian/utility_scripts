@@ -7,7 +7,8 @@ set t_Co=256
 set termguicolors
 set background=dark
 set scrolloff=3
-"colorscheme kuroi
+" For white colorscheme uncomment this
+" colorscheme zellner
 set nocompatible
 set clipboard=unnamedplus
 set cursorline

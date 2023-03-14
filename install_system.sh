@@ -252,6 +252,8 @@ alacrity_configuration() {
 
 		mkdir -p $HOME_FOLDER/.config/alacritty
 -       cp configurations/alacritty.yml $HOME_FOLDER/.config/alacritty/alacritty.yml
+-       cp configurations/white-alacritty.yml $HOME_FOLDER/.config/alacritty/white-alacritty.yml
+-       cp configurations/black-alacritty.yml $HOME_FOLDER/.config/alacritty/black-alacritty.yml
 	fi
 }
 
