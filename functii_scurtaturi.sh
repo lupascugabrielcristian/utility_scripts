@@ -391,3 +391,21 @@ set-python() {
 
 	sudo ln -s ${options_lines[$index]} /usr/bin/python
 }
+
+function set-monitor-xrandr() {
+	if [[ "$#" == 0 ]];then
+		echo "Usage:"
+		echo "set-monitor-xrandr 1 - Pentru a seta pentru monitoarele mari. LG dreapta, AOC stanga"
+		return
+	fi
+
+	case "$1" in
+		1) # LG dreapta, AOC stanga
+			echo Just brightness. Fa si orientarea
+			xrandr --output DP-1 --gamma 1.0:0.9:0.8 --brightness 1.0
+			;;
+		*) # unknown/unsupported option
+			echo "Unsupported option"
+			return 2;;
+	esac
+}
