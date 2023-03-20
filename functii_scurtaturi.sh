@@ -396,13 +396,30 @@ function set-monitor-xrandr() {
 	if [[ "$#" == 0 ]];then
 		echo "Usage:"
 		echo "set-monitor-xrandr 1 - Pentru a seta pentru monitoarele mari. LG dreapta, AOC stanga"
+		echo "set-monitor-xrandr 2 - Cazul laptop DELL gabi, cu monitorul portabil in stanga"
 		return
 	fi
+
+	# Pentru a afla ce monitoare am:
+	monitors_connected=$(xrandr | grep "\bconnected" | awk '{print $1}')
+
+	# Va fi 1 daca am conectat monitorul portabil
+	monitor_portabil=0
+	for m in $monitors_connected
+	do
+		if [[ "$m" == "DVI-I-2-1" ]];then
+			echo "Monitor portabil connected"
+			monitor_portabil=1
+		fi
+	done
 
 	case "$1" in
 		1) # LG dreapta, AOC stanga
 			echo Just brightness. Fa si orientarea
 			xrandr --output DP-1 --gamma 1.0:0.9:0.8 --brightness 1.0
+			;;
+		2) # Laptop DELL gabi, monitor portabil in stanga
+			xrandr --output DVI-I-2-1 --auto --left-of eDP-1
 			;;
 		*) # unknown/unsupported option
 			echo "Unsupported option"

@@ -102,8 +102,6 @@ else
 	rm /tmp/$BUKU_BACKUP_NAME
 fi
 
-exit 0
-
 
 ## 2. STUDY-APP DATABASE 
 

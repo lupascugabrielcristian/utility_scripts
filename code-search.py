@@ -5,7 +5,6 @@
 
 import os
 import sys
-import pdb
 from inspect import getsourcefile
 from itertools import groupby
 from reportlab.pdfgen import canvas, textobject
