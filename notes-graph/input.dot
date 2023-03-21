@@ -1,6 +1,14 @@
 digraph {
 	rankdir=LR;
-	xrandr -> "KeepInMindNotes"
-	xrandr -> "xrandr"
+	meilisearch -> "Meilisearch"
+	meilisearch -> "medusa"
+	"medusa" -> "docs\nURL"
+	"medusa" -> "Meilisearch"
+	"medusa" -> "Meilisearch"
+	"medusa" -> "Meilisearch"
+	"medusa" -> "server_ssl"
+	"medusa" -> "randomkeygen\nURL"
 
+	"docs\nURL" [color="#D1D1D1", style=filled]
+	"randomkeygen\nURL" [color="#D1D1D1", style=filled]
 }
