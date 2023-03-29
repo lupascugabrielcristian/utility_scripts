@@ -35,7 +35,7 @@ build_prompt() {
 	# \W este numele folderului local
 	# $RS este color reset
   	PS1+="$RS$BBLE \u | \W " # Pentru dark background
-  	#PS1+="$RS$BBLE$BG_DARK_BLUE_RGB$FG_YELLOW_RGB \u | \W " # Pentru white background
+  	# PS1+="$RS$BBLE$BG_DARK_BLUE_RGB$FG_YELLOW_RGB \u | \W " # Pentru white background
 
 	PS1+="${FMT_RESET}${FG_BLUE}"
 	PS1+="\$(git branch 2> /dev/null | grep '^*' | colrm 1 2 | xargs -I BRANCH echo -n \"" # check if git branch exists

@@ -96,8 +96,12 @@ do
 	[ "$l" == "study-mysql" ] && docker container stop study-mysql
 done
 
+## 3. NOTES
+tar czf /tmp/notes.tar.gz -C ~/Documents/notes/ .
+scp -P 7131 /tmp/notes.tar.gz ramonbassecharcan@165.232.117.151:./storage
 
-# 3. Updatez timpul local de push pentru verificare ultirioara cu serverul
+
+## 4. Updatez timpul local de push pentru verificare ultirioara cu serverul
 time=$(date +%s)
 echo $USER > $LOCATION_OF_UTILITIES_FOLDER/backup_sync/.update.log
 echo $time >> $LOCATION_OF_UTILITIES_FOLDER/backup_sync/.update.log

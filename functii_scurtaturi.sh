@@ -401,6 +401,7 @@ function set-monitor-xrandr() {
 	fi
 
 	# Pentru a afla ce monitoare am:
+	# ( fiecare e pe alt rand )
 	monitors_connected=$(xrandr | grep "\bconnected" | awk '{print $1}')
 
 	# Va fi 1 daca am conectat monitorul portabil
@@ -412,15 +413,18 @@ function set-monitor-xrandr() {
 			monitor_portabil=1
 		fi
 	done
+	# TODO sa incerc sa faca asta cu select sa vad daca afiseaza numerele
+	printf "Connected monitors:\n$monitors_connected\n"
 
 	case "$1" in
 		1) # LG dreapta, AOC stanga
-			echo Just brightness. Fa si orientarea
+			echo Brightness si orientarea
 			xrandr --output DP-1 --left-of DP-3 --auto
 			xrandr --output DP-1 --gamma 1.0:0.9:0.8 --brightness 1.0
 			;;
 		2) # Laptop DELL gabi, monitor portabil in stanga. Rulez comanda doar daca il gasesc conectat
 			if [[ "$monitor_portabil" -eq 0 ]];then
+				echo Doar orientare
 				xrandr --output DVI-I-2-1 --auto --left-of eDP-1
 			fi
 			;;
