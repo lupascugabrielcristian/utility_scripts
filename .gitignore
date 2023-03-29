@@ -5,3 +5,4 @@ tasks
 last_push.log
 fileuploadserver/uploads/*
 folder-mirror/folder-mirror.xml
+backup_sync/.update.log
