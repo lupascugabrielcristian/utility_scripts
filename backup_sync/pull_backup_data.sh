@@ -164,8 +164,12 @@ else
 	sync_study_app
 fi
 
+## 3. NOTES
+scp -P $PORT ramonbassecharcan@165.232.117.151:./storage/notes.tar.gz /tmp/
+# TODO Aici trebuie facut cu rsync - nu pare ca inlocuieste fisierele din arhiva existente local
+tar czf /tmp/notes.tar.gz -C ~/Documents/notes/ .
 
-# 3. Updatez timpul local de pull
+# 4. Updatez timpul local de pull
 time=$(date +%s)
 echo $USER > $LOCATION_OF_UTILITIES_FOLDER/backup_sync/.update.log
 echo $local_time >> $LOCATION_OF_UTILITIES_FOLDER/backup_sync/.update.log
