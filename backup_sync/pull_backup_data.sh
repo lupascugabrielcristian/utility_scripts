@@ -167,9 +167,10 @@ fi
 ## 3. NOTES
 scp -P $PORT ramonbassecharcan@165.232.117.151:./storage/notes.tar.gz /tmp/
 # TODO Aici trebuie facut cu rsync - nu pare ca inlocuieste fisierele din arhiva existente local
-tar czf /tmp/notes.tar.gz -C ~/Documents/notes/ .
+#tar czf /tmp/notes.tar.gz -C ~/Documents/notes/ .
 
 ## 4. KEEP
+scp -P $PORT ramonbassecharcan@165.232.117.151:./keep.com $HOME/
 
 
 # 4. Updatez timpul local de pull
