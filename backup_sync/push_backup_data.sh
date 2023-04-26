@@ -101,6 +101,9 @@ tar czf /tmp/notes.tar.gz -C ~/Documents/notes/ .
 scp -P 7131 /tmp/notes.tar.gz ramonbassecharcan@165.232.117.151:./storage
 
 
+## 4. KEEP
+scp -P 7131 $HOME/keep.com ramonbassecharcan@165.232.117.151:./keep.com
+
 ## 4. Updatez timpul local de push pentru verificare ultirioara cu serverul
 time=$(date +%s)
 echo $USER > $LOCATION_OF_UTILITIES_FOLDER/backup_sync/.update.log
