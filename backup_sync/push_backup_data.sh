@@ -102,7 +102,7 @@ scp -P 7131 /tmp/notes.tar.gz ramonbassecharcan@165.232.117.151:./storage
 
 
 ## 4. KEEP
-scp -P 7131 $HOME/keep.com ramonbassecharcan@165.232.117.151:./keep.com
+scp -P $PORT $HOME/keep.com ramonbassecharcan@165.232.117.151:./keep.com
 
 ## 4. Updatez timpul local de push pentru verificare ultirioara cu serverul
 time=$(date +%s)
