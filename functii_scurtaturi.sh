@@ -14,7 +14,8 @@ alias cdava='cd ~/projects/avocati/proiect_avocati_frontend/src/app/'
 alias cdavd='cd ~/projects/avocati/docker_files/'
 alias cddw='cd ~/Downloads/'
 alias cdd='cd ~/Documents/'
-alias rm=sendToTrash $*
+#alias rm=sendToTrash $*
+alias rm='$LOCATION_OF_UTILITIES_FOLDER/newrm/newrm.sh'
 #alias cat='cat -n'
 alias cat='bat'
 alias pp='ping -a -c 4 www.google.com'
@@ -32,7 +33,7 @@ alias pipe='pipeline'
 alias pi='pipeline'
 #alias igenerator='firefox $HOME/projects/Dataglide/Publish.Config/scripts/Client\ Pipeline\ Config\ Generator/ingest_config_editor/ingest_pipeline_config.html &'
 # Temporary replacement to test improvements
-alias igenerator='firefox $HOME/projects/ingest-generator-improvements/ingest_pipeline_config.html &'
+alias igenerator='firefox $HOME/projects/Dataglide/Publish.Config/scripts/Client\ Pipeline\ Config\ Generator/ingest_config_editor/ingest_pipeline_config.html &'
 alias ig='igenerator'
 alias dw='nautilus $HOME/Downloads &'
 #========== End of aliases ==========   
