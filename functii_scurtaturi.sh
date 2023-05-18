@@ -36,6 +36,8 @@ alias pi='pipeline'
 alias igenerator='firefox $HOME/projects/Dataglide/Publish.Config/scripts/Client\ Pipeline\ Config\ Generator/ingest_config_editor/ingest_pipeline_config.html &'
 alias ig='igenerator'
 alias dw='nautilus $HOME/Downloads &'
+alias gt_clients='cd $HOME/projects/Dataglide/Publish.Config/blob/Pipelines/Clients'
+alias gt_scripts='cd $HOME/projects/Dataglide/Publish.Config/scripts'
 #========== End of aliases ==========   
 
 
@@ -521,4 +523,9 @@ function put_ingres_config() {
 	# Copy original file
 	orig_file="$(find . -maxdepth 1 -not -type d)"
 	cp $pipeline_folder/"$orig_file" $pipeline_folder/config_$CLIENT_NAME/Resources/"$orig_file"
+}
+
+function monitor-freqtrade() {
+	firefox 64.176.6.37:8080 1>&2 2>/dev/null &
+	firefox 155.138.139.23:8080 1>&2 2>/dev/null &
 }
