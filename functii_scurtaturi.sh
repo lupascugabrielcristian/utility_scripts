@@ -34,10 +34,19 @@ alias pi='pipeline'
 #alias igenerator='firefox $HOME/projects/Dataglide/Publish.Config/scripts/Client\ Pipeline\ Config\ Generator/ingest_config_editor/ingest_pipeline_config.html &'
 # Temporary replacement to test improvements
 alias igenerator='firefox $HOME/projects/Dataglide/Publish.Config/scripts/Client\ Pipeline\ Config\ Generator/ingest_config_editor/ingest_pipeline_config.html &'
-alias ig='igenerator'
 alias dw='nautilus $HOME/Downloads &'
-alias gt_clients='cd $HOME/projects/Dataglide/Publish.Config/blob/Pipelines/Clients'
-alias gt_scripts='cd $HOME/projects/Dataglide/Publish.Config/scripts'
+#========== End of aliases ==========   
+
+#========== Dataglide aliases ==========
+alias ig='igenerator 2>/dev/null 1>/dev/null & exit'
+alias gt-clients='cd $HOME/projects/Dataglide/Publish.Config/blob/Pipelines/Clients'
+alias gt-scripts='cd $HOME/projects/Dataglide/Publish.Config/scripts'
+alias gt-config='cd $HOME/projects/Dataglide/Publish.Config/'
+alias gt-down='cd $HOME/Downloads'
+alias gt-reports='cd $HOME/projects/Dataglide/Publish.Config/troubleshoot/Ingest Errors Report'
+alias gt-core='cd $HOME/projects/Dataglide/Publish.Config/scripts/Core Model'
+alias vim-core='nvim /home/alex/projects/Dataglide/Publish.Config/scripts/Core\ Model/core.json'
+alias datagrip='$HOME/apps/DataGrip-2023.1.1/bin/datagrip.sh 2>/dev/null 1>/dev/null & exit'
 #========== End of aliases ==========   
 
 
