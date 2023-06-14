@@ -13,7 +13,8 @@ if exists("syntax_on")
 endif
 let g:colors_name = "zellner"
 
-hi Comment term=bold ctermfg=Red guifg=Red
+" Comments
+hi Comment term=bold ctermfg=Red guifg=#8BAC8C
 hi Normal guifg=#2F001B guibg=#FCFAED
 hi Constant term=underline ctermfg=Magenta guifg=#009E5B
 hi Special term=bold ctermfg=Magenta guifg=#8800DF

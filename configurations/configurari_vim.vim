@@ -8,7 +8,7 @@ set termguicolors
 set background=dark
 set scrolloff=3
 " For white colorscheme uncomment this
-" colorscheme zellner
+" colorscheme zellner2
 set nocompatible
 set clipboard=unnamedplus
 set cursorline
