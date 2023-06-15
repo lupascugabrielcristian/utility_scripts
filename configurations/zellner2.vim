@@ -1,10 +1,8 @@
-" Asta este o schema alba customizata de mine
-" Am pus-o la ~/.config/nvim/colors/zellner2.vim
-" Am setat cu :colorscheme zellner2
-"
 " local syntax file - set colors on a per-machine basis:
 " vim: tw=0 ts=4 sw=4
 " Vim color file
+" Maintainer:	Ron Aaron <ron@ronware.org>
+" Last Change:	2003 May 02
 
 set background=light
 hi clear
@@ -14,7 +12,7 @@ endif
 let g:colors_name = "zellner"
 
 " Comments
-hi Comment term=bold ctermfg=Red guifg=#8BAC8C
+hi Comment term=bold ctermfg=Red guifg=#9A9A9A
 hi Normal guifg=#2F001B guibg=#FCFAED
 hi Constant term=underline ctermfg=Magenta guifg=#009E5B
 hi Special term=bold ctermfg=Magenta guifg=#8800DF
@@ -25,7 +23,7 @@ hi Statement term=bold ctermfg=DarkRed gui=NONE guifg=Brown
 hi PreProc term=underline ctermfg=Magenta guifg=#7500A5
 hi Type term=underline ctermfg=Blue gui=NONE guifg=Blue
 hi Visual term=reverse ctermfg=Yellow ctermbg=Red gui=NONE guifg=Black guibg=Yellow
-hi Search term=reverse ctermfg=Black ctermbg=Cyan gui=NONE guifg=Black guibg=Cyan
+hi Search term=reverse ctermfg=Black ctermbg=Cyan gui=NONE guifg=Black guibg=#21FFBF
 hi Tag term=bold ctermfg=DarkGreen guifg=DarkGreen
 hi Error term=reverse ctermfg=15 ctermbg=9 guibg=Red guifg=White
 hi Todo term=standout ctermbg=Yellow ctermfg=Black guifg=Blue guibg=Yellow
