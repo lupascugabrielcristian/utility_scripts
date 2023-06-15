@@ -1,8 +1,10 @@
+" Asta este o schema alba customizata de mine
+" Am pus-o la ~/.config/nvim/colors/zellner2.vim
+" Am setat cu :colorscheme zellner2
+"
 " local syntax file - set colors on a per-machine basis:
 " vim: tw=0 ts=4 sw=4
 " Vim color file
-" Maintainer:	Ron Aaron <ron@ronware.org>
-" Last Change:	2003 May 02
 
 set background=light
 hi clear
