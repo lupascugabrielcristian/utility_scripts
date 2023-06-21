@@ -379,6 +379,13 @@ vim_configuration() {
 
 		# Schimb culoarea unor elemente de la vimwiki adaugand liniile 153 si 154 la $HOME_FOLDER/.config/nvim/plugged/vimwiki/syntax/vimwiki.vim
 		awk 'NR==153 {$0="execute '\''hi VimwikiHeader2 guifg=#638160'\''\nexecute '\''hi VimwikiPre guifg=#FFDBA3'\''\n"}1' $HOME_FOLDER/.config/nvim/plugged/vimwiki/syntax/vimwiki.vim > $HOME_FOLDER/.config/nvim/plugged/vimwiki/syntax/vimwiki.vim
+
+		# Instalarea plugin Calendar
+		# https://github.com/mattn/calendar-vim
+		wget -P ~/Downloads https://github.com/mattn/calendar-vim/archive/refs/heads/master.zip
+		unzip ~/Downloads/calendar-vim-master.zip
+		# TODO move contents of folders autoload, doc, plugin to ~/.config/nvim/
+		rm ~/Downloads/calendar-vim-master.zip
 	fi
 }
 

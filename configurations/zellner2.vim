@@ -11,7 +11,7 @@ hi clear
 if exists("syntax_on")
   syntax reset
 endif
-let g:colors_name = "zellner"
+let g:colors_name = "zellner22"
 
 " Comments
 hi Comment term=bold ctermfg=Red guifg=#9A9A9A
@@ -29,7 +29,9 @@ hi Search term=reverse ctermfg=Black ctermbg=Cyan gui=NONE guifg=Black guibg=#21
 hi Tag term=bold ctermfg=DarkGreen guifg=DarkGreen
 hi Error term=reverse ctermfg=15 ctermbg=9 guibg=Red guifg=White
 hi Todo term=standout ctermbg=Yellow ctermfg=Black guifg=Blue guibg=Yellow
-hi  StatusLine term=bold,reverse cterm=NONE ctermfg=Yellow ctermbg=DarkGray gui=NONE guifg=Yellow guibg=DarkGray
+"era DarkGray
+hi StatusLine term=bold,reverse cterm=NONE ctermfg=Yellow ctermbg=DarkGray gui=NONE guifg=Yellow guibg=#204CA0 
+hi CursorLine guibg=#FDF3B4
 hi! link MoreMsg Comment
 hi! link ErrorMsg Visual
 hi! link WarningMsg ErrorMsg
