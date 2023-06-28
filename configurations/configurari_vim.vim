@@ -8,10 +8,11 @@ set termguicolors
 set background=dark
 set scrolloff=3
 " For white colorscheme uncomment this
-" colorscheme zellner2
+colorscheme zellner2
 set nocompatible
 set clipboard=unnamedplus
 set cursorline
+set expandtab
 filetype plugin on
 syntax on
 
@@ -42,6 +43,13 @@ vnoremap <leader>" <esc>`<i(<esc>`>ea)<esc>
 
 " Adds a semicolon to the end of the line
 nnoremap <leader>;; mqA;<esc>`q
+
+" Pentru a vedea syntaxa prolog in vimwiki 2, cel in care tine knowledge base
+" pentru prolog
+nnoremap <leader>pl :set syntax=prolog<cr>
+
+" Writes nameserver ... and saves
+nnoremap <leader>nn inameserver 192.168.1.1<cr>nameserver 86.121.221.240<cr>nameserver 81.196.2.27<cr>nameserver 5.2.219.31<cr>nameserver 5.2.148.118<esc>:w<cr>
 
 function! CopyLineUp(lines_up)
 	echo "copy from " .a:lines_up. " lines up"
@@ -125,6 +133,18 @@ Plug 'vimwiki/vimwiki'
 Plug '~/.fzf'
 call plug#end()
 
+nnoremap <leader>S :VimwikiSearch
+
+let wiki_1 = {}
+let wiki_1.path = '~/vimwiki/'
+let wiki_1.path_html = '~/vimwiki_html/'
+
+let wiki_2 = {}
+let wiki_2.path = '~/prolog-vimwiki/'
+let wiki_2.path_html = '~/prolog-vimwiki-html/'
+
+let g:vimwiki_list = [wiki_1, wiki_2]
+
 """"""""""""""""""""""""""""""
 
 " Denite mappings
@@ -149,13 +169,3 @@ nnoremap <leader>D :Denite file/rec <CR> /
 
 """"""""""""""""""""""""""""""
 
-" Wiki 1
-let wiki_1 = {}
-let wiki_1.path = '~/vimwiki/'
-" Wiki 2
-let wiki_2 = {}
-let wiki_2.path = '~/prolog-vimwiki/'
-let g:vimwiki_list = [wiki_1, wiki_2]
-
-" Setez syntaxa de prolog
-nnoremap <leader>pl :set syntax=prolog<esc>

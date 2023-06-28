@@ -46,6 +46,7 @@ alias gt-down='cd $HOME/Downloads'
 alias gt-reports='cd $HOME/projects/Dataglide/Publish.Config/troubleshoot/Ingest Errors Report'
 alias gt-core='cd $HOME/projects/Dataglide/Publish.Config/scripts/Core\ Model'
 alias gt-pipelines='cd $HOME/projects/Dataglide/Publish.Config/blob/Pipelines/'
+alias gt-accounts='cd $HOME/projects/Dataglide/Publish.Config/takeon-import/Create\ Scopes\ Batch\ 2'
 alias vim-core='nvim /home/alex/projects/Dataglide/Publish.Config/scripts/Core\ Model/core.json'
 alias datagrip='$HOME/apps/DataGrip-2023.1.1/bin/datagrip.sh 2>/dev/null 1>/dev/null & exit'
 #========== End of aliases ==========   
