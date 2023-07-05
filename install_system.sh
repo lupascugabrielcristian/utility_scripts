@@ -184,15 +184,15 @@ general_package_install() {
 
 		read -p "[!] ssh and disable " userResponse
 		sudo apt-get install openssh-server -y
-		sudo apt-get install bsdmainutils 			# contine comanda colrm folosite in prompt.sh
+		sudo apt-get install bsdmainutils -y 			# contine comanda colrm folosite in prompt.sh
 		sudo systemctl disable sshd.service
-		sudo apt-get install build-essential		# pentru a putea face build in golang
+		sudo apt-get install build-essential -y		# pentru a putea face build in golang
 
 		read -p "[!] exa broot " userResponse
-		sudo apt-get install exa
-		sudo apt-get install sqlitebrowser
-		sudo apt-get install jq						# json formatter in terminal
-		sudo apt-get install pwgen					# passwords generator
+		sudo apt-get install exa -y
+		sudo apt-get install sqlitebrowser -y
+		sudo apt-get install jq -y						# json formatter in terminal
+		sudo apt-get install pwgen -y					# passwords generator
 	fi
 }
 
