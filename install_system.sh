@@ -389,6 +389,10 @@ vim_configuration() {
 	fi
 }
 
+vifm_configuration() {
+    cp configurations/vifmrc $HOME_FOLDER/.config/vifm/
+}
+
 # Tmux configuration file
 tmux_configuration() {
 	# better terminal emulator thats starts in a terminal
@@ -794,6 +798,7 @@ prepare_directories
 general_package_install
 auxiliary
 vim_configuration
+vifm_configuration
 bashrc
 fonts
 #video_card

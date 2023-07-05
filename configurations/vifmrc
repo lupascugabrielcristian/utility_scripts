@@ -1,0 +1,3 @@
+filetype *.xlsx libreoffice %f
+nnoremap <C-l> :!libreoffice %f
+nnoremap <C-g> :!gnumeric %f

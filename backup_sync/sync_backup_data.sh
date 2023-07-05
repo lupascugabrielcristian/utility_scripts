@@ -14,6 +14,8 @@
 # printez continutul fisierului local last_push.log
 #
 
+PORT=7131
+IP=165.232.117.151
 read -p "[?] Push(h)/Pull(l)/Who(w)? " operation
 
 # PUSH
@@ -22,8 +24,8 @@ if [ "$operation" = 'h' -o "$operation" = 'push' -o "$operation" = 'Push' ]; the
 		read -p "[?] Home folder? " home_folder
 
 		# Iau fisierul de pe server pentru a vedea cand si de catre cine s-a facut ultimul push
-        rsync -rzv -e 'ssh -p 8522' --progress \
-                root@104.248.252.160:./sync_folder/last_push.log  $home_folder/last_server_sync.log "$@" > /dev/null
+        rsync -rzv -e 'ssh -p $PORT' --progress \
+                root@$IP:./sync_folder/last_push.log  $home_folder/last_server_sync.log "$@" > /dev/null
 
 		mapfile -t array < $home_folder/last_server_sync.log
 		server_time=${array[1]} # memorez cand s-a inregistrat pe server ultimul push
@@ -47,42 +49,42 @@ if [ "$operation" = 'h' -o "$operation" = 'push' -o "$operation" = 'Push' ]; the
 
         printf "[+] Pushing to backup server\n"
         printf "[+] Sending keep file\n"
-        rsync -rzv -e 'ssh -p 8522' --progress \
+        rsync -rzv -e 'ssh -p $PORT' --progress \
                 $home_folder/keep.com \
-                root@104.248.252.160:./sync_folder  "$@" > /dev/null
+                root@$IP:./sync_folder  "$@" > /dev/null
 
 
         printf "[+] Sending vimwiki\n"
-        rsync -rzv -e 'ssh -p 8522' --progress \
+        rsync -rzv -e 'ssh -p $PORT' --progress \
                 $home_folder/vimwiki/ \
                 --filter='merge ./sync-filter.txt' \
-                root@104.248.252.160:./sync_folder/vimwiki  "$@" > /dev/null 
+                root@$IP:./sync_folder/vimwiki  "$@" > /dev/null 
 
 
         printf "[+] Sending tools folder\n"
-        rsync -rzv -e 'ssh -p 8522' --progress \
+        rsync -rzv -e 'ssh -p $PORT' --progress \
                 $home_folder/Documents/tools/ \
                 --filter='merge ./sync-filter.txt' \
-                root@104.248.252.160:./sync_folder/tools  "$@" > /dev/null 
+                root@$IP:./sync_folder/tools  "$@" > /dev/null 
 
         printf "[+] Sending notes folder\n"
-        rsync -rzv -e 'ssh -p 8522' --progress \
+        rsync -rzv -e 'ssh -p $PORT' --progress \
                 $home_folder/Documents/notes/ \
                 --filter='merge ./sync-filter.txt' \
-                root@104.248.252.160:./sync_folder/notes  "$@" > /dev/null 
+                root@$IP:./sync_folder/notes  "$@" > /dev/null 
 
 
         printf "[+] Sending research folder\n"
-        rsync -rzv -e 'ssh -p 8522' --progress \
+        rsync -rzv -e 'ssh -p $PORT' --progress \
                 $home_folder/Documents/research/ \
                 --filter='merge ./sync-filter.txt' \
-                root@104.248.252.160:./sync_folder/research  "$@" > /dev/null 
+                root@$IP:./sync_folder/research  "$@" > /dev/null 
 
 		buku -e $home_folder/buku_backup.db
         printf "[+] Sending buku \n"
-        rsync -rzv -e 'ssh -p 8522' --progress \
+        rsync -rzv -e 'ssh -p $PORT' --progress \
                 $home_folder/buku_backup.db \
-                root@104.248.252.160:./sync_folder  "$@" > /dev/null
+                root@$IP:./sync_folder  "$@" > /dev/null
 		rm $home_folder/buku_backup.db
 
 
@@ -92,9 +94,9 @@ if [ "$operation" = 'h' -o "$operation" = 'push' -o "$operation" = 'Push' ]; the
 		echo $time >> last_push.log
 
         printf "[+] Sending last_push.log file \n"
-        rsync -rzv -e 'ssh -p 8522' --progress \
+        rsync -rzv -e 'ssh -p $PORT' --progress \
                 last_push.log \
-                root@104.248.252.160:./sync_folder  "$@" > /dev/null
+                root@$IP:./sync_folder  "$@" > /dev/null
 fi
 
 ## PULL
@@ -104,34 +106,34 @@ if [ "$operation" = 'l' -o "$operation" = 'pull' -o "$operation" = 'Pull' ]; the
 
 		printf "[+] Pulling from backup server\n"
         printf "[+] Getting keep file\n"
-        rsync -rzv -e 'ssh -p 8522' --progress \
-                root@104.248.252.160:./sync_folder/keep.com  $home_folder/. "$@" > /dev/null
+        rsync -rzv -e 'ssh -p $PORT' --progress \
+                root@$IP:./sync_folder/keep.com  $home_folder/. "$@" > /dev/null
  
 
 
         printf "[+] Pulling vimwiki\n"
-        rsync -rzv -e 'ssh -p 8522' --progress \
-                root@104.248.252.160:./sync_folder/vimwiki/ $home_folder/vimwiki  "$@" > /dev/null 
+        rsync -rzv -e 'ssh -p $PORT' --progress \
+                root@$IP:./sync_folder/vimwiki/ $home_folder/vimwiki  "$@" > /dev/null 
 
 
         printf "[+] Pulling tools folder\n"
-        rsync -rzv -e 'ssh -p 8522' --progress \
-                root@104.248.252.160:./sync_folder/tools/ $home_folder/Documents/tools "$@" > /dev/null 
+        rsync -rzv -e 'ssh -p $PORT' --progress \
+                root@$IP:./sync_folder/tools/ $home_folder/Documents/tools "$@" > /dev/null 
 
 
         printf "[+] Pulling notes folder\n"
-        rsync -rzv -e 'ssh -p 8522' --progress \
-                root@104.248.252.160:./sync_folder/notes/ $home_folder/Documents/notes "$@" > /dev/null 
+        rsync -rzv -e 'ssh -p $PORT' --progress \
+                root@$IP:./sync_folder/notes/ $home_folder/Documents/notes "$@" > /dev/null 
 
 
         printf "[+] Pulling research folder\n"
-        rsync -rzv -e 'ssh -p 8522' --progress \
-                root@104.248.252.160:./sync_folder/research/ $home_folder/Documents/research "$@" > /dev/null 
+        rsync -rzv -e 'ssh -p $PORT' --progress \
+                root@$IP:./sync_folder/research/ $home_folder/Documents/research "$@" > /dev/null 
                 
 
         printf "[+] Getting buku file\n"
-        rsync -rzv -e 'ssh -p 8522' --progress \
-                root@104.248.252.160:./sync_folder/buku_backup.db $home_folder/. "$@" > /dev/null 
+        rsync -rzv -e 'ssh -p $PORT' --progress \
+                root@$IP:./sync_folder/buku_backup.db $home_folder/. "$@" > /dev/null 
         buku -i $home_folder/buku_backup.db 2> /dev/null
         rm $home_folder/buku_backup.db "$@" > /dev/null 
 
@@ -151,8 +153,8 @@ if [ "$operation" = 'w' -o "$operation" = 'who' -o "$operation" = 'Who' ]; then
 * Local time < Remote time: ultimul push la server a fost facut din alta parte. Trebuie facut pull\n\n"
 
 		# Iau fisierul de pe server pentru a vedea cand si de catre cine s-a facut ultimul push
-		rsync -rzv -e 'ssh -p 8522' --progress \
-				root@104.248.252.160:./sync_folder/last_push.log  $home_folder/last_server_sync.log "$@" > /dev/null
+		rsync -rzv -e 'ssh -p $PORT' --progress \
+				root@$IP:./sync_folder/last_push.log  $home_folder/last_server_sync.log "$@" > /dev/null
 
 		mapfile -t array < $home_folder/last_server_sync.log
 		server_time=${array[1]} # memorez cand s-a inregistrat pe server ultimul push
