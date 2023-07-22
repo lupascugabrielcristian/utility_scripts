@@ -195,6 +195,11 @@ general_package_install() {
 		sudo apt-get install pwgen -y					# passwords generator
 
         sudo apt-get -y install libfuse2                # for running AppImage files
+        sudo apt-get install build-essential python-dev python-setuptools python-pip python-smbus
+        sudo apt-get install libncursesw5-dev libgdbm-dev libc6-dev
+        sudo apt-get install zlib1g-dev libsqlite3-dev tk-dev
+        sudo apt-get install libssl-dev openssl
+        sudo apt-get install libffi-dev                 # required for python pyenv to work correctly
 	fi
 }
 
