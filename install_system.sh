@@ -193,6 +193,8 @@ general_package_install() {
 		sudo apt-get install sqlitebrowser -y
 		sudo apt-get install jq -y						# json formatter in terminal
 		sudo apt-get install pwgen -y					# passwords generator
+
+        sudo apt-get -y install libfuse2                # for running AppImage files
 	fi
 }
 
