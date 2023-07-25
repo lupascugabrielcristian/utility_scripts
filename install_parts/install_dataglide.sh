@@ -12,7 +12,15 @@ sudo snap install chromium
 
 # Setup datagrip: connect DBs
 
+# Setup Ruby
+
 # Surfshark
 curl -f https://downloads.surfshark.com/linux/debian-install.sh --output surfshark-install.sh #gets the installation script
 cat surfshark-install.sh #shows script's content
 sh surfshark-install.sh #installs surfshark
+
+# Git
+pushd ~/projects/Dataglide/Publish.Config/
+git config user.name Cristian.Lupascu@dataglide.co
+git config user.email "Gabriel-Cristian Lupascu"
+popd

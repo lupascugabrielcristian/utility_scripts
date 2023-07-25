@@ -1,4 +1,5 @@
 filetype *.xlsx libreoffice %f
 nnoremap <C-l> :!libreoffice %f
 nnoremap <C-g> :!gnumeric %f
-nnoremap <C-n> :!nautilus .
+nnoremap <C-n> :!nvim %f
+nnoremap <C-p> :wps %f 2>/dev/nul 1>/dev/null &
