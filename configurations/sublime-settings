@@ -1,0 +1,10 @@
+{	
+	"dartsdk_path": "/home/alex/development/flutter",
+	"font_face": "Monaco",
+	"font_size": 12.0,
+	"ignored_packages":
+	[
+		"Vintage",
+	],
+}
+
