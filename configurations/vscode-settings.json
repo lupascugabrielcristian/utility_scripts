@@ -10,10 +10,25 @@
     "notebook.kernelProviderAssociations": [
     
     ],
+    "white theme": "",
     "workbench.colorCustomizations": {
-        "editor.wordHighlightBackground": "#292929",
-        "editor.wordHighlightBorder": "#2df826",
-        "editor.wordHighlightStrongBackground": "#494949",
-        "editor.wordHighlightStrongBorder": "#f0c400"
+      "editor.wordHighlightBackground": "#ffcf4c",
+      "editor.wordHighlightBorder": "#0fa00a",
+      "editor.wordHighlightStrongBackground": "#facf40",
+      "editor.wordHighlightStrongBorder": "#f0c400",
+      "editor.wordHighlightTextBackground": "#26860057"
+    },
+    "dark theme": "",
+    "~workbench.colorCustomizations": {
+      "editor.wordHighlightBackground": "#001d02",
+      "editor.wordHighlightBorder": "#38e731",
+      "editor.wordHighlightStrongBackground": "#001d02",
+      "editor.wordHighlightStrongBorder": "#38e731",
+      "editor.wordHighlightTextBackground": "#001d02"
+    },
+    "vim.handleKeys": {
+      "<C-p>": false,
+      "<C-s>": false,
+      "<C-z>": false
     }
 }
