@@ -117,6 +117,7 @@ let g:netrw_banner=0 		" disables banner
 let g:netrw_liststyle=3		" tree view
 let g:netrw_list_hide=netrw_gitignore#Hide()
 let g:netrw_list_hide.=',\(^\|\s\s\)\zs\.\S\+'
+let g:netrw_browse_split=2  " 0: Re-use same window, 1: Horizontal split, 2: Vertical split, 3: In new tab, 4: In previous window
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " For TabNine
 " add here the path to the download foleder
