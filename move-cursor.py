@@ -1,8 +1,8 @@
 import pyautogui
 from random import randrange
-# Este instalat in pyenv "move-cursor"
+# Este instalat in pyenv "move_cursor"
 
-# Total 675
+# Total 680
 
 def drag_picture_to_right(count):
     for i in range(count):
@@ -18,8 +18,8 @@ def drag_picture_to_left(count):
         pyautogui.dragTo(2200 + randrange(10, 50), 300, button='left')
         print("Step %d" % i)
 
-drag_picture_to_left(5)
-#drag_picture_to_right(125)
+#drag_picture_to_left(25)
+drag_picture_to_right(3)
 
 
 
