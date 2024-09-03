@@ -559,7 +559,12 @@ function prefer-dark() {
     mv ~/.config/nvim/init2.vim ~/.config/nvim/init.vim # Inlocuiesc efectiv fisierul de configurare
 
     # Promt
-    # TODO ~/projects/utility_scripts/prompt.sh
+    # Uncomment line 37
+    sed -i -e '37s/^[[:space:]][[:space:]][[:space:]]# PS1/    PS1/' ~/projects/utility_scripts/prompt.sh
+    # Comment out line 38
+    sed -i -r '38s/^[[:space:]][[:space:]][[:space:]][[:space:]]PS1/    # PS1/' ~/projects/utility_scripts/prompt.sh
+
+    exec bash
 }
 
 function prefer-light() {
@@ -575,5 +580,10 @@ function prefer-light() {
     mv ~/.config/nvim/init2.vim ~/.config/nvim/init.vim # Inlocuiesc efectiv fisierul de configurare
 
     # Promt
-    # TODO ~/projects/utility_scripts/prompt.sh
+    # Comment out line 37
+    sed -i -e '37s/^[[:space:]][[:space:]][[:space:]][[:space:]]PS1/   # PS1/' ~/projects/utility_scripts/prompt.sh
+    # Uncomment line 38
+    sed -i -e '38s/^[[:space:]][[:space:]][[:space:]][[:space:]]#[[:space:]]/    /' ~/projects/utility_scripts/prompt.sh
+
+    exec bash
 }
