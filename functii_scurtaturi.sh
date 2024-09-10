@@ -499,7 +499,12 @@ function prefer-light() {
 # 
 # Usage:
 # aws-events 2024-09-08
-function show-aws-events() {
+function aws-events() {
+	if [ "$#" -ne 1 ]; then
+        echo "Usage: aws-events 2024-11-24"
+		return 0
+	fi
+
     aws dynamodb scan --table-name MTGProxyShop --filter-expression  "contains(RequestTime, :keyword)" --expression-attribute-values '{":keyword":{"S":"'$1'"}}' | jq '.Items[] | {From: .Name.S, Name: .Type.S, IP: .From.M.ip.S, Time: .RequestTime.S}'
 }
 
@@ -508,5 +513,10 @@ function show-aws-events() {
 # Usage:
 # aws-events 2024-09-08
 function locate-aws-events() {
-    aws dynamodb scan --table-name MTGProxyShop --filter-expression  "contains(RequestTime, :keyword)" --expression-attribute-values '{":keyword":{"S":"'$1'"}}' | jq '.Items[] | {From: .Name.S, Name: .Type.S, IP: .From.M.ip.S, Time: .RequestTime.S}' | python ~/projects/utility_scripts/parse_aws_events.py
+	if [ "$#" -ne 1 ]; then
+        echo "Usage: aws-events 2024-11-24"
+		return 0
+	fi
+
+    aws dynamodb scan --table-name MTGProxyShop --filter-expression  "contains(RequestTime, :keyword)" --expression-attribute-values '{":keyword":{"S":"'$1'"}}' | jq '.Items[] | {From: .Name.S, Name: .Type.S, IP: .From.M.ip.S, Time: .RequestTime.S}' | python ~/projects/utility_scripts/parse_aws_events.py $RAPIDAPI_KEY
 }

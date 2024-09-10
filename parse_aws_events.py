@@ -2,14 +2,19 @@ import sys
 import http.client
 import time
 import json
+import re
+
+
+rapid_api_key = sys.argv[1]
 
 def get_my_ip():
+
     import http.client
 
     conn = http.client.HTTPSConnection("ip-geo-location.p.rapidapi.com")
 
     headers = {
-        'x-rapidapi-key': "b14e5c2979msh863c9b4e1eed8eap141f6ajsn8625d31cc8be",
+        'x-rapidapi-key': rapid_api_key,
         'x-rapidapi-host': "ip-geo-location.p.rapidapi.com"
     }
 
@@ -27,7 +32,7 @@ def ip_lookup(ip, count):
     conn = http.client.HTTPSConnection("ip-geo-location.p.rapidapi.com")
 
     headers = {
-        'x-rapidapi-key': "b14e5c2979msh863c9b4e1eed8eap141f6ajsn8625d31cc8be",
+        'x-rapidapi-key': rapid_api_key,
         'x-rapidapi-host': "ip-geo-location.p.rapidapi.com"
     }
 
@@ -60,10 +65,9 @@ def ip_lookup(ip, count):
 # At this point the value of each key is the number of times an event was received from that IP
 ips = {}
 for line in sys.stdin:
-    if '"IP":' in line:
-        line = line.replace('"IP": "', '')
-        line = line.replace('",', '')
-        line = line.replace('\n', '')
+    match = re.search(r'"IP":\s"([\d,\.]+)"', line)
+    if match:
+        line = match.group(1)
         line = line.strip()
 
         if line in ips:
