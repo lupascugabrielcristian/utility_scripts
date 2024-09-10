@@ -540,3 +540,19 @@ function monitor-freqtrade() {
 	firefox 64.176.6.37:8080 1>&2 2>/dev/null &
 	firefox 155.138.139.23:8080 1>&2 2>/dev/null &
 }
+
+# Functie care schimba tema sistemului dar si configurarile unor tooluri pentru mod dark
+# - ruleaza gsettings prefer-dark
+# - modifica tema terminalului alacritty
+# - schimba tema nvim
+# - schimba modul de afisare a prompt-ului
+function prefer-dark() {
+    # System
+    gsettings set org.gnome.desktop.interface color-scheme prefer-dark
+    # Alacritty
+    cp ~/.config/alacritty/black-alacritty.yml ~/.config/alacritty/alacritty.yml
+    # Nvim
+    # TODO ~/.config/nvim/init.vim colorscheme zellner
+    # Promt
+    # TODO ~/projects/utility_scripts/prompt.sh
+}
