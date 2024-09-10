@@ -549,10 +549,31 @@ function monitor-freqtrade() {
 function prefer-dark() {
     # System
     gsettings set org.gnome.desktop.interface color-scheme prefer-dark
+
     # Alacritty
     cp ~/.config/alacritty/black-alacritty.yml ~/.config/alacritty/alacritty.yml
+
     # Nvim
-    # TODO ~/.config/nvim/init.vim colorscheme zellner
+    cp ~/.config/nvim/init.vim ~/.config/nvim/init.vim.bk # Fac backup
+    awk 'NR==11 {$0="\" colorscheme zellner2"} 1' ~/.config/nvim/init.vim > ~/.config/nvim/init2.vim # Inlocuiesc linia ce contine colorscheme
+    mv ~/.config/nvim/init2.vim ~/.config/nvim/init.vim # Inlocuiesc efectiv fisierul de configurare
+
+    # Promt
+    # TODO ~/projects/utility_scripts/prompt.sh
+}
+
+function prefer-light() {
+    # System
+    gsettings set org.gnome.desktop.interface color-scheme prefer-light
+
+    # Alacritty
+    cp ~/.config/alacritty/white-alacritty.yml ~/.config/alacritty/alacritty.yml
+
+    # Nvim
+    cp ~/.config/nvim/init.vim ~/.config/nvim/init.vim.bk # Fac backup
+    awk 'NR==11 {$0="colorscheme zellner2"} 1' ~/.config/nvim/init.vim > ~/.config/nvim/init2.vim # Inlocuiesc linia ce contine colorscheme
+    mv ~/.config/nvim/init2.vim ~/.config/nvim/init.vim # Inlocuiesc efectiv fisierul de configurare
+
     # Promt
     # TODO ~/projects/utility_scripts/prompt.sh
 }
