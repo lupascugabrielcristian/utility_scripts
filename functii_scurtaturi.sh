@@ -507,7 +507,7 @@ function aws-events() {
 
     aws dynamodb scan --table-name MTGProxyShop --filter-expression  "contains(RequestTime, :keyword)" --expression-attribute-values '{":keyword":{"S":"'$1'"}}' | jq '.Items[] | {From: .Name.S, Name: .Type.S, IP: .From.M.ip.S, Time: .RequestTime.S}'
 
-    print "Local time = Time + 3H"
+    echo 'Local Time = Time + 3H'
 }
 
 # On top of the function above sends to output of jq to a python script that shows the location of each script
@@ -521,4 +521,6 @@ function locate-aws-events() {
 	fi
 
     aws dynamodb scan --table-name MTGProxyShop --filter-expression  "contains(RequestTime, :keyword)" --expression-attribute-values '{":keyword":{"S":"'$1'"}}' | jq '.Items[] | {From: .Name.S, Name: .Type.S, IP: .From.M.ip.S, Time: .RequestTime.S}' | python ~/projects/utility_scripts/parse_aws_events.py $RAPIDAPI_KEY
+
+    echo 'Local Time = Time + 3H'
 }
