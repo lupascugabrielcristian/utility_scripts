@@ -20,11 +20,14 @@ def get_my_ip():
 
     conn.request("GET", "/ip/check?format=json&language=en", headers=headers)
 
-    res = conn.getresponse()
-    data = res.read()
-    data = data.decode("utf-8")
-    data = json.loads(data)
-    return data['ip']
+    try:
+        res = conn.getresponse()
+        data = res.read()
+        data = data.decode("utf-8")
+        data = json.loads(data)
+        return data['ip']
+    except KeyError as e:
+        return '-'
 
 # Making a call to RapidAPI service to lookup ip address
 # Address for API: https://rapidapi.com/natkapral/api/ip-geo-location/playground/apiendpoint_0e95eebe-5290-481c-93d8-c417de659b25
