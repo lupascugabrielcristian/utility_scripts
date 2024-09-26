@@ -500,14 +500,32 @@ function prefer-light() {
 # Usage:
 # aws-events 2024-09-08
 function aws-events() {
-	if [ "$#" -ne 1 ]; then
+    HAS_DAY=0
+
+	if [ "$#" -eq 0 ]; then
         echo "Usage: aws-events 2024-11-24"
 		return 0
+    else
+        DATE_A=$1 # Taking the first paramenter in case is the complete date
+        # Check if date paramerter -d is present
+        # If yes, compile the correct date and pass forward to the command
+        while getopts "d:" DAY
+        do
+            HAS_DAY=1
+        done
+        shift # move forward to the value of the parameter -d
+        DAY=$1
+        DATE=$(date "+%Y-%m")-$DAY
+
+        if [ "$HAS_DAY" -eq 1 ]; then
+            aws dynamodb scan --table-name MTGProxyShop --filter-expression  "contains(RequestTime, :keyword)" --expression-attribute-values '{":keyword":{"S":"'$DATE'"}}' | jq '.Items[] | {From: .Name.S, Name: .Type.S, IP: .From.M.ip.S, Time: .RequestTime.S}'
+            echo 'Local Time = Time + 3H'
+        else
+            echo "Run command with date "$DATE_A
+            aws dynamodb scan --table-name MTGProxyShop --filter-expression  "contains(RequestTime, :keyword)" --expression-attribute-values '{":keyword":{"S":"'$DATE_A'"}}' | jq '.Items[] | {From: .Name.S, Name: .Type.S, IP: .From.M.ip.S, Time: .RequestTime.S}'
+            echo 'Local Time = Time + 3H'
+        fi
 	fi
-
-    aws dynamodb scan --table-name MTGProxyShop --filter-expression  "contains(RequestTime, :keyword)" --expression-attribute-values '{":keyword":{"S":"'$1'"}}' | jq '.Items[] | {From: .Name.S, Name: .Type.S, IP: .From.M.ip.S, Time: .RequestTime.S}'
-
-    echo 'Local Time = Time + 3H'
 }
 
 # On top of the function above sends to output of jq to a python script that shows the location of each script
