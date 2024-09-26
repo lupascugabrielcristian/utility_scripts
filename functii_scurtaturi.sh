@@ -518,11 +518,12 @@ function aws-events() {
         DATE=$(date "+%Y-%m")-$DAY
 
         if [ "$HAS_DAY" -eq 1 ]; then
-            aws dynamodb scan --table-name MTGProxyShop --filter-expression  "contains(RequestTime, :keyword)" --expression-attribute-values '{":keyword":{"S":"'$DATE'"}}' | jq '.Items[] | {From: .Name.S, Name: .Type.S, IP: .From.M.ip.S, Time: .RequestTime.S}'
+            echo "Run command with day "$DAY
+            aws dynamodb scan --table-name MTGProxyShop --filter-expression  "contains(RequestTime, :keyword)" --expression-attribute-values '{":keyword":{"S":"'$DATE'"}}' | jq '.Items[] | {From: .Name.S, Name: .Type.S, IP: .From.M.ip.S, Time: .RequestTime.S}'  | python ~/projects/utility_scripts/parse_aws_events.py $RAPIDAPI_KEY
             echo 'Local Time = Time + 3H'
         else
             echo "Run command with date "$DATE_A
-            aws dynamodb scan --table-name MTGProxyShop --filter-expression  "contains(RequestTime, :keyword)" --expression-attribute-values '{":keyword":{"S":"'$DATE_A'"}}' | jq '.Items[] | {From: .Name.S, Name: .Type.S, IP: .From.M.ip.S, Time: .RequestTime.S}'
+            aws dynamodb scan --table-name MTGProxyShop --filter-expression  "contains(RequestTime, :keyword)" --expression-attribute-values '{":keyword":{"S":"'$DATE_A'"}}' | jq '.Items[] | {From: .Name.S, Name: .Type.S, IP: .From.M.ip.S, Time: .RequestTime.S}' | python ~/projects/utility_scripts/parse_aws_events.py $RAPIDAPI_KEY
             echo 'Local Time = Time + 3H'
         fi
 	fi
