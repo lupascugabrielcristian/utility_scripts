@@ -493,39 +493,52 @@ function prefer-light() {
     exec bash
 }
 
+
+function specific_date() {
+	echo "Specific date for "$1
+}
+
+function specific_day() {
+	echo "Specific day "$1
+
+	# day=$1
+	# date=$(date "+%Y-%m")-$day
+}
+
+function today() {
+	echo "Today"
+}
+
+function getDate() {
+	echo "Run command with date "$1
+	# aws dynamodb scan --table-name MTGProxyShop --filter-expression  "contains(RequestTime, :keyword)" --expression-attribute-values '{":keyword":{"S":"'$date'"}}' | jq '.Items[] | {From: .Name.S, Name: .Type.S, IP: .From.M.ip.S, Time: .RequestTime.S}'  | python ~/projects/utility_scripts/parse_aws_events.py $RAPIDAPI_KEY
+	#echo 'Local Time = Time + 3H'
+}
+
 # Ruleaza functia de la aws-cli de citire dintr-un tabel DynamoDB la care aplica filtrul ca valoarea de la "RequestTime" sa 
 # contina valoare din parametru dupa care il parsez cu "jq" si generez un json mai mic care contine proprietatile:
 # From, Name, IP, Time
 # 
 # Usage:
-# aws-events 2024-09-08
+# aws-events -s 2024-09-08
+# aws-events -d 08
+# aws-events -t
 function aws-events() {
-    HAS_DAY=0
-
-	if [ "$#" -eq 0 ]; then
+	if [[ "$#" -eq 0 ]]; then
         echo "Usage: aws-events 2024-11-24"
 		return 0
     else
-        DATE_A=$1 # Taking the first paramenter in case is the complete date
-        # Check if date paramerter -d is present
-        # If yes, compile the correct date and pass forward to the command
-        while getopts "d:" DAY
-        do
-            HAS_DAY=1
-        done
-        shift # move forward to the value of the parameter -d
-        DAY=$1
-        DATE=$(date "+%Y-%m")-$DAY
-
-        if [ "$HAS_DAY" -eq 1 ]; then
-            echo "Run command with day "$DAY
-            aws dynamodb scan --table-name MTGProxyShop --filter-expression  "contains(RequestTime, :keyword)" --expression-attribute-values '{":keyword":{"S":"'$DATE'"}}' | jq '.Items[] | {From: .Name.S, Name: .Type.S, IP: .From.M.ip.S, Time: .RequestTime.S}'  | python ~/projects/utility_scripts/parse_aws_events.py $RAPIDAPI_KEY
-            echo 'Local Time = Time + 3H'
-        else
-            echo "Run command with date "$DATE_A
-            aws dynamodb scan --table-name MTGProxyShop --filter-expression  "contains(RequestTime, :keyword)" --expression-attribute-values '{":keyword":{"S":"'$DATE_A'"}}' | jq '.Items[] | {From: .Name.S, Name: .Type.S, IP: .From.M.ip.S, Time: .RequestTime.S}' | python ~/projects/utility_scripts/parse_aws_events.py $RAPIDAPI_KEY
-            echo 'Local Time = Time + 3H'
-        fi
+		while [[ -n "$1" ]]; do
+			case "$1" in
+				-s)	shift 
+					echo "For a specific date";specific_date $1;;
+				-t) shift 
+					echo "For today";;
+				-d) shift 
+					echo "For a specific day";specific_day $1;;
+			esac
+			shift
+		done
 	fi
 }
 

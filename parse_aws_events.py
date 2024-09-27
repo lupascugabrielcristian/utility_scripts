@@ -65,7 +65,8 @@ def ip_lookup(ip, count):
     except KeyError as e:
         area = 'failed'
 
-    print("%s - count %d @ %s, %s" % (ip, count, area, city) )
+    #print("%s - count %d @ %s, %s" % (ip, count, area, city) )
+    return (ip, count, area, city)
 
 input_data = sys.stdin.read()
 
@@ -83,24 +84,26 @@ for line in io.StringIO(input_data):
         else:
             ips[line] = 1
 
-# for k in ips:
-#     ip_lookup(k, int(ips[k]))
-#     time.sleep(1.1)
+# Match ip to location
+for k in ips:
+    (ip, count, area, city) = ip_lookup(k, int(ips[k]))
+    ips[ip] = f'%s - %s' % (area, city)
+    time.sleep(1.1)
 
-# print('Own IP %s' % get_my_ip())
+print('Own IP %s' % get_my_ip())
 
 # Get json object from stdin
 input_data = input_data.replace('}', '},')  # add ',' after each json
 input_data = input_data[:-2]                # remote last ',' and '/n'
 input_data = f'[%s]' % input_data           # surround with [,]
-print(input_data)
 input_data = json.loads(input_data)        # this is the json
 
 from_data = list(map(lambda x: x['From'], input_data))
 name_data = list(map(lambda x: x['Name'], input_data))
 ip_data = list(map(lambda x: x['IP'], input_data))
-time_data = list(map(lambda x: x['Time'], input_data))
+time_data = list(map(lambda x: x['Time'].split('T')[1][:5], input_data))
+location_data = list(map(lambda x: ips[x['IP']], input_data))
 
 # Creat the table
-headers = ['From', 'Name', 'Time', 'IP']
-print(tabulate({"From": from_data, "Name": name_data, "Time": time_data, "IP": ip_data}, headers=headers, tablefmt="grid"))
+headers = ['From', 'Name', 'Time', 'IP', 'Location']
+print(tabulate({"From": from_data, "Name": name_data, "Time": time_data, "IP": ip_data, 'Location': location_data}, headers=headers, tablefmt="grid"))
