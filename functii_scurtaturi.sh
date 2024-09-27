@@ -495,24 +495,39 @@ function prefer-light() {
 
 
 function specific_date() {
-	echo "Specific date for "$1
+	if [[ "$#" -eq 0 ]]; then
+		echo 'No specific date passed. Usage aws-events -d 2024-09-23'
+		return 1
+	fi
+
+	echo "For date "$1
+
+	getDate $1
 }
 
 function specific_day() {
-	echo "Specific day "$1
+	if [[ "$#" -eq 0 ]]; then
+		echo 'No specific day number passed. Usage aws-events -d 23'
+		return 1
+	fi
 
-	# day=$1
-	# date=$(date "+%Y-%m")-$day
+	echo "For day "$1
+
+	date=$(date "+%Y-%m")-$1
+	getDate $date
 }
 
 function today() {
-	echo "Today"
+	echo "For today"
+
+	date=$(date "+%Y-%m-%d")
+	getDate $date
 }
 
 function getDate() {
 	echo "Run command with date "$1
-	# aws dynamodb scan --table-name MTGProxyShop --filter-expression  "contains(RequestTime, :keyword)" --expression-attribute-values '{":keyword":{"S":"'$date'"}}' | jq '.Items[] | {From: .Name.S, Name: .Type.S, IP: .From.M.ip.S, Time: .RequestTime.S}'  | python ~/projects/utility_scripts/parse_aws_events.py $RAPIDAPI_KEY
-	#echo 'Local Time = Time + 3H'
+	aws dynamodb scan --table-name MTGProxyShop --filter-expression  "contains(RequestTime, :keyword)" --expression-attribute-values '{":keyword":{"S":"'$1'"}}' | jq '.Items[] | {From: .Name.S, Name: .Type.S, IP: .From.M.ip.S, Time: .RequestTime.S}'  | python ~/projects/utility_scripts/parse_aws_events.py $RAPIDAPI_KEY
+	echo 'Local Time = Time + 3H'
 }
 
 # Ruleaza functia de la aws-cli de citire dintr-un tabel DynamoDB la care aplica filtrul ca valoarea de la "RequestTime" sa 
@@ -531,11 +546,11 @@ function aws-events() {
 		while [[ -n "$1" ]]; do
 			case "$1" in
 				-s)	shift 
-					echo "For a specific date";specific_date $1;;
+					specific_date $1;;
 				-t) shift 
-					echo "For today";;
+					today;;
 				-d) shift 
-					echo "For a specific day";specific_day $1;;
+					specific_day $1;;
 			esac
 			shift
 		done
