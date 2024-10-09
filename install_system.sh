@@ -173,7 +173,7 @@ general_package_install() {
 
 		read -p "[!] vifm " userResponse
 		sudo apt-get install vifm -y 				# terminal file manager with vim keybindings
-		sudo apt-get install w3m -y 				# terminal browser
+		#sudo apt-get install w3m -y 				# terminal browser
 		sudo apt-get install trash-cli -y			# sends files to trash
 		sudo apt-get install httpie -y				# testing http calls in terminal
 
@@ -491,6 +491,7 @@ nodenpm() {
 }
 
 # Instalare aplicatie broot
+# Terminal file manager
 install_broot() {
 
 	read -p "Install fonts? (yes/no)" userResponse
