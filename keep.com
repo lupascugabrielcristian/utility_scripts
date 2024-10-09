@@ -106,6 +106,7 @@ ls /etc/apt/sources.list.d/ # repositories sources
 /sys/class/backlight/intel_backlight/brightness # set the brightness terminal 
 xrandr --brightenss 1.1 # set the brightness with xrandr
 xrandr --output eDP-1-1 --gamma 1.1:0.78172716:0.7 --brightness 1.1 # set the color tint
+xrandr --output DP-3 -scale 1.2x1.2 # scales screeen zoom out
 lsmod | grep kill # lists kernel modules
 dmesg -c # check kernel messages
 tar -xvzf community_images.tar.gz # unzip tar.gz file
