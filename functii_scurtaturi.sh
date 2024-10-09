@@ -428,6 +428,7 @@ function set-monitor-xrandr() {
 			echo Brightness si orientarea
 			xrandr --output DP-1 --left-of DP-3 --auto
 			xrandr --output DP-1 --gamma 1.0:0.9:0.8 --brightness 1.0
+            xrandr --output DP-3 --scale 1.2x1.2
 			;;
 		2) # Laptop DELL gabi, monitor portabil in stanga. Rulez comanda doar daca il gasesc conectat
 			if [[ "$monitor_portabil" -eq 0 ]];then
