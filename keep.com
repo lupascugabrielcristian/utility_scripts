@@ -253,7 +253,7 @@ xset s off # disable screensaver
 xset -q # show power management settings
 gsettings set org.gnome.desktop.interface color-scheme prefer-light # light, bright theme
 gsettings set org.gnome.desktop.interface color-scheme prefer-dark # dark, black theme
-CTRL + ALT + SHIFT + B # finds function name in a file IntelliJ IDE Jetbrains Android Studio
+CTRL + ALT + SHIFT + N # finds function name in a file IntelliJ IDE Jetbrains Android Studio
 
 # Pages
 ssh-chat # https://www.tecmint.com/ssh-chat-linux-terminal-chat-client/

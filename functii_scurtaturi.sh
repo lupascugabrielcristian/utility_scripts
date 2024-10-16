@@ -35,6 +35,7 @@ alias pi='pipeline'
 # Temporary replacement to test improvements
 alias igenerator='firefox $HOME/projects/Dataglide/Publish.Config/scripts/Client\ Pipeline\ Config\ Generator/ingest_config_editor/ingest_pipeline_config.html &'
 alias dw='nautilus $HOME/Downloads &'
+alias ta='open_release_tamato'
 #========== End of aliases ==========   
 
 #========== ANSI color codes ==========
@@ -571,4 +572,10 @@ function locate-aws-events() {
     aws dynamodb scan --table-name MTGProxyShop --filter-expression  "contains(RequestTime, :keyword)" --expression-attribute-values '{":keyword":{"S":"'$1'"}}' | jq '.Items[] | {From: .Name.S, Name: .Type.S, IP: .From.M.ip.S, Time: .RequestTime.S}' | python ~/projects/utility_scripts/parse_aws_events.py $RAPIDAPI_KEY
 
     echo 'Local Time = Time + 3H'
+}
+
+function open_release_tamato() {
+    cd /home/alex/projects/tamato/inventory-system-apps/build/app/outputs/flutter-apk/
+    nautilus . &
+    exit
 }
