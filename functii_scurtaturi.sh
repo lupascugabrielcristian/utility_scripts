@@ -36,6 +36,7 @@ alias pi='pipeline'
 alias igenerator='firefox $HOME/projects/Dataglide/Publish.Config/scripts/Client\ Pipeline\ Config\ Generator/ingest_config_editor/ingest_pipeline_config.html &'
 alias dw='nautilus $HOME/Downloads &'
 alias ta='open_release_tamato'
+alias ta-build='build_tamato_release'
 #========== End of aliases ==========   
 
 #========== ANSI color codes ==========
@@ -587,7 +588,6 @@ function build_tamato_release() {
 	date=$(date '+%Y-%m-%d')
     time=$(date '+%H-%M')
     f=apk-$date'_'$time'.apk'
-    rm /home/alex/projects/tamato/inventory-system-apps/apk/*.apk
     cp /home/alex/projects/tamato/inventory-system-apps/build/app/outputs/flutter-apk/app-release.apk /home/alex/projects/tamato/inventory-system-apps/apk/$f
     ls /home/alex/projects/tamato/inventory-system-apps/apk/
 }
