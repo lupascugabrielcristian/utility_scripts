@@ -37,6 +37,7 @@ alias igenerator='firefox $HOME/projects/Dataglide/Publish.Config/scripts/Client
 alias dw='nautilus $HOME/Downloads &'
 alias ta='open_release_tamato'
 alias ta-build='build_tamato_release'
+alias rm-build='build_rateme_release'
 #========== End of aliases ==========   
 
 #========== ANSI color codes ==========
@@ -590,6 +591,17 @@ function build_tamato_release() {
     f=apk-$date'_'$time'.apk'
     cp /home/alex/projects/tamato/inventory-system-apps/build/app/outputs/flutter-apk/app-release.apk /home/alex/projects/tamato/inventory-system-apps/apk/$f
     ls /home/alex/projects/tamato/inventory-system-apps/apk/
+}
+
+function build_rateme_release() {
+    cd /home/alex/projects/ratemy/
+    /home/alex/development/flutter/bin/flutter --no-color build apk
+
+	date=$(date '+%Y-%m-%d')
+    time=$(date '+%H-%M')
+    f=apk-$date'_'$time'.apk'
+    cp /home/alex/projects/ratemy/build/app/outputs/flutter-apk/app-release.apk /home/alex/projects/ratemy/apk/$f
+    ls /home/alex/projects/ratemy/apk/
 }
 
 function test() {
