@@ -274,6 +274,7 @@ https://untools.co/ # tools for better thinking
 https://www.grc.com/port_2869.htm 	# ports vulnerability profiling
 https://vuldb.com/?search # ports vulnerability profiling
 https://www.cvedetails.com/ # ports vulnerability profiling 
+https://mytime.io/4:20pm/UTC # time utc convert eet
 
 # Packages
 iptraf-ng # network monitor
