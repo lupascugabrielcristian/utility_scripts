@@ -530,7 +530,7 @@ function today() {
 
 function getDate() {
 	echo "Run command with date "$1
-	aws dynamodb scan --table-name MTGProxyShop --filter-expression  "contains(RequestTime, :keyword)" --expression-attribute-values '{":keyword":{"S":"'$1'"}}' | jq '.Items[] | {From: .Name.S, Name: .Type.S, IP: .From.M.ip.S, Time: .RequestTime.S}'  | python ~/projects/utility_scripts/parse_aws_events.py $RAPIDAPI_KEY
+	aws dynamodb scan --table-name EventLogs --filter-expression  "contains(RequestTime, :keyword)" --expression-attribute-values '{":keyword":{"S":"'$1'"}}' | jq '.Items[] | {From: .Name.S, Name: .Type.S, IP: .From.M.ip.S, Time: .RequestTime.S}'  | python ~/projects/utility_scripts/parse_aws_events.py $RAPIDAPI_KEY
 	echo 'Local Time = Time + 3H'
 }
 
@@ -571,7 +571,7 @@ function locate-aws-events() {
 		return 0
 	fi
 
-    aws dynamodb scan --table-name MTGProxyShop --filter-expression  "contains(RequestTime, :keyword)" --expression-attribute-values '{":keyword":{"S":"'$1'"}}' | jq '.Items[] | {From: .Name.S, Name: .Type.S, IP: .From.M.ip.S, Time: .RequestTime.S}' | python ~/projects/utility_scripts/parse_aws_events.py $RAPIDAPI_KEY
+    aws dynamodb scan --table-name EventLogs --filter-expression  "contains(RequestTime, :keyword)" --expression-attribute-values '{":keyword":{"S":"'$1'"}}' | jq '.Items[] | {From: .Name.S, Name: .Type.S, IP: .From.M.ip.S, Time: .RequestTime.S}' | python ~/projects/utility_scripts/parse_aws_events.py $RAPIDAPI_KEY
 
     echo 'Local Time = Time + 3H'
 }

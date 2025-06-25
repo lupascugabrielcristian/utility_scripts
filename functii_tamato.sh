@@ -3,15 +3,20 @@ ta_commands() {
     echo 'ta-login      login with client account'
     echo 'ta-login-v    login with tedt account'
     echo 'ta-install    install the latest apk build'
+    echo 'ta-install-debug' installs the previously built debug apk
     echo 'ta-start      Start the tamato app'
+    echo 'ta-open       Open the apk build folder in file manager app'
+    echo 'ta-build-debug      Builds a debug version of the app'
 }
 
 alias ta-login="ta_login"
 ta_login() {
     /home/alex/Android/Sdk/platform-tools/adb shell input keyevent '61' # Tab key
     /home/alex/Android/Sdk/platform-tools/adb shell input text 'client'
+    sleep 0.3
     /home/alex/Android/Sdk/platform-tools/adb shell input keyevent '61' # Tab key
     /home/alex/Android/Sdk/platform-tools/adb shell input text 'lupascugabrielcristian@gmail.com'
+    sleep 0.3
     /home/alex/Android/Sdk/platform-tools/adb shell input keyevent '61' # Tab key
     /home/alex/Android/Sdk/platform-tools/adb shell input text '3q2w3e4rA'
     /home/alex/Android/Sdk/platform-tools/adb shell input keyevent '61' # Tab key
@@ -48,7 +53,25 @@ ta_install() {
     /home/alex/Android/Sdk/platform-tools/adb install -r /home/alex/projects/tamato/inventory-system-apps/build/app/outputs/flutter-apk/app-release.apk
 }
 
+# Installs the debub version
+alias ta-install-debug="ta_install_debug"
+ta_install_debug() {
+    /home/alex/Android/Sdk/platform-tools/adb install -r /home/alex/projects/tamato/inventory-system-apps/build/app/outputs/flutter-apk/app-debug.apk
+}
+
 alias ta-start="ta_start"
 ta_start() {
-    /home/alex/Android/Sdk/platform-tools/adb shell am start -n com.example.test_drive/.MainActivity
+    /home/alex/Android/Sdk/platform-tools/adb shell am start -n de.w3dsoft.tamato/.MainActivity
+}
+
+alias ta-open="ta_open"
+ta_open() {
+    nautilus /home/alex/projects/tamato/inventory-system-apps/build/app/outputs/flutter-apk/
+}
+
+alias ta-build-debug="ta_build_debug"
+ta_build_debug() {
+    pushd /home/alex/projects/tamato/inventory-system-apps
+    flutter build apk --debug
+    popd
 }
